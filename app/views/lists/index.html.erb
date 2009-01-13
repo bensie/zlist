@@ -1,0 +1,24 @@
+<h1>Listing lists</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Email</th>
+  </tr>
+
+<% for list in @lists %>
+  <tr>
+    <td><%=h list.name %></td>
+    <td><%=h list.description %></td>
+    <td><%=h list.email %></td>
+    <td><%= link_to 'Show', list %></td>
+    <td><%= link_to 'Edit', edit_list_path(list) %></td>
+    <td><%= link_to 'Destroy', list, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New list', new_list_path %>
