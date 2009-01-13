@@ -1,0 +1,18 @@
+<p>
+  <b>Name:</b>
+  <%=h @subscriber.name %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%=h @subscriber.email %>
+</p>
+
+<p>
+  <b>Public key:</b>
+  <%=h @subscriber.public_key %>
+</p>
+
+
+<%= link_to 'Edit', edit_subscriber_path(@subscriber) %> |
+<%= link_to 'Back', subscribers_path %>

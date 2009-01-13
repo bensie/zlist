@@ -1,0 +1,24 @@
+<h1>Listing subscribers</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Public key</th>
+  </tr>
+
+<% for subscriber in @subscribers %>
+  <tr>
+    <td><%=h subscriber.name %></td>
+    <td><%=h subscriber.email %></td>
+    <td><%=h subscriber.public_key %></td>
+    <td><%= link_to 'Show', subscriber %></td>
+    <td><%= link_to 'Edit', edit_subscriber_path(subscriber) %></td>
+    <td><%= link_to 'Destroy', subscriber, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New subscriber', new_subscriber_path %>
