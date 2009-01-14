@@ -22,6 +22,7 @@ class ListsController < ApplicationController
       flash[:notice] = 'List was successfully created.'
       redirect_to(@list)
     else
+      flash.now[:warning] = 'There was a problem creating the list.'
       render :action => "new"
     end
   end
@@ -31,12 +32,14 @@ class ListsController < ApplicationController
       flash[:notice] = 'List was successfully updated.'
       redirect_to(@list)
     else
+      flash.now[:warning] = 'There was a problem updating the list.'
       render :action => "edit" 
     end
   end
 
   def destroy
     @list.destroy
+    flash[:notice] = "The list was deleted."
     redirect_to(lists_url)
   end
   

@@ -9,12 +9,22 @@
 <body>
 
 <div id="main-container">
+	<% if flash %>
+		<div id="flash">
+			<% if flash[:notice] %>
+				<span class="notice"><%= flash[:notice] %></span>
+			<% elsif flash[:warning] %>
+				<span class="warning"><%= flash[:warning] %></span>
+			<% end %>
+		</div>
+	<% end %>
+	
 	<div id="header">
 		<h1 id="dlist">dList</h1>
 	</div>
 	
 	<div id="body">
-		
+		<%= yield %>
 	</div>
 	
 	<div id="footer">

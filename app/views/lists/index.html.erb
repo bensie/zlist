@@ -1,4 +1,4 @@
-<h1>Listing lists</h1>
+<h2>Mailing Lists</h2>
 
 <table>
   <tr>
@@ -7,14 +7,12 @@
     <th>Email</th>
   </tr>
 
-<% for list in @lists %>
+<% @lists.each do |list| %>
   <tr>
-    <td><%=h list.name %></td>
+    <td><%= link_to h(list.name), list %></td>
     <td><%=h list.description %></td>
     <td><%=h list.email %></td>
-    <td><%= link_to 'Show', list %></td>
-    <td><%= link_to 'Edit', edit_list_path(list) %></td>
-    <td><%= link_to 'Destroy', list, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', list, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
