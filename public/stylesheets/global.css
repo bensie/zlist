@@ -6,6 +6,16 @@ body, html {
 	font-size: 12px;
 }
 
+a {
+	color: #264989;
+	padding: 1px;
+}
+
+a:hover {
+	color: #fff;
+	background: #264989;
+}
+
 h1 {
 	font-size: 18px;
 }
