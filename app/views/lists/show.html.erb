@@ -1,18 +1,14 @@
-<p>
-  <b>Name:</b>
-  <%=h @list.name %>
-</p>
+<h2><%=h @list.name %></h2>
+<p><%=h @list.description %></p>
 
-<p>
-  <b>Description:</b>
-  <%=h @list.description %>
-</p>
+<h3>Subscribers</h3>
+<% @list.subscribers.each do |subscriber| %>
+	<%= link_to h(subscriber.name), subscriber %> (<%= h(subscriber.email)%>)
+<% end %>
 
-<p>
-  <b>Email:</b>
-  <%=h @list.email %>
-</p>
+<h3>Recent Messages</h3>
 
+<%= render :partial => @list.threads %>
 
 <%= link_to 'Edit', edit_list_path(@list) %> |
 <%= link_to 'Back', lists_path %>
