@@ -1,0 +1,28 @@
+body, html {
+	margin: 0;
+	padding: 0;
+	background: #e5e5e5;
+	font-family: Helvetica, sans-serif;
+}
+
+h1 {
+	font-size: 18px;
+}
+
+h2 {
+	font-size: 16px;
+}
+
+h3 {
+	font-size: 14px;
+}
+
+div#main-container {
+	width: 780px;
+	min-height: 400px;
+	background: #fff;
+	border: 5px solid #ccc;
+	margin: auto;
+	margin-top: 15px;
+	padding: 25px;
+}
