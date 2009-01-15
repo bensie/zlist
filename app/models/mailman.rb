@@ -59,9 +59,6 @@ class Mailman < ActionMailer::Base
       return false
     end
 
-    r = Array.new
-    list.subscribers.each { |x| r.push(x.email) }
-
     recipients  "noreply@lists.loni.ucla.edu"
     bcc         list.subscribers.map(&:email)
     from        "dList <mailer@lists.loni.ucla.edu"
@@ -106,7 +103,7 @@ class Mailman < ActionMailer::Base
     email.list.subscribers.each { |x| r.push(x.email) }
 
     recipients  "noreply@lists.loni.ucla.edu"
-    bcc         r
+    bcc         
     from        "#{email.from} <#{email.list.name}+#{email.topic.key}@lists.loni.ucla.edu"
     subject     "#{email.list.name} #{email.subject}"
     body        email.body
