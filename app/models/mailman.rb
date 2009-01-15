@@ -1,4 +1,7 @@
 class Mailman < ActionMailer::Base
+
+  # Method for processing incoming messages
+  # pre: email (as passed from ActionMailer receieve) 
   def receive(email)
     s_list, s_topic = email.subject.split(/\+/)
 
@@ -53,10 +56,11 @@ class Mailman < ActionMailer::Base
 
   end
 
-
+  # Send a test e-mail to everyone on a given list
+  # pre: list (a List object) 
   def list_test_dispatch(list)
     r = Array.new
-    list.each { |x| r.push(x.email) }
+    list.recipients.each { |x| r.push(x.email) }
 
     recipients  "noreply@lists.loni.ucla.edu"
     bcc         r
@@ -66,6 +70,8 @@ class Mailman < ActionMailer::Base
 
 protected:
 
+  # Response to a message posted to a list that doesn't exist
+  # pre: email (as passed from ActionMailer receieve) 
   def no_such_list(email)
     recipients  email.from
     from        "dList <mailer@lists.loni.ucla.edu"
@@ -73,6 +79,17 @@ protected:
     body        :list => email.list.name
   end
 
+  # Response to a message posted in reply to a tpoic that doesn't exist
+  # pre: email (as passed from ActionMailer receieve) 
+  def no_such_topic(email)
+    recipients  email.from
+    from        "dList <mailer@lists.loni.ucla.edu"
+    subject     "[#{email.list.name} The topic you referenced no longer exists"
+    body        :list => email.list.name
+  end
+
+  # Reponse to a message posted to a list by a non-member
+  # pre: email (as passed from ActionMailer receieve) 
   def cannot_post(email)
     recipients  email.from
     from        "dList <mailer@lists.loni.ucla.edu"
@@ -80,9 +97,11 @@ protected:
     body        :list => email.list.name
   end
 
+  # Send an e-mail out to a list
+  # pre: email (as passed from ActionMailer receieve) 
   def list_dispatch(email)
     r = Array.new
-    email.list.each { |x| r.push(x.email) }
+    email.list.recipients.each { |x| r.push(x.email) }
 
     recipients  "noreply@lists.loni.ucla.edu"
     bcc         r
