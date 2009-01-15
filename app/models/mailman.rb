@@ -13,16 +13,9 @@ class Mailman < ActionMailer::Base
 
     list = List.find_by_name(s_list)
 
-    # Add these virtual fields for other functions to use
-    #email.s_list = s_list
-    #email.s_topic = s_list
+    # Add virtual fields for other functions to use
     email.list = list
 
-
-    unless(list) then
-      deliver_no_such_list(email)
-      exit
-    end
 
     # Make sure they are in the list (allowed to post)
     unless(list.recipients.exists?(:email => email.from))
@@ -31,18 +24,20 @@ class Mailman < ActionMailer::Base
     end
 
     # Check if this is a response to an existing topic or a new message
-    if(email.subject =~ /\+/ then
-      unless(topic.exists?(:key => s_topic)) then
+    if(email.subject =~ /\+/) then
+      unless(topic.exists?(:key => topic.key)) then
         deliver_no_such_topic(email)
       end
 
-      topic = Topic.find_by_key(s_topic)
+      topic = Topic.find_by_key(topic.key)
+
     else
       topic = list.topics.create(
         :subject => email.subject
         )
     end
 
+    # Add virtual fields for other functions to use
     email.topic = topic
 
     message = topic.messages.create(
