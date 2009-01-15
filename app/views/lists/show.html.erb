@@ -1,6 +1,12 @@
 <span style="float:right;">
-	<%= link_to "[edit list]", edit_list_path(@list) %> | 
-	<%= link_to "[delete list]", list_path(@list), :method => :delete, :confirm => "Are you sure?" %></span>
+	<p>
+      <%= link_to "[edit list]", edit_list_path(@list) %> | 
+	  <%= link_to "[delete list]", list_path(@list), :method => :delete, :confirm => "Are you sure?" %>
+    </p>
+    <p>
+      <%= link_to "[send test]", send_test_list_path(@list) %> 
+    </p>
+</span>
 <h2><%=h @list.name %></h2>
 <p><%=h @list.description %></p>
 
