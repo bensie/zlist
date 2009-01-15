@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(:version => 20090114223326) do
     t.datetime "updated_at"
   end
 
-  create_table "threads", :force => true do |t|
+  create_table "topics", :force => true do |t|
     t.integer  "list_id"
     t.string   "name"
     t.datetime "created_at"

@@ -1,6 +1,6 @@
-class CreateThreads < ActiveRecord::Migration
+class CreateTopics < ActiveRecord::Migration
   def self.up
-    create_table :threads do |t|
+    create_table :topics do |t|
       t.integer :list_id
       t.string :name
 
@@ -9,6 +9,6 @@ class CreateThreads < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :threads
+    drop_table :topics
   end
 end

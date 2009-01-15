@@ -1,14 +1,17 @@
-<h2><%=h @list.name %></h2>
+<h2><%=h @list.name %> <%= link_to "[edit this list]", edit_list_path(@list) %></h2>
 <p><%=h @list.description %></p>
 
 <h3>Subscribers</h3>
-<% @list.subscribers.each do |subscriber| %>
-	<%= link_to h(subscriber.name), subscriber %> (<%= h(subscriber.email)%>)
+<%= @list.subscribers.present? ? (render :partial => @list.subscribers) : "There is no one subscribed to this list." %>
+<br />
+Add someone:
+<% form_for @subscriber do |f| %>
+	<%= render :partial => 'subscriptions/form', :locals => { :f => f } %>
+	<%= f.submit %>
 <% end %>
 
-<h3>Recent Messages</h3>
+<h3>Recent Topics</h3>
+<%= @list.topics.present? ? (render :partial => @list.topics) : "There are no recent topics for this list." %>
 
-<%= render :partial => @list.threads %>
-
-<%= link_to 'Edit', edit_list_path(@list) %> |
+<br />
 <%= link_to 'Back', lists_path %>

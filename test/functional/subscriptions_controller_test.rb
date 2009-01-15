@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ThreadTest < ActiveSupport::TestCase
+class SubscriptionsControllerTest < ActionController::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true
