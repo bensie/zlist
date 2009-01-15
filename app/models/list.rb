@@ -7,6 +7,8 @@ class List < ActiveRecord::Base
   
   after_update :save_subscribers
   
+  attr_accessible :name, :description, :subscribers
+  
   def subscribers=(subscribers)
     
     # Handle new subscribers
