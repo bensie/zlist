@@ -6,8 +6,8 @@
 		<td>
 			<%= link_to h(list.name), list %>
 		</td>
-    	<td>
-			<%=h list.description %>
+		<td>
+			<%= mail_to h(list.email) %>
 		</td>
 		<td>
 			(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
