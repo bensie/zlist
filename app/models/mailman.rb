@@ -55,7 +55,7 @@ class Mailman < ActionMailer::Base
   # pre: list (a List object) 
   def list_test_dispatch(list)
     r = Array.new
-    list.recipients.each { |x| r.push(x.email) }
+    list.subscribers.each { |x| r.push(x.email) }
 
     recipients  "noreply@lists.loni.ucla.edu"
     bcc         r
@@ -63,7 +63,7 @@ class Mailman < ActionMailer::Base
     subject     "[#{list.name}] Test Mailing"
   end
 
-protected:
+  protected
 
   # Response to a message posted to a list that doesn't exist
   # pre: email (as passed from ActionMailer receieve) 
@@ -96,7 +96,7 @@ protected:
   # pre: email (as passed from ActionMailer receieve) 
   def list_dispatch(email)
     r = Array.new
-    email.list.recipients.each { |x| r.push(x.email) }
+    email.list.subscribers.each { |x| r.push(x.email) }
 
     recipients  "noreply@lists.loni.ucla.edu"
     bcc         r

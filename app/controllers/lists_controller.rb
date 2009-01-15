@@ -45,6 +45,8 @@ class ListsController < ApplicationController
 
   def send_test
     Mailman.deliver_list_test_dispatch(@list)
+    flash[:notice] = 'Test message sent'
+    redirect_to(@list)
   end
   
   protected
