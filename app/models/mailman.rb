@@ -54,11 +54,8 @@ class Mailman < ActionMailer::Base
   # Send a test e-mail to everyone on a given list
   # pre: list (a List object) 
   def list_test_dispatch(list)
-    r = Array.new
-    list.subscribers.each { |x| r.push(x.email) }
-
     recipients  "noreply@lists.loni.ucla.edu"
-    bcc         r
+    bcc         list.subscribers.map(&:email)
     from        "dList <mailer@lists.loni.ucla.edu"
     subject     "[#{list.name}] Test Mailing"
   end
