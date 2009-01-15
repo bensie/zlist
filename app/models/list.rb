@@ -7,7 +7,7 @@ class List < ActiveRecord::Base
   
   after_update :save_subscribers
   
-  attr_accessible :name, :description, :short_name, :subscribers
+  attr_accessible :name, :description, :short_name, :subscriber_ids
   
   def email
     short_name + "@" + APP_CONFIG[:email_domain]
@@ -19,25 +19,25 @@ class List < ActiveRecord::Base
     # All you, David.
   #end
   
-  def subscribers=(subscribers)
-    
-    # Handle new subscribers
-    if subscribers[:new_subscribers].present?
-      subscribers[:new_subscribers].each do |data|
-        subscribers.build(data) if data[:email].present?
-      end
-    end
-    
-    # Handle existing subscribers
-    subscribers.reject(&:new_record?).each do |data|
-      attributes = subscribers[:existing_subscribers][data.id.to_s]
-      if attributes && attributes[:email].present?
-        data.attributes = attributes
-      else
-        subscribers.delete(data)
-      end
-    end 
-  end
+  #def subscribers=(subscribers)
+  #  
+  #  # Handle new subscribers
+  #  if subscribers[:new_subscribers].present?
+  #    subscribers[:new_subscribers].each do |data|
+  #      subscribers.build(data) if data[:email].present?
+  #    end
+  #  end
+  #  
+  #  # Handle existing subscribers
+  #  subscribers.reject(&:new_record?).each do |data|
+  #    attributes = subscribers[:existing_subscribers][data.id.to_s]
+  #    if attributes && attributes[:email].present?
+  #      data.attributes = attributes
+  #    else
+  #      subscribers.delete(data)
+  #    end
+  #  end 
+  #end
   
   private
   

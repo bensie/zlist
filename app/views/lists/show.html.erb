@@ -5,7 +5,15 @@
 <p><%=h @list.description %></p>
 
 <h3>Subscribers</h3>
-<%= @list.subscribers.present? ? (render :partial => @list.subscribers) : "There is no one subscribed to this list." %>
+<%# @list.subscribers.present? ? (render :partial => @list.subscribers) : "There is no one subscribed to this list." %>
+<% form_for @list do |f| %>
+<% Subscriber.all.each do |subscriber| %>
+	<%= check_box_tag 'list[subscriber_ids][]', subscriber.id, @list.subscribers.include?(subscriber) %>
+	<%=h subscriber.name %><br />
+<% end %>
+<%= hidden_field_tag 'list[subscriber_ids][]', '' %>
+<%= f.submit %>
+<% end %>
 <br />
 
 <h3>Recent Topics</h3>
