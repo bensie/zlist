@@ -1,0 +1,21 @@
+<h2>All Messages</h2>
+
+<table>
+<% @messages.each do |message| %>
+	<tr>
+		<td>
+			<%= mail_to h(message.subscriber.email) %>
+		</td>
+		<td>
+			<%= link_to h(message.subject), message %>
+		</td>
+		<td>
+			(<%= message.created_at.to_s %>)
+		</td>
+	</tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New message', new_message_path %>

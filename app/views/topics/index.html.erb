@@ -1,0 +1,24 @@
+<h2>Mailing Lists</h2>
+
+<table>
+<% @topics.each do |topic| %>
+	<tr>
+		<td>
+			<%= link_to h(topic.subject), topic %>
+		</td>
+		<td>
+			<%= topic.created_at.to_s %>
+		</td>
+		<td>
+			<%= topic.key %>
+		</td>
+        <td>
+			(<%= pluralize(topic.messages.size, 'message') %>)
+        </td> 
+	</tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New topic', new_topic_path %>

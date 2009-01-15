@@ -9,12 +9,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090115222411) do
+ActiveRecord::Schema.define(:version => 20090115223222) do
 
   create_table "lists", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.string   "short_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "topic_id"
+    t.string   "subject"
+    t.string   "body"
+    t.integer  "subscriber_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -39,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20090115222411) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "key"
   end
 
 end
