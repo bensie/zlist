@@ -9,6 +9,10 @@ class List < ActiveRecord::Base
   
   attr_accessible :name, :description, :subscribers
   
+  def email
+    short_name + "@" + APP_CONFIG[:email_domain]
+  end
+  
   def subscribers=(subscribers)
     
     # Handle new subscribers
