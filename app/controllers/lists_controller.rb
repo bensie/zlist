@@ -43,6 +43,10 @@ class ListsController < ApplicationController
     flash[:notice] = "The list was deleted."
     redirect_to(lists_url)
   end
+
+  def send_test
+    Mailman.deliver_list_test_dispatch(@list)
+  end
   
   protected
   
