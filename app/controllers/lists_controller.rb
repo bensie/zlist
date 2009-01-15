@@ -3,7 +3,7 @@ class ListsController < ApplicationController
   before_filter :find_list, :only => %w(show edit send_test update destroy)
 
   def index
-    @lists = List.all
+    @lists = List.all(:include => :subscribers)
   end
 
   def show
