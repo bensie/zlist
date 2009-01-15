@@ -99,11 +99,13 @@ class Mailman < ActionMailer::Base
   # Send an e-mail out to a list
   # pre: email (as passed from ActionMailer receieve) 
   def list_dispatch(email)
-    r = Array.new
-    email.list.subscribers.each { |x| r.push(x.email) }
+    # Don't try to proceed if there are no subscribers
+    if(list.subscribers.empty?)
+      return false
+    end
 
     recipients  "noreply@lists.loni.ucla.edu"
-    bcc         
+    bcc         email.list.subscribers.map(&:email)
     from        "#{email.from} <#{email.list.name}+#{email.topic.key}@lists.loni.ucla.edu"
     subject     "#{email.list.name} #{email.subject}"
     body        email.body
