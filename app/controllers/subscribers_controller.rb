@@ -31,7 +31,7 @@ class SubscribersController < ApplicationController
       flash[:notice] = 'Subscriber was successfully updated.'
       redirect_to(@subscriber)
     else
-      render :action => "edit" }
+      render :action => "edit"
     end
   end
 
@@ -39,6 +39,8 @@ class SubscribersController < ApplicationController
     @subscriber.destroy
     redirect_to(subscribers_url)
   end
+  
+  protected
   
   def find_subscriber
     @subscriber = Subscriber.find(params[:id])
