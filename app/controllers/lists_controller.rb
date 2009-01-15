@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   
-  before_filter :find_list, :only => %w(show edit update destroy send_test)
+  before_filter :find_list, :only => %w(show edit send_test update destroy)
 
   def index
     @lists = List.all
