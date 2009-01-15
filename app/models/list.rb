@@ -13,11 +13,11 @@ class List < ActiveRecord::Base
     short_name + "@" + APP_CONFIG[:email_domain]
   end
   
-  def short_name=(short_name)
+  #def short_name=(short_name)
     # This method needs to rewrite the user submitted short_name
     # to ensure that it's email address compatible.
     # All you, David.
-  end
+  #end
   
   def subscribers=(subscribers)
     
