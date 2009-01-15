@@ -24,7 +24,7 @@ class List < ActiveRecord::Base
       if attributes && attributes[:email].present?
         data.attributes = attributes
       else
-        subscriptions.delete(data)
+        subscribers.delete(data)
       end
     end 
   end
