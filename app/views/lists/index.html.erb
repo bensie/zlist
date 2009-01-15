@@ -1,18 +1,17 @@
 <h2>Mailing Lists</h2>
 
 <table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Email</th>
-  </tr>
-
 <% @lists.each do |list| %>
-  <tr>
-    <td><%= link_to h(list.name), list %></td>
-    <td><%=h list.description %></td>
-    <td><%=h list.email %></td>
-    <td><%= link_to 'Delete', list, :confirm => 'Are you sure?', :method => :delete %></td>
+	<tr>
+		<td>
+			<%= link_to h(list.name), list %>
+		</td>
+    	<td>
+			<%=h list.description %>
+		</td>
+		<td>
+			(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
+		</td>
   </tr>
 <% end %>
 </table>
