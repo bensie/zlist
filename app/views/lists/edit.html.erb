@@ -1,23 +1,11 @@
-<h1>Editing list</h1>
+<h2>Editing list</h2>
 
 <% form_for(@list) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </p>
-  <p>
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </p>
-  <p>
-    <%= f.submit "Update" %>
-  </p>
+	<%= f.error_messages %>
+	<%= render :partial => 'form', :locals => { :f => f } %>
+	<p>
+    	<%= f.submit "Update" %>
+  	</p>
 <% end %>
 
 <%= link_to 'Show', @list %> |
