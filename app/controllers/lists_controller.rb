@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   
-  before_filter :find_list, :only => %w(show edit update destroy)
+  before_filter :find_list, :only => %w(show edit update destroy send_test)
 
   def index
     @lists = List.all
@@ -44,8 +44,11 @@ class ListsController < ApplicationController
   end
 
   def send_test
-    Mailman.deliver_list_test_dispatch(@list)
-    flash[:notice] = 'Test message sent'
+    if Mailman.deliver_list_test_dispatch(@list)
+      flash[:notice] = 'Test message sent'
+    else
+      flash[:notice] = 'Test message failed'
+    end
     redirect_to(@list)
   end
   
