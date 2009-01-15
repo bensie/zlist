@@ -1,23 +1,11 @@
-<h1>New list</h1>
+<h2>New list</h2>
 
 <% form_for(@list) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </p>
-  <p>
-    <%= f.label :short_name %><br />
-    <%= f.text_field :short_name %>
-  </p>
-  <p>
-    <%= f.submit "Create" %>
-  </p>
+	<%= f.error_messages %>
+	<%= render :partial => 'form', :locals => { :f => f } %>
+	<p>
+    	<%= f.submit "Create List" %>
+  	</p>
 <% end %>
 
 <%= link_to 'Back', lists_path %>
