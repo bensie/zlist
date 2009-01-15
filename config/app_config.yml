@@ -1,0 +1,8 @@
+development:
+  email_domain: lists.loni.ucla.edu
+
+test:
+  email_domain: lists.loni.ucla.edu
+
+production:
+  email_domain: lists.loni.ucla.edu
