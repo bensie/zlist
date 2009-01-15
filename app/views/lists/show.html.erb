@@ -1,4 +1,7 @@
-<h2><%=h @list.name %> <%= link_to "[edit this list]", edit_list_path(@list) %></h2>
+<span style="float:right;">
+	<%= link_to "[edit list]", edit_list_path(@list) %> | 
+	<%= link_to "[delete list]", list_path(@list), :method => :delete, :confirm => "Are you sure?" %></span>
+<h2><%=h @list.name %></h2>
 <p><%=h @list.description %></p>
 
 <h3>Subscribers</h3>
