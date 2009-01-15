@@ -16,6 +16,11 @@ Rails::Initializer.run do |config|
   # -- all .rb files in that directory are automatically loaded.
   # See Rails::Configuration for more options.
 
+  # Use sendmail
+  ActionMailer::Base.delivery_method = :sendmail
+  # Raise exceptions 
+  ActionMailer::Base.raise_delivery_errors = true
+
   # Skip frameworks you're not going to use. To use Rails without a database
   # you must remove the Active Record framework.
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
