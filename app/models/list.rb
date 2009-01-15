@@ -3,7 +3,7 @@ class List < ActiveRecord::Base
   has_many :subscribers, :through => :subscriptions
   has_many :topics
   
-  validates_presence_of :name
+  validates_presence_of :name, :short_name
   
   after_update :save_subscribers
   
