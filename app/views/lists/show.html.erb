@@ -4,11 +4,6 @@
 <h3>Subscribers</h3>
 <%= @list.subscribers.present? ? (render :partial => @list.subscribers) : "There is no one subscribed to this list." %>
 <br />
-Add someone:
-<% form_for @subscriber do |f| %>
-	<%= render :partial => 'subscriptions/form', :locals => { :f => f } %>
-	<%= f.submit %>
-<% end %>
 
 <h3>Recent Topics</h3>
 <%= @list.topics.present? ? (render :partial => @list.topics) : "There are no recent topics for this list." %>

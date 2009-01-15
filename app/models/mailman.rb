@@ -5,20 +5,16 @@ class Mailman < ActionMailer::Base
   def receive(email)
     s_list, s_topic = email.subject.split(/\+/)
 
+    mailing_list = List.find_by_name(s_list) # using name won't work because it could have spaces or other weird stuff
+
     # Make sure the list exists
-    unless(List.exists?(:name => s_list))
+    if mailing_list.blank?
       deliver_no_such_list(email)
       exit
     end
 
-    list = List.find_by_name(s_list)
-
-    # Add virtual fields for other functions to use
-    email.list = list
-
-
     # Make sure they are in the list (allowed to post)
-    unless(list.recipients.exists?(:email => email.from))
+    unless mailing_list.subscribers.find_by_email(email.from)
       deliver_cannot_post(email)
       exit
     end

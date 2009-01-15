@@ -17,8 +17,6 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    @subscription = Subscription.create!(params[:subscription])
-    redirect_to :back
   end
 
   def update

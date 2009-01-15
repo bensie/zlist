@@ -7,7 +7,6 @@ class ListsController < ApplicationController
   end
 
   def show
-    @subscriber = @list.subscribers.new
   end
 
   def new
