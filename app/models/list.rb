@@ -7,7 +7,7 @@ class List < ActiveRecord::Base
   
   after_update :save_subscribers
   
-  attr_accessible :name, :description, :subscribers
+  attr_accessible :name, :description, :short_name, :subscribers
   
   def email
     short_name + "@" + APP_CONFIG[:email_domain]
