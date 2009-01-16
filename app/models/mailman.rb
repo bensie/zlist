@@ -61,7 +61,8 @@ class Mailman < ActionMailer::Base
 
     recipients  "noreply@lists.loni.ucla.edu"
     bcc         list.subscribers.map(&:email)
-    from        "dList <mailer@lists.loni.ucla.edu"
+    #from        "dList <mailer@lists.loni.ucla.edu"
+    from  "mailer AT loni.ucla.edu"
     subject     "[#{list.name}] Test Mailing"
 
     return true
