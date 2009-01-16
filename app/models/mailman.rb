@@ -40,7 +40,7 @@ class Mailman < ActionMailer::Base
       topic = Topic.find_by_key(s_topic)
 
       # Strip out the subject crap
-      email.subject.gsub(/\[#{list.short_name}\]/, "")
+      email.subject.gsub!(/\[#{list.short_name}\]/, "")
 
     else
       topic = list.topics.create(
