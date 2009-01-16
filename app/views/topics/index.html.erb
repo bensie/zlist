@@ -4,7 +4,7 @@
 <% @topics.each do |topic| %>
 	<tr>
 		<td>
-			<%= link_to h(topic.subject), topic %>
+			<%= link_to h(topic.name), topic %>
 		</td>
 		<td>
 			<%= topic.created_at.to_s %>

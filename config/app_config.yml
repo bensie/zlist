@@ -1,5 +1,5 @@
 development:
-  email_domain: lists.loni.ucla.edu
+  email_domain: lists.funtaff.com
 
 test:
   email_domain: lists.loni.ucla.edu
