@@ -44,11 +44,7 @@ class ListsController < ApplicationController
   end
 
   def send_test
-    if Mailman.deliver_list_test_dispatch(@list)
-      flash[:notice] = 'Test message sent'
-    else
-      flash[:notice] = 'Test message failed'
-    end
+    Mailman.deliver_list_test_dispatch(@list) unless @list.subscriptions.blank?
     redirect_to(@list)
   end
   

@@ -54,17 +54,10 @@ class Mailman < ActionMailer::Base
   # Send a test e-mail to everyone on a given list
   # pre: list (a List object) 
   def list_test_dispatch(list)
-    # Don't try to proceed if there are no subscribers
-    if(list.subscribers.empty?)
-      return false
-    end
-
-    recipients  "noreply@lists.loni.ucla.edu"
-    bcc         list.subscribers.map(&:email)
-    from        "dList <mailer@lists.loni.ucla.edu"
-    subject     "[#{list.name}] Test Mailing"
-
-    return true
+      recipients  "noreply@lists.loni.ucla.edu"
+      bcc         list.subscribers.map(&:email)
+      from        "dList <mailer@lists.loni.ucla.edu"
+      subject     "[#{list.name}] Test Mailing"
   end
 
   protected
