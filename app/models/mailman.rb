@@ -33,11 +33,11 @@ class Mailman < ActionMailer::Base
 
     # Check if this is a response to an existing topic or a new message
     if(s_pre =~ /\+/) then
-      unless(Topic.exists?(:key => s_key)) then
+      unless(Topic.exists?(:key => s_topic)) then
         Mailman.deliver_no_such_topic(list, email)
       end
 
-      topic = Topic.find_by_key(s_key)
+      topic = Topic.find_by_key(s_topic)
 
       # Strip out the subject crap
       email.subject.gsub(/\[#{list.short_name}\]/, "")
