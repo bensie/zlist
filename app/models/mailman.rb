@@ -33,7 +33,7 @@ class Mailman < ActionMailer::Base
 
     # Check if this is a response to an existing topic or a new message
     if(s_pre =~ /\+/) then
-      unless(topic.exists?(:key => topic.key)) then
+      unless(Topic.exists?(:key => s_key)) then
         Mailman.deliver_no_such_topic(list, email)
       end
 
