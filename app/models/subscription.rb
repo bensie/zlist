@@ -4,5 +4,5 @@ class Subscription < ActiveRecord::Base
   # boolean to this column to give us the ability to temporarily disable a
   # user's subscription to a list without deleting it.
   belongs_to :list
-  belongs_to :subscriber
+  belongs_to :author, :class_name => 'Subscriber', :foreign_key => 'subscriber_id'
 end

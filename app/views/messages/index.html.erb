@@ -4,7 +4,7 @@
 <% @messages.each do |message| %>
 	<tr>
 		<td>
-			<%= mail_to h(message.subscriber.email) %>
+			<%= mail_to h(message.author.email) %>
 		</td>
 		<td>
 			<%= link_to h(message.subject), message %>
