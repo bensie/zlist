@@ -1,7 +1,0 @@
-development:
-    adapter: mysql
-    encoding: utf8
-    database: loni_dlist_development
-    username: root
-    password:
-    socket: /tmp/mysql.sock
