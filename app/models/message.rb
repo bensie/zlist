@@ -6,5 +6,5 @@ class Message < ActiveRecord::Base
   # Message.topic or Message.subscriber.  You can chain these methods infinitely as
   # long as the associations exist.
   belongs_to :topic
-  belongs_to :subscriber
+  belongs_to :author, :class_name => 'Subscriber'
 end
