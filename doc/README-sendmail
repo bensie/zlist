@@ -1,0 +1,5 @@
+For sendmail/freebsd:
+
+1) Add to /etc/mail/aliases, run "newaliases"
+
+mailman: "| /usr/local/bin/ruby /home/funtaff/devel/loni-dlist/script/runner -e development 'Mailman.receive STDIN.read'"
