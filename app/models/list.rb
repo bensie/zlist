@@ -28,5 +28,11 @@ class List < ActiveRecord::Base
   def email
     short_name + "@" + APP_CONFIG[:email_domain]
   end
+
+  # Shortcut to get domain of the list.  
+  # For now, this will just be a shortcut to the app config, but in later versions might be different
+  def domain
+    APP_CONFIG[:email_domain]
+  end
   
 end
