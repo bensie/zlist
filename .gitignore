@@ -4,3 +4,4 @@ tmp/**/*
 *.swp
 *.swo
 config/database.yml
+config/app_config.yml
