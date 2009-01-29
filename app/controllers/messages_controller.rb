@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   before_filter :find_message, :only => %w(show edit update destroy)
 
   def index
-    @messages = Message.all
+    @messages = Message.all(:include => :author)
   end
 
   def show
