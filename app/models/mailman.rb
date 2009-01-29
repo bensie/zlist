@@ -58,7 +58,7 @@ class Mailman < ActionMailer::Base
       :subject => email.subject,
       :body => email.body
       )
-    message.subscriber = Subscriber.find_by_email(email.from) 
+    message.author = Subscriber.find_by_email(email.from) 
       #:content_type => email.content_type
       #:from => email.from
 
