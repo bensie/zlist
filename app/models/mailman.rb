@@ -112,14 +112,22 @@ class Mailman < ActionMailer::Base
       return false
     end
 
-    recipients  "noreply@" + APP_CONFIG[:email_domain]
+    # Temporary: use prefix before domain as from
+    email.from.to_s.match(/(.*)@/)
+    disp_from = $1;
+
+    recipients  "#{list.short_name} subscribers <noreply@#{ APP_CONFIG[:email_domain] }>"
     bcc         list.subscribers.map(&:email)
-  # Example: dph@funtaff.com <david_list+e7e8b099@lists.funtaff.com>
-    from        "#{email.from} <#{list.short_name}+#{topic.key}@" +
+  # Example: dph <david_list+e7e8b099@lists.funtaff.com>
+    from        "#{disp_from} <mailer@#{ APP_CONFIG[:email_domain] }>"
+    reply_to    "#{email.from} <#{list.short_name}+#{topic.key}@" +
                   APP_CONFIG[:email_domain] + ">"
 
     subject     "[#{list.short_name}] #{email.subject}"
     body        email.body
+    headers     'List-ID' => "#{list.short_name}@#{ APP_CONFIG[:email_domain]}",
+                'List-Post' => "#{list.short_name}@#{ APP_CONFIG[:email_domain]}",
+                'List-Unsubscribe' => "http://#{ APP_CONFIG[:email_domain] }/list/#{ list.short_name }/unsubscribe"
   end
 
 
