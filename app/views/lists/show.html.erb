@@ -15,7 +15,7 @@
 <% form_for @list do |f| %>
 <% Subscriber.all.each do |subscriber| %>
 	<%= check_box_tag 'list[subscriber_ids][]', subscriber.id, @list.subscribers.include?(subscriber) %>
-	<%=h subscriber.name %><br />
+	<%=h subscriber.name + " (#{subscriber.email})"  %><br />
 <% end %>
 <%= hidden_field_tag 'list[subscriber_ids][]', '' %>
 <%= f.submit %>
