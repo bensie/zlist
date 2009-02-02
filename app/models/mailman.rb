@@ -60,9 +60,10 @@ class Mailman < ActionMailer::Base
       )
 
     # This isn't working
-    message.author = Subscriber.find_by_email(email.from.to_s) 
+    message.author = Subscriber.find_by_email(email.from)
       #:content_type => email.content_type
       #:from => email.from
+    message.save
 
     Mailman.deliver_list_dispatch(list, topic, email)
 

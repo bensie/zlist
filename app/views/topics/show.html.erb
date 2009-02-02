@@ -3,14 +3,14 @@
 <div class="message" style="border: 1px solid #999; margin: 5px;">
   <div class="message-header" style="position: relative; height: 1.1em;">
     <div class="message-header-left" style="position: absolute; left: 5px;">
-      <p><b>Author - <%= message.subject %></b></p>
+      <p><b><%= message.author.name %></b> &lt;<%= message.author.email %>&gt;</p>
     </div>
     <div class="message-header-right" style="position: absolute; right: 5px;">
    	  <p><b><%= message.created_at.to_s %></b></p>
 	</div>
   </div>
   <div class="message_body">
-     <pre><%= message.body %></pre>
+     <pre><%= message.body_clean %></pre>
   </div>
 </div>
 <% end %>
