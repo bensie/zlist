@@ -17,6 +17,8 @@ class Message < ActiveRecord::Base
       # Included replies "> some text"
       next if line.match(/^>+/) 
       next if line.match(/On.*wrote:/)
+      # Outlook reply style
+      break if line.match(/-{4,}Original Message-{4,}/)
       # Signature break "--"
       break if line.match(/^\s*\-{2,}\s*$/)
       # Lines with only whitespace - blank them
