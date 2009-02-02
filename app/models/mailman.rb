@@ -42,6 +42,8 @@ class Mailman < ActionMailer::Base
       # Strip out the subject crap
       # Can't use gsub! because subject isn't actually a string unless coerced
       email.subject = email.subject.gsub(/\[#{list.short_name}\]/, "")
+      # Clean out RE and FW's
+      email.subject = email.subject.gsub(/([rR][eE]:\ *){2,}/, "RE: ")
 
     else
       topic = list.topics.create(
