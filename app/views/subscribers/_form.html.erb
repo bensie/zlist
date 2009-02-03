@@ -18,8 +18,3 @@
   <%= f.password_field :password_confirmation %>
 </p>
 
-<% if current_user.admin? %>
-<p>
-  <%= f.check_box :admin %> <%= f.label :admin, "Administrator" %>
-</p>
-<% end %>
