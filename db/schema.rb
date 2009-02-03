@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090115223222) do
+ActiveRecord::Schema.define(:version => 20090203001435) do
 
   create_table "lists", :force => true do |t|
     t.string   "name"
@@ -34,6 +34,9 @@ ActiveRecord::Schema.define(:version => 20090115223222) do
     t.string   "public_key"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "password_hash"
+    t.string   "password_salt"
+    t.boolean  "admin",         :default => false
   end
 
   create_table "subscriptions", :force => true do |t|
