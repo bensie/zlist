@@ -5,6 +5,34 @@ class Subscriber < ActiveRecord::Base
   has_many :writings, :class_name => 'Message', :foreign_key => 'subscriber_id'
   
   validates_uniqueness_of :email
+  validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
+  validates_presence_of :password, :on => :create
+  validates_confirmation_of :password
   
-  attr_accessible :name, :email
+  attr_accessible :name, :email, :password, :password_confirmation
+  
+  attr_accessor :password
+  before_create :prepare_password
+  
+  # Login with email address
+  def self.authenticate(login, pass)
+    user = find_by_email(login)
+    return user if user && user.matching_password?(pass)
+  end
+  
+  def matching_password?(pass)
+    self.password_hash == encrypt_password(pass)
+  end
+  
+  private
+  
+  def prepare_password
+    self.password_salt = Digest::SHA1.hexdigest([Time.now, rand].join)
+    self.password_hash = encrypt_password(password)
+  end
+  
+  def encrypt_password(pass)
+    Digest::SHA1.hexdigest([pass, password_salt].join)
+  end
+  
 end

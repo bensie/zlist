@@ -1,5 +1,6 @@
 class SubscribersController < ApplicationController
   
+  skip_before_filter :login_required, :only => %w(new create)
   before_filter :find_subscriber, :only => %w(show edit update destroy)
   
   def index
@@ -19,8 +20,9 @@ class SubscribersController < ApplicationController
   def create
     @subscriber = Subscriber.new(params[:subscriber])
     if @subscriber.save
+      session[:subscriber_id] = @subscriber.id
       flash[:notice] = 'Subscriber was successfully created.'
-      redirect_to(@subscriber)
+      redirect_to(root_url)
     else
       render :action => "new"
     end
