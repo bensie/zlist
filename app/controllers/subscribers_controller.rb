@@ -20,9 +20,14 @@ class SubscribersController < ApplicationController
   def create
     @subscriber = Subscriber.new(params[:subscriber])
     if @subscriber.save
-      session[:subscriber_id] = @subscriber.id
-      flash[:notice] = 'Subscriber was successfully created.'
-      redirect_to(root_url)
+      if logged_in? && current_user.admin?
+        flash[:notice] = 'Subscriber was successfully created.'
+        redirect_to @subscriber
+      else
+        flash[:notice] = 'Thanks for signing up!  You are now logged in.'
+        session[:subscriber_id] = @subscriber.id
+        redirect_to(root_url)
+      end
     else
       render :action => "new"
     end
