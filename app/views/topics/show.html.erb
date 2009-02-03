@@ -13,6 +13,7 @@
   <div class="message_body">
      <pre WRAP><%= message.body_clean %></pre>
   </div>
+  <%= link_to( h("Full message"), message ) %>
 </div>
 <% end %>
 <%= will_paginate @messages %>
