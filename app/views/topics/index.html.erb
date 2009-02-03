@@ -7,7 +7,7 @@
 			<%= link_to h(topic.name), topic %>
 		</td>
 		<td>
-			<%= topic.created_at.to_s %>
+			<%= time_ago_in_words(topic.created_at) %>
 		</td>
 		<td>
 			<%= topic.key %>
