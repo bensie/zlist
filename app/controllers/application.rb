@@ -9,7 +9,10 @@ class ApplicationController < ActionController::Base
   protected
   
   def admin_required
-    logged_in && current_user.admin?
+    unless logged_in? && current_user.admin?
+      flash[:error] = "You must be an administrator to access this page."
+      redirect_to root_url
+    end
   end
 
 end
