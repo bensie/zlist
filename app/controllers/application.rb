@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   protected
   
   def admin_required
-    logged_in && current_user.admin?
+    logged_in? && current_user.admin?
   end
 
 end
