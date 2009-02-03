@@ -24,12 +24,16 @@
       <div class="header-left" style="position: absolute; left: 5px"> 
 		<h1 id="dlist">dList</h1>
 		<% if logged_in? %>
-		<p><%= link_to "Lists", lists_path %> | <%= link_to "Subscribers", subscribers_path %> | 
-          <%= link_to "Topics", topics_path %> | <%= link_to "Messages", messages_path %></p>
+          <% if current_user.admin? %>
+		    <p><%= link_to "Lists", lists_path %> | <%= link_to "Subscribers", subscribers_path %> | 
+            <%= link_to "Topics", topics_path %> | <%= link_to "Messages", messages_path %></p>
+          <% else %>
+		    <p><%= link_to "My Lists", lists_path %> | <%= link_to "My Account", current_user %> </p>
+          <% end %>
 		<% end %>
       </div>
       <div class="header-right" style="position: absolute: right: 5px; vertical-align: bottom; " align="right">
-        <% if(current_user) %>
+        <% if(logged_in?) %>
           <p>Welcome, <%= current_user.name %>!<br/>
           <em>You are <%= current_user.admin? ? "an admin" : "a subscriber" %></em><br/>
           <%= link_to( h("[Logout]"), "logout") %>
