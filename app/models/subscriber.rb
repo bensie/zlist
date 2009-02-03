@@ -2,7 +2,7 @@ class Subscriber < ActiveRecord::Base
   has_many :subscriptions, :dependent => :destroy
   has_many :lists, :through => :subscriptions
 
-  has_many :writings, :class_name => 'Message', :foreign_key => 'subscriber_id'
+  has_many :writings, :class_name => 'Message', :foreign_key => 'subscriber_id', :dependent => :destroy
   
   validates_uniqueness_of :email
   validates_format_of :email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
@@ -13,6 +13,9 @@ class Subscriber < ActiveRecord::Base
   
   attr_accessor :password
   before_create :prepare_password
+  
+  named_scope :active, :conditions => { :disabled => false }
+  named_scope :disabled, :conditions => { :disabled => true }
   
   # Login with email address
   def self.authenticate(login, pass)

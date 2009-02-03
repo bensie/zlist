@@ -4,7 +4,7 @@ class SubscribersController < ApplicationController
   before_filter :find_subscriber, :only => %w(show edit update destroy)
   
   def index
-    @subscribers = Subscriber.find(:all)
+    @subscribers = Subscriber.active
   end
 
   def show
@@ -39,6 +39,11 @@ class SubscribersController < ApplicationController
 
   def destroy
     @subscriber.destroy
+    redirect_to(subscribers_url)
+  end
+  
+  def disable
+    @subscriber.disable
     redirect_to(subscribers_url)
   end
   
