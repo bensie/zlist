@@ -3,14 +3,14 @@ class ListsController < ApplicationController
   before_filter :find_list, :only => %w(show edit send_test update destroy)
 
   def index
-    @lists = List.all(:include => :subscribers)
+    @lists = current_user.admin? ? List.all(:include => :subscribers) : current_user.lists
   end
 
   def show
   end
 
   def new
-    @list = List.new
+    @list = current_user.admin? ? List.new : current_user.lists.new
   end
 
   def edit
