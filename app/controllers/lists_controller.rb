@@ -1,7 +1,7 @@
 class ListsController < ApplicationController
   
-  before_filter :admin_required, :except => %w(index show)
-  before_filter :find_list, :only => %w(show edit send_test update destroy, subscribe, unsubscribe)
+  before_filter :admin_required, :except => %w(index show subscribe unsubscribe)
+  before_filter :find_list, :only => %w(show edit send_test update destroy subscribe unsubscribe)
 
   def index
     @lists = current_user.admin? ? List.all(:include => :subscribers) : current_user.lists
