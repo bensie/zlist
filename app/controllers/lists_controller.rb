@@ -1,10 +1,14 @@
 class ListsController < ApplicationController
   
-  before_filter :admin_required, :except => %w(index show)
-  before_filter :find_list, :only => %w(show edit send_test update destroy)
+  before_filter :admin_required, :except => %w(index show subscribe unsubscribe)
+  before_filter :find_list, :only => %w(show edit send_test update destroy subscribe unsubscribe)
 
   def index
     @lists = current_user.admin? ? List.all(:include => :subscribers) : current_user.lists
+    # These lists are available for a user to subscribe to
+    unless current_user.admin?
+      @available_lists = List.public(:limit => 5)
+    end
   end
 
   def show
@@ -48,7 +52,29 @@ class ListsController < ApplicationController
     Mailman.deliver_list_test_dispatch(@list) unless @list.subscriptions.blank?
     redirect_to(@list)
   end
-  
+
+  # External subscribe request
+  def subscribe
+   if @list.subscribers.push(current_user)
+     flash[:notice] = 'Subscriber added.'
+     redirect_to(lists_url)
+   else
+     flash.now[:warning] = 'There was a problem subscribing you.'
+     redirect_to(lists_url)
+   end
+  end
+
+  # External unsubscribe request
+  def unsubscribe
+   if @list.subscribers.delete(current_user)
+     flash[:notice] = 'Subscriber removed.'
+     redirect_to(lists_url)
+   else
+     flash.now[:warning] = 'There was a problem unsubscribing you.'
+     redirect_to(lists_url)
+   end
+  end
+
   protected
   
   def find_list

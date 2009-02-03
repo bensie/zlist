@@ -1,4 +1,5 @@
-<span style="float:right;">
+<span style="float:right;" align="right">
+<% if current_user.admin? %>
 	<p>
       <%= link_to "[edit list]", edit_list_path(@list) %> | 
 	  <%= link_to "[delete list]", list_path(@list), :method => :delete, :confirm => "Are you sure?" %>
@@ -6,24 +7,36 @@
     <p>
       <%= link_to "[send test]", send_test_list_path(@list) %> 
     </p>
+<% else %>
+  <% if @list.subscribers.include?(current_user) %>
+    <p><em>You are subscribed to this list</em></p>
+    <p><%= link_to "[unsubscribe]", unsubscribe_list_path(@list) %></p>
+  <% else %>
+    <p><%= link_to "[subscribe]", subscribe_list_path(@list) %></p>
+  <% end %>
+<% end %>
 </span>
 <h2><%=h @list.name %></h2>
 <p><%=h @list.description %></p>
 
-<h3>Subscribers</h3>
-<%# @list.subscribers.present? ? (render :partial => @list.subscribers) : "There is no one subscribed to this list." %>
-<% form_for @list do |f| %>
-<% Subscriber.all.each do |subscriber| %>
-	<%= check_box_tag 'list[subscriber_ids][]', subscriber.id, @list.subscribers.include?(subscriber) %>
-	<%=h subscriber.name + " (#{subscriber.email})"  %><br />
+<% if current_user.admin? %>
+  <h3>Subscribers</h3>
+  <%# @list.subscribers.present? ? (render :partial => @list.subscribers) : "There is no one subscribed to this list." %>
+  <% form_for @list do |f| %>
+  <% Subscriber.all.each do |subscriber| %>
+	  <%= check_box_tag 'list[subscriber_ids][]', subscriber.id, @list.subscribers.include?(subscriber) %>
+	  <%=h subscriber.name + " (#{subscriber.email})"  %><br />
+  <% end %>
+  <%= hidden_field_tag 'list[subscriber_ids][]', '' %>
+  <%= f.submit %>
+  <% end %>
+  <br />
 <% end %>
-<%= hidden_field_tag 'list[subscriber_ids][]', '' %>
-<%= f.submit %>
-<% end %>
-<br />
 
-<h3>Recent Topics</h3>
+<h3>Recent Topics</h3> 
 <%= @list.topics.present? ? (render :partial => @list.topics) : "There are no recent topics for this list." %>
+<%= link_to h("[All Topics]"), "" %>
 
+<br />
 <br />
 <%= link_to 'Back', lists_path %>
