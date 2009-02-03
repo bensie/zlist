@@ -1,20 +1,9 @@
 <h1>New subscriber</h1>
 
 <% form_for(@subscriber) do |f| %>
-  <%= f.error_messages %>
+	<%= f.error_messages %>
+	<%= render :partial => 'form', :locals => { :f => f } %>
 
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </p>
-  <p>
-    <%= f.label :public_key %><br />
-    <%= f.text_field :public_key %>
-  </p>
   <p>
     <%= f.submit "Create" %>
   </p>
