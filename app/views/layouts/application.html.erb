@@ -29,6 +29,7 @@
       <div class="header-right" style="position: absolute: right: 5px; vertical-align: bottom; " align="right">
         <% if(current_user) %>
           <p>Welcome, <%= current_user.name %>!<br/>
+          <em>You are <%= current_user.admin? ? "an admin" : "a subscriber" %></em><br/>
           <%= link_to( h("[Logout]"), "logout") %>
         <% else %>
           <%= link_to( h("[Login]"), "login") %>
