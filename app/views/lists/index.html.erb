@@ -1,4 +1,4 @@
-<h2>Mailing Lists</h2>
+<h2><%= current_user.admin? ? "Mailing Lists" : "My Lists" %></h2>
 
 <table>
 <% @lists.each do |list| %>
@@ -12,7 +12,32 @@
 		<td>
 			(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
 		</td>
+        <% unless current_user.admin? %>
+        <td>
+            <%= link_to h("[unsubscribe]"), unsubscribe_list_path(@list), :confirm => "Are you sure you want to unsubscribe?" %>
+        </td>
+        <% end %>
 	</tr>
+<% end %>
+</table>
+
+<% unless current_user.admin? %>
+<h3>Available Lists</h3>
+<table>
+  <% @available_lists.each do |list| %>
+		<td>
+			<%= link_to h(list.name), list %>
+		</td>
+		<td>
+			<%= mail_to h(list.email) %>
+		</td>
+		<td>
+			(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
+		</td>
+        <td>
+            <%= link_to h("[subscribe]"), subscribe_list_path(@list), :confirm => "Are you sure you want to subscribe?" %>
+        </td>
+  <% end %>
 <% end %>
 </table>
 
