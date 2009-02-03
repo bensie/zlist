@@ -6,6 +6,7 @@ class TopicsController < ApplicationController
   end
 
   def show
+    @messages = @topic.messages.paginate :page => params[:page], :order => 'created_at ASC', :per_page => 10
   end
 
   def new

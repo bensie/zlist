@@ -1,12 +1,13 @@
 <h3><%= @topic.name %></h3>
-<% @topic.messages.each do |message| %>
+<%= will_paginate @messages %>
+<% @messages.each do |message| %>
 <div class="message" style="border: 1px solid #999; margin: 5px;">
   <div class="message-header" style="position: relative; height: 1.1em;">
     <div class="message-header-left" style="position: absolute; left: 5px;">
       <p><b><%= message.author.name %></b> &lt;<%= message.author.email %>&gt;</p>
     </div>
     <div class="message-header-right" style="position: absolute; right: 5px;">
-   	  <p><b><%= message.age %></b></p>
+   	  <p><b><%= message.created_at.getlocal.strftime('%b %d %Y, %I:%M %p') %></b></p>
 	</div>
   </div>
   <div class="message_body">
@@ -14,3 +15,4 @@
   </div>
 </div>
 <% end %>
+<%= will_paginate @messages %>
