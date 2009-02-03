@@ -26,7 +26,7 @@
 		<% if logged_in? %>
           <% if current_user.admin? %>
 		    <p><%= link_to "Lists", lists_path %> | <%= link_to "Subscribers", subscribers_path %> | 
-            <%= link_to "Topics", topics_path %> | <%= link_to "Messages", messages_path %></p>
+            <%= link_to "Messages", messages_path %></p>
           <% else %>
 		    <p><%= link_to "My Lists", lists_path %> | <%= link_to "My Account", current_user %> </p>
           <% end %>

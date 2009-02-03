@@ -1,8 +1,9 @@
 class TopicsController < ApplicationController
+  before_filter :find_list
   before_filter :find_topic, :only => %w(show edit update destroy)
 
   def index
-    @topics = Topic.all
+    @topics = @list.topics.all
   end
 
   def show
@@ -10,14 +11,14 @@ class TopicsController < ApplicationController
   end
 
   def new
-    @topics = Topic.new
+    @topics = @list.topics.new
   end
 
   def edit
   end
 
   def create
-    @topic = Topic.new(params[:topic])
+    @topic = @list.topics.build(params[:topic])
     if @topic.save
       flash[:notice] = 'Topic was successfully created.'
       redirect_to(@topic)
@@ -45,8 +46,12 @@ class TopicsController < ApplicationController
 
   protected
   
+  def find_list
+    @list = List.find(params[:list_id])
+  end
+  
   def find_topic
-    @topic = Topic.find(params[:id])
+    @topic = @list.topics.find(params[:id])
   end
 
 end
