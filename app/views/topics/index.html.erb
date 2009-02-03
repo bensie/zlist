@@ -3,14 +3,14 @@
 <table>
 <% @topics.each do |topic| %>
 	<tr>
+        <td>
+            [<%= topic.list.short_name %>]
+        </td>
 		<td>
 			<%= link_to h(topic.name), topic %>
 		</td>
 		<td>
-			<%= time_ago_in_words(topic.created_at) %>
-		</td>
-		<td>
-			<%= topic.key %>
+			<%= time_ago_in_words(topic.created_at) %> ago
 		</td>
         <td>
 			(<%= pluralize(topic.messages.size, 'message') %>)
