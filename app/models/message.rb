@@ -1,4 +1,5 @@
 class Message < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper
   # Association: a belongs_to association means that there must be a foreign key
   # in this table for the specified belongs_to columns.  In this case, it expects
   # topic_id and subscriber_id columns in the "messages" table.  When calling a
@@ -33,6 +34,32 @@ class Message < ActiveRecord::Base
     text.gsub!(/\n{2,}$/, "\n")
 
     return text
+  end
+
+  # Return a text representation of how old this is
+  # For JAMES: I write these things from scratch to learn ruby, dimwit
+  def age
+
+    if(created_at.to_date == Date.today)
+      diff = Time.now - created_at.to_time
+      if(diff < 60.minutes)
+        return pluralize( (diff/60).to_i, "minute") + " ago"
+      elsif(diff < 24.hours)
+        return pluralize( (diff/(60*60)).to_i, "hour") + " ago"
+      end
+    elsif(created_at.to_date == Date.yesterday)
+      return "yesterday"
+    else
+      diff = (Date.today - created_at.to_date)*60*60*24
+      if(diff < 7.days)
+       return pluralize( (diff/(60*60*24)).to_i, "day") + " ago"
+      elsif(diff < 1.month)
+        return pluralize( (diff/(60*60*24*7)).to_i, "week") + " ago"
+      else
+        return created_at.to_s
+      end
+    end 
+
   end
 
 end
