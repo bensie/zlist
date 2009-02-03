@@ -23,8 +23,10 @@
 	<div id="header" style="position: relative; height: 75px;">
       <div class="header-left" style="position: absolute; left: 5px"> 
 		<h1 id="dlist">dList</h1>
+		<% if logged_in? %>
 		<p><%= link_to "Lists", lists_path %> | <%= link_to "Subscribers", subscribers_path %> | 
           <%= link_to "Topics", topics_path %> | <%= link_to "Messages", messages_path %></p>
+		<% end %>
       </div>
       <div class="header-right" style="position: absolute: right: 5px; vertical-align: bottom; " align="right">
         <% if(current_user) %>
