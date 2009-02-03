@@ -5,6 +5,10 @@ class ListsController < ApplicationController
 
   def index
     @lists = current_user.admin? ? List.all(:include => :subscribers) : current_user.lists
+    # These lists are available for a user to subscribe to
+    unless current_user.admin?
+      @available_lists = List.public(:limit => 5)
+    end
   end
 
   def show
