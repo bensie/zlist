@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
   
   def create
-    user = Subscriber.authenticate(params[:login], params[:password])
+    subscriber = Subscriber.authenticate(params[:login], params[:password])
     if user
       session[:subscriber_id] = subscriber.id
       flash[:notice] = "Logged in successfully."
