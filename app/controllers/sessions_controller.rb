@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   
   def create
     subscriber = Subscriber.authenticate(params[:login], params[:password])
-    if user
+    if subscriber
       session[:subscriber_id] = subscriber.id
       flash[:notice] = "Logged in successfully."
       redirect_to root_url
