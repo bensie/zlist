@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
   
+  before_filter :admin_required, :except => %w(index show)
   before_filter :find_list, :only => %w(show edit send_test update destroy)
 
   def index
@@ -10,7 +11,7 @@ class ListsController < ApplicationController
   end
 
   def new
-    @list = current_user.admin? ? List.new : current_user.lists.new
+    @list = List.new
   end
 
   def edit
