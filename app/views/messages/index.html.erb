@@ -10,7 +10,7 @@
 			<%= link_to h(message.subject), message %>
 		</td>
 		<td>
-			(<%= message.created_at.to_s %>)
+			(<%= time_ago_in_words(message.created_at) %> ago)
 		</td>
 	</tr>
 <% end %>
