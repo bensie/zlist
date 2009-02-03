@@ -29,7 +29,11 @@ class SubscribersController < ApplicationController
   end
 
   def update
-    if @subscriber.update_attributes(params[:subscriber])
+    @subscriber.attributes = params[:subscriber]
+    if params[:subscriber][:password].present? || params[:subscriber][:password_confirmation].present?
+      @subscriber.saving_password = true
+    end
+    if @subscriber.save
       flash[:notice] = 'Subscriber was successfully updated.'
       redirect_to(@subscriber)
     else

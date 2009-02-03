@@ -33,12 +33,12 @@
 		<% end %>
       </div>
       <div class="header-right" style="position: absolute: right: 5px; vertical-align: bottom; " align="right">
-        <% if(logged_in?) %>
-          <p>Welcome, <%= current_user.name %>!<br/>
+        <% if logged_in? %>
+          <p>Welcome, <%=h current_user.name %>!<br/>
           <em>You are <%= current_user.admin? ? "an admin" : "a subscriber" %></em><br/>
-          <%= link_to( h("[Logout]"), "logout") %>
+          <%= link_to "[Logout]", sessions_path, :method => :delete %>
         <% else %>
-          <%= link_to( h("[Login]"), "login") %>
+          <%= link_to "[Login]", "login" %>
         <% end %>
       </div>
 	</div>
