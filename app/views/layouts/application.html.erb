@@ -20,10 +20,20 @@
 		</div>
 	<% end %>
 	
-	<div id="header">
+	<div id="header" style="position: relative; height: 75px;">
+      <div class="header-left" style="position: absolute; left: 5px"> 
 		<h1 id="dlist">dList</h1>
 		<p><%= link_to "Lists", lists_path %> | <%= link_to "Subscribers", subscribers_path %> | 
           <%= link_to "Topics", topics_path %> | <%= link_to "Messages", messages_path %></p>
+      </div>
+      <div class="header-right" style="position: absolute: right: 5px; vertical-align: bottom; " align="right">
+        <% if(current_user) %>
+          <p>Welcome, <%= current_user.name %>!<br/>
+          <%= link_to( h("[Logout]"), "logout") %>
+        <% else %>
+          <%= link_to( h("[Login]"), "login") %>
+        <% end %>
+      </div>
 	</div>
 	
 	<div id="body">
