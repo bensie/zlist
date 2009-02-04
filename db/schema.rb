@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090203224026) do
+ActiveRecord::Schema.define(:version => 20090204152316) do
 
   create_table "lists", :force => true do |t|
     t.string   "name"
@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20090203224026) do
     t.string   "short_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "private",     :default => true
+    t.boolean  "private",     :default => false
   end
 
   create_table "messages", :force => true do |t|
