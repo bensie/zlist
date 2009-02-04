@@ -21,7 +21,7 @@ class SubscribersController < ApplicationController
   def create
     @subscriber = Subscriber.new(params[:subscriber])
     if @subscriber.save
-      if logged_in? && current_user.admin?
+      if logged_in? && admin?
         flash[:notice] = 'Subscriber was successfully created.'
         redirect_to @subscriber
       else
@@ -64,6 +64,10 @@ class SubscribersController < ApplicationController
   protected
   
   def find_subscriber
-    @subscriber = Subscriber.find(params[:id])
+    if admin?
+      @subscriber = Subscriber.find(params[:id])
+    else
+      @subscriber = current_user
+    end
   end
 end
