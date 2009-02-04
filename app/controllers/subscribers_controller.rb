@@ -13,6 +13,7 @@ class SubscribersController < ApplicationController
 
   def new
     @subscriber = Subscriber.new
+    render :layout => 'login' if !logged_in?
   end
 
   def edit

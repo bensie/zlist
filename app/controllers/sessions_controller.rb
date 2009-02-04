@@ -1,6 +1,9 @@
 class SessionsController < ApplicationController
   
   skip_before_filter :login_required, :only => %w(new create)
+  
+  layout 'login'
+  
   def new
   end
   

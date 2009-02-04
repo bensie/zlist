@@ -55,3 +55,16 @@ div#main-container {
 	margin-top: 15px;
 	padding: 25px;
 }
+
+div#main-container-mini {
+	width: 400px;
+	min-height: 200px;
+	background: #fff;
+	border: 5px solid #ccc;
+	margin: auto;
+	margin-top: 15px;
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
