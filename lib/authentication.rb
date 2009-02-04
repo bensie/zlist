@@ -13,7 +13,7 @@ module Authentication
   
   def login_required
     unless logged_in?
-      flash[:error] = "You must first log in or sign up before accessing this page."
+      flash[:notice] = "You need to login or create an account first, then we'll send you right along..."
       store_location
       redirect_to login_url
     end
