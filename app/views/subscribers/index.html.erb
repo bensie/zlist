@@ -17,8 +17,8 @@
 		  		:method => :put,
 		  		:before => "Element.show('spinner-admin-#{subscriber.id}')",
 		  		:complete => "Element.hide('spinner-admin-#{subscriber.id}')",
-		  		:with => "this.name + '=' + this.checked"
-			), :disabled => subscriber == current_user ? true : false %>
+		  		:with => "this.name + '=' + this.checked"), 
+			:disabled => subscriber == current_user %>
 			<%= label 'subscriber', 'admin', 'This user is an administrator' %>
 			<span id="spinner-admin-<%= subscriber.id %>" style="display:none;"><%= image_tag 'spinner.gif' %></span>
     </td>
