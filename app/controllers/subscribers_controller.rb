@@ -62,7 +62,7 @@ class SubscribersController < ApplicationController
   end
   
   def toggle_administrator
-    @subscriber.update_attribute(:admin, params[:subscriber][:admin])
+    @subscriber.update_attribute(:admin, params[:subscriber][:admin]) unless @subscriber == current_user
     respond_to do |format|
       format.js { head :ok }
     end
