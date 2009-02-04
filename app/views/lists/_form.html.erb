@@ -2,11 +2,18 @@
   <%= f.label :name %><br />
   <%= f.text_field :name %>
 </p>
-<p>
-  <%= f.label :description %><br />
-  <%= f.text_area :description %>
-</p>
+
 <p>
   <%= f.label :short_name %><br />
   <%= f.text_field :short_name %>&nbsp;@<%= APP_CONFIG[:email_domain] %>
+</p>
+
+<p>
+  <%= f.label :description %><br />
+  <%= f.text_area :description, :rows => 5 %>
+</p>
+
+<p>
+  <%= f.label :private %><br />
+  <%= f.checkbox :private %>
 </p>
