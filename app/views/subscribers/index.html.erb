@@ -15,12 +15,12 @@
 			:onclick => remote_function(
 		  		:url => url_for(toggle_administrator_subscriber_path(subscriber)),
 		  		:method => :put,
-		  		:before => "Element.show('spinner-admin')",
-		  		:complete => "Element.hide('spinner-admin')",
+		  		:before => "Element.show('spinner-admin-#{subscriber.id}')",
+		  		:complete => "Element.hide('spinner-admin-#{subscriber.id}')",
 		  		:with => "this.name + '=' + this.checked"
 			), :disabled => subscriber == current_user ? true : false %>
 			<%= label 'subscriber', 'admin', 'This user is an administrator' %>
-			<span id="spinner-admin" style="display:none;"><%= image_tag 'spinner.gif' %></span>
+			<span id="spinner-admin-<%= subscriber.id %>" style="display:none;"><%= image_tag 'spinner.gif' %></span>
     </td>
   </tr>
 <% end %>
