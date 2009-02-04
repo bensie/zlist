@@ -4,10 +4,10 @@
 <% @topics.each do |topic| %>
 	<tr>
         <td>
-            [<%= topic.list.short_name %>]
+            [<%= @list.short_name %>]
         </td>
 		<td>
-			<%= link_to h(topic.name), topic %>
+			<%= link_to h(topic.name), list_topic_path(@list, topic) %>
 		</td>
 		<td>
 			<%= time_ago_in_words(topic.created_at) %> ago
@@ -21,4 +21,3 @@
 
 <br />
 
-<!-- <%= link_to 'New topic', new_topic_path %> -->
