@@ -28,8 +28,7 @@
 <h3>Available Lists</h3>
 <table>
   <% @available_lists.each do |list| %>
-  <%# <dph> This probably doesn't belong here %>
-  <% next if list.subscribers.include?(current_user) %>
+  	<% unless list.subscribers.include?(current_user) %>
 		<td>
 			<%= link_to h(list.name), list %>
 		</td>
@@ -40,15 +39,16 @@
 			(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
 		</td>
         <td>
-            <%= link_to h("[topics]"), list_topics_path(list)  %>
+            <%= link_to "[topics]", list_topics_path(list)  %>
         </td>
         <td>
-            <%= link_to h("[subscribe]"), subscribe_list_path(list), :confirm => "Are you sure you want to subscribe?" %>
+            <%= link_to "[subscribe]", subscribe_list_path(list), :confirm => "Are you sure you want to subscribe?" %>
         </td>
+	<% end %>
   <% end %>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New list', new_list_path %>
+<%= link_to 'New list', new_list_path if current_user.admin? %>
