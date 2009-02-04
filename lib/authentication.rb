@@ -13,7 +13,14 @@ module Authentication
   
   def login_required
     unless logged_in?
-      flash[:notice] = "You need to login or create an account first, then we'll send you right along..."
+      # Temporary for dlist-m1
+      if request.request_uri.match(/\/subscribe/)
+        flash[:notice] = "You need to login or create an account before subscribing to this list"
+      elsif request.request_uri.match(/\/unsubscribe/)
+        flash[:notice] = "Please login to unsubscribe from this list"
+      else
+        flash[:notice] = "You need to login or create an account first, then we'll send you right along..."
+      end
       store_location
       redirect_to login_url
     end
