@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
   
   def admin_required
     unless logged_in? && current_user.admin?
-      flash[:warning] = "You must be an administrator to access this page."
       redirect_to root_url
     end
   end
