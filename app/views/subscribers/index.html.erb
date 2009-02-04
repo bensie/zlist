@@ -4,17 +4,24 @@
   <tr>
     <th>Name</th>
     <th>Email</th>
-    <th>Public key</th>
   </tr>
 
-<% for subscriber in @subscribers %>
+<% @subscribers.each do |subscriber| %>
   <tr>
-    <td><%=h subscriber.name %></td>
-    <td><%=h subscriber.email %></td>
-    <td><%=h subscriber.public_key %></td>
-    <td><%= link_to 'Show', subscriber %></td>
-    <td><%= link_to 'Edit', edit_subscriber_path(subscriber) %></td>
-    <td><%= link_to 'Destroy', subscriber, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to h(subscriber.name), edit_subscriber_path(subscriber) %></td>
+    <td><%= mail_to h(subscriber.email) %></td>
+    <td>
+			<%= check_box_tag 'subscriber[admin]', "1", subscriber.admin, 
+			:onclick => remote_function(
+		  		:url => url_for(toggle_administrator_subscriber_path(subscriber)),
+		  		:method => :put,
+		  		:before => "Element.show('spinner-admin')",
+		  		:complete => "Element.hide('spinner-admin')",
+		  		:with => "this.name + '=' + this.checked"
+			), :disabled => subscriber == current_user ? true : false %>
+			<%= label 'subscriber[admin]', 'This user is an administrator' %>
+			<span id="spinner-admin" style="display:none;"><%= image_tag 'spinner.gif' %></span>
+    </td>
   </tr>
 <% end %>
 </table>

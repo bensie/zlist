@@ -9,5 +9,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @subscriber %> |
-<%= link_to 'Back', subscribers_path %>
+<%= link_to 'Delete this subscriber', @subscriber, :confirm => 'Are you sure you want to delete this subscriber? This will permanently delete the user as well as any messages that they have created.  Consider disabling the user instead.', :method => :delete %> |
+<%= link_to 'Go Back', subscribers_path %>
