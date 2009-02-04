@@ -27,7 +27,7 @@ class SubscribersController < ApplicationController
       else
         flash[:notice] = 'Thanks for signing up!  You are now logged in.'
         session[:subscriber_id] = @subscriber.id
-        redirect_to(root_url)
+        redirect_back_or_default('/')
       end
     else
       render :action => "new"
