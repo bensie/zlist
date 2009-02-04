@@ -1,8 +1,8 @@
 class SubscribersController < ApplicationController
   
   skip_before_filter :login_required, :only => %w(new create)
-  before_filter :admin_required, :only => %w(index destroy disable)
-  before_filter :find_subscriber, :only => %w(show edit update destroy)
+  before_filter :admin_required, :only => %w(index destroy disable toggle_administrator)
+  before_filter :find_subscriber, :only => %w(show edit update destroy disable toggle_administrator)
   
   def index
     @subscribers = Subscriber.active
@@ -59,6 +59,13 @@ class SubscribersController < ApplicationController
   def disable
     @subscriber.disable
     redirect_to(subscribers_url)
+  end
+  
+  def toggle_administrator
+    @subscriber.update_attribute(:admin, params[:subscriber][:admin])
+    respond_to do |format|
+      format.js { head :ok }
+    end
   end
   
   protected
