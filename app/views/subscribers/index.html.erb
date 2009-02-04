@@ -1,11 +1,6 @@
 <h1>All Subscribers</h1>
 
 <table>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-  </tr>
-
 <% @subscribers.each do |subscriber| %>
   <tr>
     <td><%= link_to h(subscriber.name), edit_subscriber_path(subscriber) %></td>
