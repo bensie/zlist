@@ -1,6 +1,7 @@
 class SubscribersController < ApplicationController
   
   skip_before_filter :login_required, :only => %w(new create)
+  before_filter :admin_required, :only => %w(index destroy disable)
   before_filter :find_subscriber, :only => %w(show edit update destroy)
   
   def index
@@ -47,7 +48,11 @@ class SubscribersController < ApplicationController
   end
 
   def destroy
-    @subscriber.destroy
+    if @subscriber == current_user
+      flash[:warning] = 'You can\'t delete yourself.  If you really want to go, have another admin delete you.'
+    else
+      @subscriber.destroy
+    end
     redirect_to(subscribers_url)
   end
   
