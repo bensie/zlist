@@ -18,7 +18,3 @@
   <%= f.password_field :password_confirmation %>
 </p>
 
-<% if logged_in? && admin? %>
-	<p>
-		<%= check_box_tag 'subscriber[admin]', '1',  %>
-<% end %>
