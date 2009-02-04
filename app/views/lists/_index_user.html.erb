@@ -1,0 +1,30 @@
+<h3>My Lists</h3>
+
+<table>
+	<%= render :partial => @lists %>
+</table>
+
+<h3>You can join any of the following lists</h3>
+<table>
+  <% @available_lists.each do |list| %>
+  	<% unless list.subscribers.include?(current_user) %>
+		<tr>
+		<td>
+			<%= link_to h(list.name), list %>
+		</td>
+		<td>
+			<%= mail_to h(list.email) %>
+		</td>
+		<td>
+			(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
+		</td>
+        <td>
+            <%= link_to "[topics]", list_topics_path(list)  %>
+        </td>
+        <td>
+            <%= link_to "[subscribe]", subscribe_list_path(list), :confirm => "Are you sure you want to subscribe?" %>
+        </td>
+		</tr>
+	<% end %>
+  <% end %>
+</table>
