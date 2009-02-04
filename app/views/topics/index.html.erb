@@ -1,5 +1,7 @@
-<h2>All Topics</h2>
+<h2>Topics for <%= @list.name %></h2>
+<p><%= link_to h("[list home]"), @list %></p>
 
+<%= will_paginate @messages %>
 <table>
 <% @topics.each do |topic| %>
 	<tr>
@@ -18,6 +20,7 @@
 	</tr>
 <% end %>
 </table>
+<%= will_paginate @messages %>
 
 <br />
 

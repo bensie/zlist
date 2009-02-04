@@ -1,4 +1,5 @@
 <h3><%= @topic.name %></h3>
+<p><%= link_to h("[all topics]"), list_topics_path(@list) %>
 <%= will_paginate @messages %>
 <% @messages.each do |message| %>
 <div class="message" style="border: 1px solid #999; margin: 5px;">
