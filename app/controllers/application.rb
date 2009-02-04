@@ -10,13 +10,13 @@ class ApplicationController < ActionController::Base
   protected
   
   def admin_required
-    unless logged_in? && current_user.admin?
+    unless admin?
       redirect_to root_url
     end
   end
   
   def admin?
-    current_user.admin?
+    logged_in? && current_user.admin?
   end
 
   def redirect_back_or_default(default)
