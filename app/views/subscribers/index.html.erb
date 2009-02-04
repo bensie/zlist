@@ -6,7 +6,7 @@
     <td><%= link_to h(subscriber.name), edit_subscriber_path(subscriber) %></td>
     <td><%= mail_to h(subscriber.email) %></td>
     <td>
-			<%= check_box_tag "subscriber[admin][#{subscriber.id}]", "1", subscriber.admin, 
+			<%= check_box_tag "subscriber[admin]", "1", subscriber.admin, 
 			:onclick => remote_function(
 		  		:url => url_for(toggle_administrator_subscriber_path(subscriber)),
 		  		:method => :put,
@@ -14,7 +14,7 @@
 		  		:complete => "Element.hide('spinner-admin-#{subscriber.id}')",
 		  		:with => "this.name + '=' + this.checked"), 
 			:disabled => subscriber == current_user %>
-			<%= label_tag "subscriber[admin][#{subscriber.id}]", 'Administrator' %>
+			Administrator
 			<%= image_tag 'spinner.gif', :id => "spinner-admin-#{subscriber.id}", :style => 'display: none' %>
     </td>
   </tr>
