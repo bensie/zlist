@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if subscriber
       session[:subscriber_id] = subscriber.id
       flash[:notice] = "Logged in successfully."
-      redirect_to root_url
+      redirect_back_or_default('/')
     else
       flash.now[:error] = "Invalid login or password."
       render :action => 'new'
@@ -20,5 +20,12 @@ class SessionsController < ApplicationController
     session[:subscriber_id] = nil
     flash[:notice] = "You have been logged out."
     redirect_to root_url
+  end
+  
+  protected
+
+  def redirect_back_or_default(default)
+    redirect_to(session[:return_to] || default)
+    session[:return_to] = nil
   end
 end

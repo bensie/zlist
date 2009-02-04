@@ -14,7 +14,14 @@ module Authentication
   def login_required
     unless logged_in?
       flash[:error] = "You must first log in or sign up before accessing this page."
+      store_location
       redirect_to login_url
     end
+  end
+  
+  private
+  
+  def store_location
+    session[:return_to] = request.request_uri
   end
 end
