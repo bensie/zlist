@@ -13,6 +13,7 @@ class Subscriber < ActiveRecord::Base
   
   attr_accessor :password, :saving_password
   before_save :prepare_password, :if => :saving_password?
+  before_create :generate_public_key
   
   named_scope :active, :conditions => { :disabled => false }, :order => :email
   named_scope :disabled, :conditions => { :disabled => true }, :order => :email
@@ -24,7 +25,7 @@ class Subscriber < ActiveRecord::Base
   end
   
   def matching_password?(pass)
-    self.password_hash == encrypt_password(pass)
+    self.password_hash == encrypt_password(pass) && self.password_hash.present?
   end
   
   private
@@ -39,7 +40,11 @@ class Subscriber < ActiveRecord::Base
   end
   
   def saving_password?
-    saving_password || new_record?
+    saving_password
+  end
+  
+  def generate_public_key
+    self.public_key = Digest::SHA1.hexdigest([Time.now, rand].join)
   end
   
 end

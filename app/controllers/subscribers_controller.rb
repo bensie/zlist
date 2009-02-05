@@ -21,13 +21,16 @@ class SubscribersController < ApplicationController
 
   def create
     @subscriber = Subscriber.new(params[:subscriber])
+    if params[:subscriber][:password].present? || params[:subscriber][:password_confirmation].present?
+      @subscriber.saving_password = true
+    end
     if @subscriber.save
       if logged_in? && admin?
         flash[:notice] = 'Subscriber was successfully created.'
         redirect_to @subscriber
       else
         flash[:notice] = 'Thanks for signing up!  You are now logged in.'
-        session[:subscriber_id] = @subscriber.id
+        session[:subscriber_id] = @subscriber.id if @subscriber.password_hash.present?
         redirect_back_or_default('/')
       end
     else
