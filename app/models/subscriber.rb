@@ -14,8 +14,8 @@ class Subscriber < ActiveRecord::Base
   attr_accessor :password, :saving_password
   before_save :prepare_password, :if => :saving_password?
   
-  named_scope :active, :conditions => { :disabled => false }
-  named_scope :disabled, :conditions => { :disabled => true }
+  named_scope :active, :conditions => { :disabled => false }, :order => :email
+  named_scope :disabled, :conditions => { :disabled => true }, :order => :email
   
   # Login with email address
   def self.authenticate(login, pass)

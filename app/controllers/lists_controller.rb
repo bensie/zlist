@@ -4,10 +4,10 @@ class ListsController < ApplicationController
   before_filter :find_list, :only => %w(show edit send_test update destroy subscribe unsubscribe)
 
   def index
-    @lists = admin? ? List.all(:include => :subscribers) : current_user.lists
+    @lists = admin? ? List.all(:include => :subscribers, :order => :name) : current_user.lists(:order => :name)
     # These lists are available for a user to subscribe to
     unless admin?
-      @available_lists = List.publik(:limit => 5)
+      @available_lists = List.publik(:limit => 5, :order => :name)
     end
   end
 
