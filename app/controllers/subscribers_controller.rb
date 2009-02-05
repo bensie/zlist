@@ -31,7 +31,11 @@ class SubscribersController < ApplicationController
         redirect_back_or_default('/')
       end
     else
-      render :action => "new"
+      if logged_in?
+        render :action => "new"
+      else
+        render :action => "new", :layout => "login"
+      end
     end
   end
 
