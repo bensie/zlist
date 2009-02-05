@@ -9,7 +9,7 @@
 	  		:before => "Element.show('spinner-admin-#{subscriber.id}')",
 	  		:complete => "Element.hide('spinner-admin-#{subscriber.id}')",
 	  		:with => "this.name + '=' + this.checked"), 
-		:disabled => subscriber == current_user %>
+		:disabled => subscriber == current_user if subscriber.login_permitted? %>
 		<%= image_tag 'spinner.gif', :id => "spinner-admin-#{subscriber.id}", :style => 'display: none' %>
 	</td>
 </tr>

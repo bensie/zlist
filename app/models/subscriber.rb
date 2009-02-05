@@ -25,7 +25,11 @@ class Subscriber < ActiveRecord::Base
   end
   
   def matching_password?(pass)
-    self.password_hash == encrypt_password(pass) && self.password_hash.present?
+    self.password_hash == encrypt_password(pass) && login_permitted?
+  end
+  
+  def login_permitted?
+    self.password_hash.present?
   end
   
   private
