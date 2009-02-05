@@ -1,4 +1,5 @@
 module ApplicationHelper
+  # Helper method for toggling an AJAX checkbox, assumes you can mass-assign the value to the resource
   def toggle_value(object)
     remote_function(
       :url => url_for(object),
