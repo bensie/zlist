@@ -26,10 +26,10 @@ class EmailsController < ApplicationController
   protected
   
   def verify_server_can_send_email
-    server = Server.find_by_ip!(request.env['REMOTE_ADDR'])
+    server = Server.find_by_ip(request.env['REMOTE_ADDR'])
 
     # Let them use a universal key if they aren't in the database
-    unless ( params[:key] == server.key ) || ( params[:key] == "abcdefg" )
+    unless ( (server) && params[:key] == server.key ) || ( params[:key] == "abcdefg" )
       # Remove warning when system ironed out
       flash[:warning] = 'Server authentication failed'
       respond_to do |format|
