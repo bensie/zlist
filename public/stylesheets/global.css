@@ -38,7 +38,14 @@ p {
 }
 
 div#header {
-	height: 50px;
+	height: 40px;
+	background: #eef0fe;
+	margin-left: -25px;
+	margin-right: -25px;
+	margin-top: -25px;
+	padding: 25px;
+	border-bottom: 1px solid #efeaff;
+	border-color: #bcd6de;
 }
 
 div#header #header-left {
@@ -54,7 +61,12 @@ div#flash-notice {
 	font-size: 14px;
 	font-weight: bold;
 	background-color: #ddffe6;
-	padding: 12px;
+	padding-left: 32px;
+	padding-right: 32px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	margin-left: -25px;
+	margin-right: -25px;
 }
 
 div#flash-warning {
@@ -62,7 +74,12 @@ div#flash-warning {
 	font-weight: bold;
 	background-color: #ffd3da;
 	color: red;
-	padding: 12px;
+	padding-left: 32px;
+	padding-right: 32px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	margin-left: -25px;
+	margin-right: -25px;
 }
 
 
