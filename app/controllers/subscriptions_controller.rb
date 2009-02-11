@@ -24,7 +24,7 @@ class SubscriptionsController < ApplicationController
       flash[:notice] = 'Subscription was successfully updated.'
       redirect_to(@subscription)
     else
-      render :action => "edit" }
+      render :action => "edit"
     end
   end
 
