@@ -1,4 +1,5 @@
-<h4><%= link_to h(list.name), list %></h4>
+<% div_for list do %>
+<h3><%= link_to h(list.name), list %></h3>
 <p><%=h list.description %></p>
 
 <% if current_user.admin? %>
@@ -6,10 +7,11 @@
 <% end %>
 
 
-        <%= link_to h("[topics]"), list_topics_path(list)  %>
+        <%= link_to 'view topics', list_topics_path(list)  %>
 
     <% unless current_user.admin? %>
 
         <%= link_to h("[unsubscribe]"), unsubscribe_list_path(list), :confirm => "Are you sure you want to unsubscribe?" %>
 
     <% end %>
+<% end %>

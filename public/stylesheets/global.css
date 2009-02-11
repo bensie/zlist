@@ -28,6 +28,15 @@ h3 {
 	font-size: 14px;
 }
 
+h4 {
+	font-size: 13px;
+}
+
+p {
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+
 div#header {
 	height: 50px;
 }
@@ -84,4 +93,12 @@ div#main-container-mini {
 div#page {
 	margin-top: 15px;
 	margin-bottom: 15px;
+}
+
+.list {
+	background: #f2f2f2;
+	border: 1px solid #d2d2d2;
+	padding: 10px;
+	margin-bottom: 10px;
+	width: 50%;
 }
