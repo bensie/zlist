@@ -27,7 +27,7 @@ class SubscribersController < ApplicationController
     if @subscriber.save
       if logged_in? && admin?
         flash[:notice] = 'Subscriber was successfully created.'
-        redirect_to @subscriber
+        redirect_to subscribers_path
       else
         flash[:notice] = 'Thanks for signing up!  You are now logged in.'
         session[:subscriber_id] = @subscriber.id if @subscriber.password_hash.present?
@@ -49,7 +49,7 @@ class SubscribersController < ApplicationController
     end
     if @subscriber.save
       flash[:notice] = 'Subscriber was successfully updated.'
-      redirect_to(@subscriber)
+      redirect_to(subscribers_path)
     else
       render :action => "edit"
     end
