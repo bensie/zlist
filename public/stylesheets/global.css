@@ -1,6 +1,6 @@
+@import "reset.css";
+
 body, html {
-	margin: 0;
-	padding: 0;
 	background: #e5e5e5;
 	font-family: Helvetica, sans-serif;
 	font-size: 12px;
@@ -29,22 +29,34 @@ h3 {
 }
 
 div#header {
-	border-bottom: 1px solid #ccc;
+	height: 50px;
 }
 
-div#flash {
+div#header #header-left {
+	
+}
+
+div#header #header-right {
 	float: right;
-	font-size: 11px;
+	text-align: right;
+}
+
+div#flash-notice {
+	font-size: 14px;
 	font-weight: bold;
+	background-color: #ddffe6;
+	padding: 12px;
 }
 
-div#flash span.notice {
-	color: green;
-}
-
-div#flash span.warning {
+div#flash-warning {
+	font-size: 14px;
+	font-weight: bold;
+	background-color: #ffd3da;
 	color: red;
+	padding: 12px;
 }
+
+
 
 div#main-container {
 	width: 780px;
@@ -67,4 +79,9 @@ div#main-container-mini {
 	padding-right: 40px;
 	padding-top: 15px;
 	padding-bottom: 15px;
+}
+
+div#page {
+	margin-top: 15px;
+	margin-bottom: 15px;
 }

@@ -1,21 +1,15 @@
-<tr>
-	<td>
-		<%= link_to h(list.name), list %>
-	</td>
-	<td>
-		<%= mail_to h(list.email) %>
-	</td>
-	<% if current_user.admin? %>
-	<td>
-		(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
-	</td>
-	<% end %>
-    <td>
+<h4><%= link_to h(list.name), list %></h4>
+<p><%=h list.description %></p>
+
+<% if current_user.admin? %>
+	(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
+<% end %>
+
+
         <%= link_to h("[topics]"), list_topics_path(list)  %>
-    </td>
+
     <% unless current_user.admin? %>
-    <td>
+
         <%= link_to h("[unsubscribe]"), unsubscribe_list_path(list), :confirm => "Are you sure you want to unsubscribe?" %>
-    </td>
+
     <% end %>
-</tr>

@@ -10,18 +10,12 @@
 <body>
 
 <div id="main-container">
-	<% if flash %>
-		<div id="flash">
-			<% if flash[:notice] %>
-				<span class="notice"><%= flash[:notice] %></span>
-			<% elsif flash[:warning] %>
-				<span class="warning"><%= flash[:warning] %></span>
-			<% end %>
-		</div>
-	<% end %>
-	
-	<div id="header" style="position: relative; height: 75px;">
-      <div class="header-left" style="position: absolute; left: 5px"> 
+	<div id="header">
+	  <div id="header-right">
+        <p>Welcome, <%=h current_user.name %>!<br/>
+        <%= link_to "[Logout]", sessions_path, :method => :delete %>
+      </div>
+      <div id="header-left"> 
 		<h1><%= APP_CONFIG[:email_domain] %></h1>
         <% if current_user.admin? %>
 		  <p><%= link_to "Lists", lists_path %> | <%= link_to "Subscribers", subscribers_path %> | 
@@ -30,13 +24,21 @@
 		  <p><%= link_to "My Lists", lists_path %> | <%= link_to "My Account", edit_subscriber_path(current_user) %> </p>
         <% end %>
       </div>
-      <div class="header-right" style="position: absolute: right: 5px; vertical-align: bottom; " align="right">
-        <p>Welcome, <%=h current_user.name %>!<br/>
-        <%= link_to "[Logout]", sessions_path, :method => :delete %>
-      </div>
 	</div>
 	
-	<div id="body">
+	<% if flash %>
+		<% if flash[:notice] %>
+			<div id="flash-notice">
+				<p><%= flash[:notice] %></p>
+			</div>
+		<% elsif flash[:warning] %>
+			<div id="flash-warning">
+				<p><%= flash[:warning] %></p>
+			</div>
+		<% end %>
+	<% end %>
+	
+	<div id="page">
 		<%= yield %>
 	</div>
 	
