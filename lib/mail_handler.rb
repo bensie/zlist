@@ -28,8 +28,14 @@ end
 # Break this out so we can add Accept header for XML later
 url = URI.parse(target_url)
 request = Net::HTTP::Post.new(url.path)
-request.set_form_data( {'key' => 'abcdefg', 'email' => STDIN.read}, ';' )
+request.set_form_data( {'key' => 'abcdefg', 'email' => STDIN.read}, '&' )
 request['accept'] = "text/xml"
+
+if(debug)
+  puts "Request Body--"
+  print request.body
+  puts "--Request Body"
+end
 result = Net::HTTP.new(url.host, url.port).start { |http| http.request(request) }
 
 if result.is_a?(Net::HTTPSuccess)
