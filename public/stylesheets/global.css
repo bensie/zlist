@@ -102,3 +102,13 @@ div#page {
 	margin-bottom: 10px;
 	width: 50%;
 }
+
+.list .name {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.list .right-info {
+	text-align: center;
+	display: inline;
+}

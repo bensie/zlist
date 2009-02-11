@@ -1,17 +1,17 @@
 <% div_for list do %>
-<h3><%= link_to h(list.name), list %></h3>
-<p><%=h list.description %></p>
-
-<% if current_user.admin? %>
-	(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
-<% end %>
-
-
-        <%= link_to 'view topics', list_topics_path(list)  %>
-
-    <% unless current_user.admin? %>
-
-        <%= link_to h("[unsubscribe]"), unsubscribe_list_path(list), :confirm => "Are you sure you want to unsubscribe?" %>
-
-    <% end %>
+	<p>
+		<span class="name"><%= link_to h(list.name), list %></span>
+		<span class="right-info">
+			<% if current_user.admin? %>
+				(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
+			<% end %>
+			
+			<%= link_to 'view topics', list_topics_path(list)  %>
+			
+			<% unless current_user.admin? %>
+				<%= link_to h("[unsubscribe]"), unsubscribe_list_path(list), :confirm => "Are you sure you want to unsubscribe?" %>
+			<% end %>
+		</span>
+	</p>
+	<p><%=h list.description %></p>
 <% end %>
