@@ -15,9 +15,6 @@
 		<td>
 			<%= mail_to h(list.email) %>
 		</td>
-		<td>
-			(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
-		</td>
         <td>
             <%= link_to "[topics]", list_topics_path(list)  %>
         </td>

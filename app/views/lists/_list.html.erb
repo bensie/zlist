@@ -5,9 +5,11 @@
 	<td>
 		<%= mail_to h(list.email) %>
 	</td>
+	<% if current_user.admin? %>
 	<td>
 		(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
 	</td>
+	<% end %>
     <td>
         <%= link_to h("[topics]"), list_topics_path(list)  %>
     </td>
