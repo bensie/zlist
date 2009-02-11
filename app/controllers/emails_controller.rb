@@ -11,6 +11,7 @@ class EmailsController < ApplicationController
       Mailman.receive(params[:email])
       flash[:notice] = 'E-mail was ingested'
     else
+      logger.info "Server authentication failed - got \"#{ params[:key] }\""
       flash[:warning] = 'Server authentication failed'
     end
 
