@@ -1,0 +1,6 @@
+<status>Blah Blah Blah, I am the emails/create template</status>
+<% if(flash[:warning]) -%>
+<error>yes</error>
+<error_desc><%= flash[:warning] %></error_desc>
+<% end -%>
+<notice_desc><%= flash[:notice] %></notice_desc>
