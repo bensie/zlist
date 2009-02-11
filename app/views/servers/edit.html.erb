@@ -1,0 +1,13 @@
+<h2>Edit server</h2>
+
+<% form_for(@server) do |f| %>
+	<%= f.error_messages %>
+	<%= render :partial => 'form', :locals => { :f => f } %>
+	<p>
+		Key: <%=h @server.key %>
+	<p>
+    	<%= f.submit "Update Server" %>
+  	</p>
+<% end %>
+
+<%= link_to 'Back', servers_path %>
