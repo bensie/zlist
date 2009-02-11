@@ -7,14 +7,8 @@ class EmailsController < ApplicationController
   before_filter :verify_sender_can_send_email, :only => %w(create)
 
   def create
-    # Place holder for real server authentication
-    if(params[:key] == "abcdefg")
-      Mailman.receive(params[:email])
-      flash[:notice] = 'E-mail was ingested'
-    else
-      flash[:warning] = 'Server authentication failed'
-    end
-
+    Mailman.receive(params[:email])
+    
     # Probably want a catch here incase Mailman throws an error
 
     respond_to do |format|
