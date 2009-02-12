@@ -49,9 +49,6 @@ class Mailman < ActionMailer::Base
       topic = list.topics.create(
         :name => email.subject
         )
-
-      topic.key = sprintf("%08d", topic.id)
-      topic.save
     end
 
     # Add virtual fields for other functions to use
