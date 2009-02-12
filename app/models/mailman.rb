@@ -87,10 +87,13 @@ class Mailman < ActionMailer::Base
   # Send a test e-mail to everyone on a given list
   # pre: list (a List object) 
   def list_test_dispatch(list)
-      recipients  "noreply@" + APP_CONFIG[:email_domain]
-      bcc         list.subscribers.map(&:email)
+    list.subscribers.each do |subscriber|
+      #recipients  "noreply@" + APP_CONFIG[:email_domain]
+      recipients  subscriber.name + " <#{subscriber.email}>" 
+      #bcc         list.subscribers.map(&:email)
       from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
       subject     "[#{list.name}] Test Mailing"
+    end
   end
 
 
