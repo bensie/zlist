@@ -1,6 +1,17 @@
 <tr>
-	<td><%= link_to h(subscriber.name), edit_subscriber_path(subscriber) %></td>
-	<td><%= mail_to h(subscriber.email) %></td>
+	<td>
+		<span class="name">
+			<%= link_to h(subscriber.name), edit_subscriber_path(subscriber) %>
+		</span><br />
+		<span class="email">
+			<%=h subscriber.email %>
+		</span>
+	</td>
+	<td>
+		<span class="lists">
+			<%= subscriber.lists.collect{|l| link_to(l.name, l)}.join(", ") %>
+		</span>
+	</td>
 	<td>
 		<%= check_box_tag "subscriber[admin]", "1", subscriber.admin, 
 		:onclick => remote_function(

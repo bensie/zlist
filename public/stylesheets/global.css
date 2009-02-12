@@ -132,3 +132,28 @@ div#page {
 .list .topics {
 	
 }
+
+table.subscribers {
+	width: 60%;
+}
+
+table.subscribers tr {
+	border-bottom: 1px solid #ccc;
+}
+
+table.subscribers td {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+table.subscribers td span.name {
+	font-size: 18px;
+}
+
+table.subscribers td span.email {
+	font-size: 11px;
+}
+
+table.subscribers td span.lists a {
+	color: #888;
+}
