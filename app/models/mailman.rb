@@ -1,4 +1,19 @@
 class Mailman < ActionMailer::Base
+  
+  #bcc            Specify the BCC addresses for the message
+  #body           Define the body of the message. This is either a Hash (in which case it specifies the variables to pass to the template when it is rendered), or a string, in which case it specifies the actual text of the message.
+  #cc 	          Specify the CC addresses for the message.
+  #charset 	      Specify the charset to use for the message. This defaults to the default_charset specified for ActionMailer::Base.
+  #content_type 	Specify the content type for the message. This defaults to <text/plain in most cases, but can be automatically set in some situations.
+  #from 	        Specify the from address for the message.
+  #reply_to 	    Specify the address (if different than the “from” address) to direct replies to this message.
+  #headers 	      Specify additional headers to be added to the message.
+  #implicit_parts_order 	Specify the order in which parts should be sorted, based on content-type. This defaults to the value for the default_implicit_parts_order.
+  #mime_version 	Defaults to “1.0”, but may be explicitly given if needed.
+  #recipient 	    The recipient addresses for the message, either as a string (for a single address) or an array (for multiple addresses).
+  #sent_on 	      The date on which the message was sent. If not set (the default), the header will be set by the delivery agent.
+  #subject 	      Specify the subject of the message.
+  #template 	    Specify the template name to use for current message. This is the “base” template name, without the extension or directory, and may be used to have multiple mailer methods share the same template.
 
   # Method for processing incoming messages
   # pre: email (as passed from ActionMailer receieve) 
