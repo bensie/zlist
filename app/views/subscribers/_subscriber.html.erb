@@ -1,5 +1,5 @@
 <tr>
-	<td>
+	<td class="name-email">
 		<span class="name">
 			<%= link_to h(subscriber.name), edit_subscriber_path(subscriber) %>
 		</span><br />
@@ -12,7 +12,7 @@
 			<%= subscriber.lists.collect{|l| link_to(l.name, l)}.join(", ") %>
 		</span>
 	</td>
-	<td>
+	<td class="checkbox">
 		<%= check_box_tag "subscriber[admin]", "1", subscriber.admin, 
 		:onclick => remote_function(
 	  		:url => url_for(toggle_administrator_subscriber_path(subscriber)),

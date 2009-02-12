@@ -134,7 +134,7 @@ div#page {
 }
 
 table.subscribers {
-	width: 60%;
+	width: 100%;
 }
 
 table.subscribers tr {
@@ -142,8 +142,13 @@ table.subscribers tr {
 }
 
 table.subscribers td {
-	padding-top: 5px;
-	padding-bottom: 5px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	vertical-align: middle;
+}
+
+table.subscribers td.name-email {
+	width: 330px;
 }
 
 table.subscribers td span.name {
@@ -156,4 +161,8 @@ table.subscribers td span.email {
 
 table.subscribers td span.lists a {
 	color: #888;
+}
+
+table.subscribers td.checkbox {
+	width: 60px;
 }
