@@ -93,6 +93,7 @@ class Mailman < ActionMailer::Base
       #bcc         list.subscribers.map(&:email)
       from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
       subject     "[#{list.name}] Test Mailing"
+      content_type  "text/html"
     end
   end
 
