@@ -1,8 +1,15 @@
 <% if current_user.admin? %>
-	<%= render :partial => 'index_admin' %>
+	<h3>Mailing Lists</h3>
 <% else %>
-	<%= render :partial => 'index_user' %>
+	<% if current_user.lists.empty? %>
+		<h3>You are not subscribed to any lists. <%= link_to "View all available lists", available_lists_path %></h3>
+	<% else %>
+		<h3>My Lists</h3>
+	<% end %>
 <% end %>
+<table>
+	<%= render :partial => @lists %>
+</table>
 
 <br />
 <%= link_to 'New list', new_list_path if current_user.admin? %>

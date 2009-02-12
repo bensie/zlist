@@ -8,7 +8,7 @@ class List < ActiveRecord::Base
   has_many :subscribers, :through => :subscriptions, :source => :author
   has_many :topics
   
-  named_scope :publik, :conditions => { :private => false }
+  named_scope :public, :conditions => { :private => false }
   named_scope :private, :conditions => { :private => true }
 
   # Make sure that the following fields are not nil or blank
