@@ -32,6 +32,7 @@ request.set_form_data( {'key' => 'abcdefg', 'email' => STDIN.read}, '&' )
 request['accept'] = "text/xml"
 
 if(debug)
+  puts "--Target URL: #{target_url}--"
   puts "Request Body--"
   print request.body
   puts "--Request Body"
