@@ -1,0 +1,8 @@
+development:
+  target_url: http://localhost:3003/emails
+
+test:
+  target_url: http://localhost:3003/emails
+
+production:
+  target_url: http://localhost:3003/emails

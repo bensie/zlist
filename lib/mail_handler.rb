@@ -18,8 +18,8 @@ DEFAULT_TARGET = "http://localhost:3003/emails"
 # For now, we'll hard code if no environment is detected
 #ENV['RAILS_ENV'] ||= 'production'
 if( ENV['RAILS_ENV'] )
-  mail_handler_config = YAML.load_file(File.expand_path(File.dirname(__FILE__) + '/../config/mail_handler.yml'))
-  target_url = mail_handler_config[ENV['RAILS_ENV']]
+  mail_handler_config = YAML.load_file(File.expand_path(File.dirname(__FILE__) + '/../config/mail_handler.yml'))[RAILS_ENV].symbolize_keys
+  target_url = mail_handler_config[:target_url]
 else
   target_url = DEFAULT_TARGET
 end
