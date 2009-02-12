@@ -7,10 +7,10 @@
 			<% end %>
 		</span>
 		<span class="topics"><%= link_to 'view topics', list_topics_path(list) %></span>
-			<% if current_user.lists.include?(@list) %>
+			<% if current_user.lists.include?(list) %>
 				<%= link_to "[unsubscribe]", unsubscribe_list_path(list), :confirm => "Are you sure you want to unsubscribe?" %>
 			<% else %>
-				<%= link_to "[subscribe]" %>
+				<%= link_to "[subscribe]", subscribe_list_path(list), :confirm => "Are you sure you want to subscribe?" %>
 			<% end %>
 		</span>
 	</p>

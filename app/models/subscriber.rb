@@ -1,7 +1,7 @@
 require 'digest/sha1'
 class Subscriber < ActiveRecord::Base
   has_many :subscriptions, :dependent => :destroy
-  has_many :lists, :through => :subscriptions
+  has_many :lists, :through => :subscriptions, :uniq => true
 
   has_many :writings, :class_name => 'Message', :foreign_key => 'subscriber_id', :dependent => :destroy
   
