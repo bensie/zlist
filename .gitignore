@@ -6,3 +6,4 @@ tmp/**/*
 config/database.yml
 config/app_config.yml
 config/deploy.rb
+config/mail_handler.yml
