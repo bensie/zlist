@@ -16,7 +16,7 @@ class SubscribersController < ApplicationController
     unless term.empty?
       @subscribers = Subscriber.search(term).all
     else
-      # Make the @contacts array empty for when the search term is blank, we don't want it returning all records
+      # Make the @subscribers array empty for when the search term is blank, we don't want it returning all records
       @subscribers = []
     end
     
