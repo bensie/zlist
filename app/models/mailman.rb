@@ -77,7 +77,7 @@ class Mailman < ActionMailer::Base
   def list_test_dispatch(list)
       recipients  "noreply@" + APP_CONFIG[:email_domain]
       bcc         list.subscribers.map(&:email)
-      from        "dList <mailer@#{ APP_CONFIG[:email_domain] }>"
+      from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
       subject     "[#{list.name}] Test Mailing"
   end
 
@@ -88,7 +88,7 @@ class Mailman < ActionMailer::Base
   # pre: email (as passed from ActionMailer receieve) 
   def no_such_list(email)
     recipients  email.from
-    from        "dList <mailer@#{ APP_CONFIG[:email_domain] }>"
+    from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
     subject     "Address does not exist at this server"
   end
 
@@ -96,7 +96,7 @@ class Mailman < ActionMailer::Base
   # pre: email (as passed from ActionMailer receieve) 
   def no_such_topic(list, email)
     recipients  email.from
-    from        "dList <mailer@#{ APP_CONFIG[:email_domain] }>"
+    from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
     subject     "[#{list.name} The topic you referenced no longer exists"
     body        :list => email.list.name
   end
@@ -105,7 +105,7 @@ class Mailman < ActionMailer::Base
   # pre: email (as passed from ActionMailer receieve) 
   def cannot_post(list, email)
     recipients  email.from
-    from        "dList <mailer@#{ APP_CONFIG[:email_domain] }>"
+    from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
     subject     "[#{list.name}] You're not allowed to post to this list"
     body        :list => list.name
   end
