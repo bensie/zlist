@@ -5,7 +5,27 @@ class SubscribersController < ApplicationController
   before_filter :find_subscriber, :only => %w(show edit update destroy disable toggle_administrator)
   
   def index
-    @subscribers = Subscriber.active
+    @subscribers = Subscriber.active.paginate(:page => params[:page])
+  end
+  
+  def search
+    # Search term
+    term = params[:term].to_s
+    
+    # Don't show search results with an empty 'term' or it will return a ton of non-paginated records
+    unless term.empty?
+      @subscribers = Subscriber.search(term).all
+    else
+      # Make the @contacts array empty for when the search term is blank, we don't want it returning all records
+      @subscribers = []
+    end
+    
+    respond_to do |format|
+      format.js
+      format.html do
+        render :action => 'index'
+      end
+    end
   end
 
   def show

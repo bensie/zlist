@@ -1,0 +1,18 @@
+<div class="search">
+	<h2>Find a subscriber</h2>
+	<%= text_field_tag :term, {}, :size => 40, :class => "search-field" %>
+	<span id="live_search_spinner" style="display:none">
+		<%= image_tag "spinner3.gif"%>
+	</span>
+	
+	<br />
+
+<%= observe_field :term, 
+	:frequency => 1, 
+	:url => "/subscribers/search",
+	:with => "'term='+escape($('term').value)",
+	:on => :keypress,
+	:loading => "$('live_search_spinner').show()",
+	:complete => "$('live_search_spinner').hide()", 
+	:method => :get %>
+</div>

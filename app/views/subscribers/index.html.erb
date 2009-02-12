@@ -1,14 +1,11 @@
-<h1>All Subscribers</h1>
+<%= render :partial => 'search' %>
 
-<table>
-	<tr>
-		<th>Name</th>
-		<th>Email</th>
-		<th>Admin</th>
-	</tr>
-	<%= render :partial => @subscribers %>
+<table class="subscribers">
+	<tbody id="subscribers">
+		<%= render :partial => @subscribers %>
+	</tbody>
 </table>
 
-<br />
+<%= will_paginate @subscribers %>
+<%= focus_field "term" %>
 
-<%= link_to 'New subscriber', new_subscriber_path %>

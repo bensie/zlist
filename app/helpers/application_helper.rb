@@ -9,4 +9,14 @@ module ApplicationHelper
       :with => "this.name + '=' + this.checked"
     )
   end
+  
+  # Focus keyboard entry on a particular form field
+  def focus_field(dom_id)
+    script = "
+<script type=\"text/javascript\">
+//<![CDATA[
+  Event.observe(window, \"load\", function() { $(\"#{dom_id}\").focus() });
+//]]>
+</script>"
+  end
 end

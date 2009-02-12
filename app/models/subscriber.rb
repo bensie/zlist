@@ -20,6 +20,9 @@ class Subscriber < ActiveRecord::Base
   named_scope :active, :conditions => { :disabled => false }, :order => :name
   named_scope :disabled, :conditions => { :disabled => true }, :order => :name
   
+  # Search based on 'name' parameter
+  named_scope :search, lambda { |name| { :conditions => ["subscribers.name LIKE ?", "%" + name + "%"], :order => :name }}
+  
   # Login with email address
   def self.authenticate(login, pass)
     user = find_by_email(login)

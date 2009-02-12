@@ -1,0 +1,2 @@
+page[:subscribers].replace_html :partial => @subscribers
+page[:subscribers].show
