@@ -8,7 +8,7 @@ class ListsController < ApplicationController
   end
   
   def available
-    @lists = List.public(:limit => 5, :order => :name)
+    @lists = List.public(:order => :name)
   end
 
   def show
