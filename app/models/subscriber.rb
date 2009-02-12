@@ -1,3 +1,4 @@
+require 'digest/sha1'
 class Subscriber < ActiveRecord::Base
   has_many :subscriptions, :dependent => :destroy
   has_many :lists, :through => :subscriptions
