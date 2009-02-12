@@ -1,3 +1,4 @@
+<p class="top-right-links"><%= link_to 'Add a new list', new_list_path if current_user.admin? %></p>
 <% if current_user.admin? %>
 	<h3>Mailing Lists</h3>
 <% else %>
@@ -10,6 +11,3 @@
 <table>
 	<%= render :partial => @lists %>
 </table>
-
-<br />
-<%= link_to 'New list', new_list_path if current_user.admin? %>
