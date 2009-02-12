@@ -23,7 +23,7 @@ class List < ActiveRecord::Base
   # list = List.build(params[:list])
   # list.admin = true
   # list.save  
-  attr_accessible :name, :description, :short_name, :subscriber_ids
+  attr_accessible :name, :description, :short_name, :subscriber_ids, :private
   
   # Here we are creating a virtual attribute, so it is an attribute of the List class that's available
   # to any list, but it does not actually have a column in the database.  Instead, it is appending our
