@@ -4,10 +4,6 @@ class Mailman < ActionMailer::Base
     
     sender_address, sender_domain = email.to.first.split(/\@/)
     sender_list, sender_topic_key, sender_subscriber_key = sender_address.split(/\+/)
-    
-    # Clean up the subject line
-    email.subject = email.subject.gsub(/\[#{sender_list.name}\]/, "")         # Remove the name of the list
-    email.subject = email.subject.gsub(/([rR][eE]:\ *){2,}/, "RE: ")  # Remove any RE's and FW's
 
     # Ensure emails are not being sent to the mailer or noreply addresses.  Do nothing if that's the case.
     if sender_list == "mailer" || sender_list == "noreply"
@@ -28,15 +24,21 @@ class Mailman < ActionMailer::Base
       end
       
       # Check if this is a response to an existing topic or a new message
-      if(sender_address =~ /\+/) then
+      if sender_address =~ /\+/
         unless verified_topic.present?
           deliver_no_such_topic(sender_list, sender_email)
-        end     
+          exit
+        end
+        
+        # Clean up the subject line
+        email.subject = email.subject.gsub(/\[#{verified_list.name}\]/, "")   # Remove the name of the list
+        email.subject = email.subject.gsub(/([rR][eE]:\ *){2,}/, "RE: ")      # Remove any RE's and FW's
+        
       else
         verified_topic = verified_list.topics.create(:name => email.subject)
       end
       
-      message = verified_topic.messages.new(:subject => email.subject, :body => email.body)
+      message = verified_topic.messages.build(:subject => email.subject, :body => email.body)
       message.author = verified_sender
       message.save
       
@@ -46,6 +48,7 @@ class Mailman < ActionMailer::Base
       
     else
       deliver_no_such_list(sender_email)
+      exit
     end
   end
 
@@ -53,9 +56,7 @@ class Mailman < ActionMailer::Base
   # pre: list (a List object) 
   def list_test_dispatch(list)
     list.subscribers.each do |subscriber|
-      #recipients  "noreply@" + APP_CONFIG[:email_domain]
       recipients  subscriber.name + " <#{subscriber.email}>" 
-      #bcc         list.subscribers.map(&:email)
       from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
       subject     "[#{list.name}] Test Mailing"
       content_type  "text/html"
