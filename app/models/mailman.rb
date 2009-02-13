@@ -111,6 +111,14 @@ class Mailman < ActionMailer::Base
     body        :list => email.list.name
   end
 
+  def no_reply_address(email)
+    recipients  email.from
+    from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
+    subject     "Replies to this address are not monitored."
+    body        "We're sorry, but the addresses noreply@#{ APP_CONFIG[:email_domain] } and mailer@#{ APP_CONFIG[:email_domain] }
+                are not monitored for replies.  Your message has been discarded."
+  end
+
   # Reponse to a message posted to a list by a non-member
   # pre: email (as passed from ActionMailer receieve) 
   def cannot_post(list, email)
