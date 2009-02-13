@@ -25,10 +25,10 @@ class Mailman < ActionMailer::Base
   # Method for processing incoming messages
   # pre: (Tmail email)
   def receive(email)
-    # TODO: clean up with regexp and logic 
+    # Extract out <list>+<thread>@<domain>
+    s_list, s_topic, s_domain = 
+      email.to.first.match(/^(\w+)\+?([0-9a-e]*)\@([\w\.]+)$/).to_a[1..3]
 
-    s_pre, s_domain = email.to.first.split(/\@/)
-    s_list, s_topic = s_pre.split(/\+/)
 
     # Don't storm if using BCC method with To: noreply 
     # TODO: remove 
