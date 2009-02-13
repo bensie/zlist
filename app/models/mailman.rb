@@ -19,14 +19,14 @@ class Mailman < ActionMailer::Base
       
       # If the sender is not a subscriber, let them know they can't send
       unless verified_sender.present?
-        deliver_cannot_post(verified_list, email.from)
+        Mailman.deliver_cannot_post(verified_list, email.from)
         exit
       end
       
       # Check if this is a response to an existing topic or a new message
       if sender_address =~ /\+/
         unless verified_topic.present?
-          deliver_no_such_topic(verified_list, email.from)
+          Mailman.deliver_no_such_topic(verified_list, email.from)
           exit
         end
         
@@ -43,11 +43,11 @@ class Mailman < ActionMailer::Base
       message.save
       
       verified_list.subscribers.each do |subscriber|
-        deliver_send_to_mailing_list(verified_topic, email, message.author, subscriber)
+        Mailman.deliver_send_to_mailing_list(verified_topic, email, message.author, subscriber)
       end
       
     else
-      deliver_no_such_list(sender_email)
+      Mailman.deliver_no_such_list(sender_email)
       exit
     end
   end
