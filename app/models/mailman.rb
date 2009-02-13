@@ -6,7 +6,7 @@ class Mailman < ActionMailer::Base
     sender_list, sender_topic_key, sender_subscriber_key = sender_address.split(/\+/)
     
     # Clean up the subject line
-    email.subject = email.subject.gsub(/\[#{list.name}\]/, "")         # Remove the name of the list
+    email.subject = email.subject.gsub(/\[#{sender_list.name}\]/, "")         # Remove the name of the list
     email.subject = email.subject.gsub(/([rR][eE]:\ *){2,}/, "RE: ")  # Remove any RE's and FW's
 
     # Ensure emails are not being sent to the mailer or noreply addresses.  Do nothing if that's the case.
