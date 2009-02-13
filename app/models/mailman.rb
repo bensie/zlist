@@ -44,10 +44,6 @@ class Mailman < ActionMailer::Base
 
     list = List.find_by_short_name(s_list)
 
-    # Add virtual fields for other functions to use
-    #email.list = list
-
-
     # Make sure they are in the list (allowed to post)
     unless(list.subscribers.exists?(:email => email.from))
       Mailman.deliver_cannot_post(list, email)
