@@ -70,7 +70,7 @@ class Mailman < ActionMailer::Base
     #email.topic = topic
 
     message = topic.messages.build(:subject => email.subject, :body => email.body)
-    #message.author = Subscriber.find_by_email(email.from)
+    message.author = Subscriber.find_by_email(email.from)
     message.save
     
     list.subscribers.each do |subscriber|
