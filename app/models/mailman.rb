@@ -74,7 +74,7 @@ class Mailman < ActionMailer::Base
     message.save
     
     list.subscribers.each do |subscriber|
-      Mailman.deliver_send_to_mailing_list(topic, email, subscriber)
+      Mailman.deliver_to_mailing_list(topic, email, subscriber)
     end
 
   end
@@ -130,7 +130,7 @@ class Mailman < ActionMailer::Base
 
   # Send an e-mail out to a list
   # pre: email (as passed from ActionMailer receieve) 
-  def send_to_mailing_list(topic, email, subscriber)
+  def to_mailing_list(topic, email, subscriber)
     recipients  subscriber.name + " <#{subscriber.email}>"
     from        "#{email.from} <mailer@#{ APP_CONFIG[:email_domain] }>"
     reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}+#{subscriber.public_key}@" +
