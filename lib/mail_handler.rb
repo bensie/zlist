@@ -30,16 +30,17 @@ request.set_form_data( {'key' => 'abcdefg', 'email' => STDIN.read}, '&' )
 #end
 result = Net::HTTP.new(url.host, url.port).start { |http| http.request(request) }
 
-if result.is_a?(Net::HTTPSuccess)
-  #print result.body if debug
-  case result.body
-  when '250'
-    exit(SUCCESS)
-  when '550'
-    exit(UNAVAILABLE)
-  end
-#else
-  #puts "Not a HTTP Success" if debug
-  #print result.body if debug
-end
-exit(TEMPORARY_FAIL)
+#if result.is_a?(Net::HTTPSuccess)
+#  #print result.body if debug
+#  case result.body
+#  when '250'
+#    exit(SUCCESS)
+#  when '550'
+#    exit(UNAVAILABLE)
+#  end
+##else
+#  #puts "Not a HTTP Success" if debug
+#  #print result.body if debug
+#end
+#exit(TEMPORARY_FAIL)
+exit(SUCCESS)
