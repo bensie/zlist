@@ -11,7 +11,7 @@ TEMPORARY_FAIL = 75
 UNAVAILABLE = 69
 
 # Detect via command line in the future
-debug = true
+#debug = true
 
 DEFAULT_TARGET = "http://localhost/emails"
 target_url = DEFAULT_TARGET
@@ -20,26 +20,26 @@ target_url = DEFAULT_TARGET
 url = URI.parse(target_url)
 request = Net::HTTP::Post.new(url.path)
 request.set_form_data( {'key' => 'abcdefg', 'email' => STDIN.read}, '&' )
-request['accept'] = "text/xml"
+#request['accept'] = "text/xml"
 
-if(debug)
-  puts "--Target URL: #{target_url}--"
-  puts "Request Body--"
-  print request.body
-  puts "--Request Body"
-end
+#if(debug)
+#  puts "--Target URL: #{target_url}--"
+#  puts "Request Body--"
+#  print request.body
+#  puts "--Request Body"
+#end
 result = Net::HTTP.new(url.host, url.port).start { |http| http.request(request) }
 
 if result.is_a?(Net::HTTPSuccess)
-  print result.body if debug
+  #print result.body if debug
   case result.body
   when '250'
     exit(SUCCESS)
   when '550'
     exit(UNAVAILABLE)
   end
-else
-  puts "Not a HTTP Success" if debug
-  print result.body if debug
+#else
+  #puts "Not a HTTP Success" if debug
+  #print result.body if debug
 end
 exit(TEMPORARY_FAIL)
