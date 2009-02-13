@@ -11,7 +11,7 @@
    	  <p><b><%= message.created_at.getlocal.strftime('%b %d %Y, %I:%M %p') %></b></p>
 	</div>
   </div>
-  <div class="message_body">
+  <div class="message-body">
      <pre WRAP><%= message.body_clean %></pre>
   </div>
   <%= link_to( h("Full message"), message ) %>

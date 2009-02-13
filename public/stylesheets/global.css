@@ -122,6 +122,19 @@ div#page {
 	font-size: 12px;
 }
 
+.message-header {
+  background: #dddddd;
+  padding: 5px;
+}
+
+.message-body {
+  padding: 5px;
+}
+
+.message {
+  padding-bottom: 5px;
+}
+
 .list {
 	background: #f2f2f2;
 	border: 1px solid #d2d2d2;
