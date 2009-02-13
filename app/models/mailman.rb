@@ -7,20 +7,20 @@ class Mailman < ActionMailer::Base
 #   cc 	                    CC addresses for the message.
 #   charset                 Charset to use for the message. This defaults to the default_charset 
 #                               specified for ActionMailer::Base.
-#   content_type 	        Content type for the message. This defaults to <text/plain in most cases, 
+#   content_type            Content type for the message. This defaults to <text/plain in most cases, 
 #                               but can be automatically set in some situations.
-#   from 	                From address for the message.
-#   reply_to 	            Address (if different than the “from” address) to direct replies to this message.
-#   headers 	            Additional headers to be added to the message.
-#   implicit_parts_order 	Specify the order in which parts should be sorted, based on content-type. 
+#   from                    From address for the message.
+#   reply_to                Address (if different than the “from” address) to direct replies to this message.
+#   headers                 Additional headers to be added to the message.
+#   implicit_parts_order    Specify the order in which parts should be sorted, based on content-type. 
 #                               This defaults to the value for the default_implicit_parts_order.
-#   mime_version 	        Defaults to “1.0”, but may be explicitly given if needed.
-#   recipient 	            The recipient addresses for the message, either as a string (for a single address) 
+#   mime_version            Defaults to “1.0”, but may be explicitly given if needed.
+#   recipient               The recipient addresses for the message, either as a string (for a single address) 
 #                             or an array (for multiple addresses).
-#   sent_on 	            The date on which the message was sent. If not set (the default), the 
+#   sent_on                 The date on which the message was sent. If not set (the default), the 
 #                             header will be set by the delivery agent.
-#   subject 	            Specify the subject of the message.
-#   template 	            Specify the template name to use for current message. This is the “base” template name, 
+#   subject                 Specify the subject of the message.
+#   template                Specify the template name to use for current message. This is the “base” template name, 
 #                             without the extension or directory, and may be used to have multiple mailer methods share 
 #                             the same template.
 
