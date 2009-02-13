@@ -1,87 +1,52 @@
 class Mailman < ActionMailer::Base
   
-  #bcc            Specify the BCC addresses for the message
-  #body           Define the body of the message. This is either a Hash (in which case it specifies the variables to pass to the template when it is rendered), or a string, in which case it specifies the actual text of the message.
-  #cc 	          Specify the CC addresses for the message.
-  #charset 	      Specify the charset to use for the message. This defaults to the default_charset specified for ActionMailer::Base.
-  #content_type 	Specify the content type for the message. This defaults to <text/plain in most cases, but can be automatically set in some situations.
-  #from 	        Specify the from address for the message.
-  #reply_to 	    Specify the address (if different than the “from” address) to direct replies to this message.
-  #headers 	      Specify additional headers to be added to the message.
-  #implicit_parts_order 	Specify the order in which parts should be sorted, based on content-type. This defaults to the value for the default_implicit_parts_order.
-  #mime_version 	Defaults to “1.0”, but may be explicitly given if needed.
-  #recipient 	    The recipient addresses for the message, either as a string (for a single address) or an array (for multiple addresses).
-  #sent_on 	      The date on which the message was sent. If not set (the default), the header will be set by the delivery agent.
-  #subject 	      Specify the subject of the message.
-  #template 	    Specify the template name to use for current message. This is the “base” template name, without the extension or directory, and may be used to have multiple mailer methods share the same template.
-
-  # Method for processing incoming messages
-  # pre: email (as passed from ActionMailer receieve) 
   def receive(email)
-    # TODO: clean up with regexp and logic 
+    
+    sender_address, sender_domain = email.to.first.split(/\@/)
+    sender_list, sender_topic_key, sender_subscriber_key = sender_address.split(/\+/)
+    
+    # Clean up the subject line
+    email.subject = email.subject.gsub(/\[#{list.name}\]/, "")         # Remove the name of the list
+    email.subject = email.subject.gsub(/([rR][eE]:\ *){2,}/, "RE: ")  # Remove any RE's and FW's
 
-    s_pre, s_domain = email.to.first.split(/\@/)
-    s_list, s_topic = s_pre.split(/\+/)
-
-    # Don't storm
-    if(s_list == "mailer" || s_list == "noreply")
+    # Ensure emails are not being sent to the mailer or noreply addresses.  Do nothing if that's the case.
+    if sender_list == "mailer" || sender_list == "noreply"
       exit
     end
-
+    
+    verified_list = List.find_by_short_name(sender_list)
+    
     # Make sure the list exists
-    unless(List.exists?(:short_name => s_list))
-      Mailman.deliver_no_such_list(email)
-      exit
-    end
-
-    list = List.find_by_short_name(s_list)
-
-    # Add virtual fields for other functions to use
-    #email.list = list
-
-
-    # Make sure they are in the list (allowed to post)
-    unless(list.subscribers.exists?(:email => email.from))
-      Mailman.deliver_cannot_post(list, email)
-      exit
-    end
-
-    # Check if this is a response to an existing topic or a new message
-    if(s_pre =~ /\+/) then
-      unless(Topic.exists?(:key => s_topic)) then
-        Mailman.deliver_no_such_topic(list, email)
+    if verified_list
+      verified_sender = verified_list.subscribers.find_by_public_key(sender_subscriber_key)
+      verified_topic = verified_list.topics.find_by_key(sender_topic_key)
+      
+      # If the sender is not a subscriber, let them know they can't send
+      unless verified_sender.present?
+        deliver_cannot_post(sender_list, sender_email)
+        exit
       end
-
-      topic = Topic.find_by_key(s_topic)
-
-      # Strip out the subject crap
-      # Can't use gsub! because subject isn't actually a string unless coerced
-      email.subject = email.subject.gsub(/\[#{list.short_name}\]/, "")
-      # Clean out RE and FW's
-      email.subject = email.subject.gsub(/([rR][eE]:\ *){2,}/, "RE: ")
-
+      
+      # Check if this is a response to an existing topic or a new message
+      if(sender_address =~ /\+/) then
+        unless verified_topic.present?
+          deliver_no_such_topic(sender_list, sender_email)
+        end     
+      else
+        verified_topic = verified_list.topics.create(:name => email.subject)
+      end
+      
+      message = verified_topic.messages.new(:subject => email.subject, :body => email.body)
+      message.author = verified_sender
+      message.save
+      
+      verified_list.subscribers.each do |subscriber|
+        deliver_send_to_mailing_list(verified_topic, email, message.author, subscriber)
+      end
+      
     else
-      topic = list.topics.create(
-        :name => email.subject
-        )
+      deliver_no_such_list(sender_email)
     end
-
-    # Add virtual fields for other functions to use
-    #email.topic = topic
-
-    message = topic.messages.create(
-      :subject => email.subject,
-      :body => email.body
-      )
-
-    # This isn't working
-    message.author = Subscriber.find_by_email(email.from)
-      #:content_type => email.content_type
-      #:from => email.from
-    message.save
-
-    Mailman.deliver_list_dispatch(list, topic, email)
-
   end
 
   # Send a test e-mail to everyone on a given list
@@ -96,7 +61,6 @@ class Mailman < ActionMailer::Base
       content_type  "text/html"
     end
   end
-
 
   protected
 
@@ -128,28 +92,16 @@ class Mailman < ActionMailer::Base
 
   # Send an e-mail out to a list
   # pre: email (as passed from ActionMailer receieve) 
-  def list_dispatch(list, topic, email)
-    # Don't try to proceed if there are no subscribers
-    if(list.subscribers.empty?)
-      return false
-    end
-
-    # Temporary: use prefix before domain as from
-    email.from.to_s.match(/(.*)@/)
-    disp_from = $1;
-
-    recipients  "#{list.short_name} subscribers <noreply@#{ APP_CONFIG[:email_domain] }>"
-    bcc         list.subscribers.map(&:email)
-  # Example: dph <david_list+e7e8b099@lists.funtaff.com>
-    from        "#{disp_from} <mailer@#{ APP_CONFIG[:email_domain] }>"
-    reply_to    "#{email.from} <#{list.short_name}+#{topic.key}@" +
+  def send_to_mailing_list(topic, email, author, subscriber)
+    recipients  subscriber.name + " <#{subscriber.email}>"
+    from        "#{author.name} <mailer@#{ APP_CONFIG[:email_domain] }>"
+    reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{list.short_name}+#{topic.key}+#{subscriber.public_key}@" +
                   APP_CONFIG[:email_domain] + ">"
-
-    subject     "[#{list.short_name}] #{email.subject}"
+    subject     "[#{list.name}] #{email.subject}"
     body        email.body
     headers     'List-ID' => "#{list.short_name}@#{ APP_CONFIG[:email_domain]}",
                 'List-Post' => "#{list.short_name}@#{ APP_CONFIG[:email_domain]}",
-                'List-Unsubscribe' => "http://#{ APP_CONFIG[:email_domain] }/list/#{ list.short_name }/unsubscribe"
+                'List-Unsubscribe' => "http://#{ APP_CONFIG[:email_domain] }/list/#{ list.id }/unsubscribe"
   end
 
 
