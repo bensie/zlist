@@ -117,6 +117,11 @@ div#page {
 	font-size: 14px;
 }
 
+.top-right-list {
+	float: right;
+	font-size: 12px;
+}
+
 .list {
 	background: #f2f2f2;
 	border: 1px solid #d2d2d2;

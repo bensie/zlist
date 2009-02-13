@@ -6,13 +6,16 @@
 				(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
 			<% end %>
 		</span>
-		<span class="topics"><%= link_to 'view topics', list_topics_path(list) %></span>
+		<span class="topics">
+            <%= link_to 'view topics', list_topics_path(list) %></span>
+		</span>
+        <p class="top-right-list">
 			<% if current_user.lists.include?(list) %>
 				<%= link_to "[unsubscribe]", unsubscribe_list_path(list), :confirm => "Are you sure you want to unsubscribe?" %>
 			<% else %>
 				<%= link_to "[subscribe]", subscribe_list_path(list), :confirm => "Are you sure you want to subscribe?" %>
 			<% end %>
-		</span>
+        </p>
 	</p>
 	<p><%=h list.description %></p>
 <% end %>

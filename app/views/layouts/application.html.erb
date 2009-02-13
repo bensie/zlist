@@ -19,7 +19,7 @@
 		<h1><%= APP_CONFIG[:email_domain] %></h1>
         <% if current_user.admin? %>
 		  <p><%= link_to "Lists", lists_path %> | <%= link_to "Subscribers", subscribers_path %> | 
-          <%= link_to "Messages", messages_path %> | <%= link_to "Servers", servers_path %></p>
+          <!-- <%= link_to "Messages", messages_path %> | --><%= link_to "Servers", servers_path %></p>
         <% else %>
 		  <p><%= link_to "My Lists", lists_path %> | <%= link_to "Available Lists", available_lists_path %> | <%= link_to "My Account", edit_subscriber_path(current_user) %> </p>
         <% end %>
@@ -39,13 +39,19 @@
 	<% end %>
 	
 	<div id="page">
+        <!-- App Layout Yield -->
 		<%= yield %>
+        <!-- End App Layout Yield -->
 	</div>
 	
-	<div id="footer">
-
-	</div>
 </div>
+
+<!-- Footer -->
+<div id="footer" align="center">
+   <br/>
+   <div id="footer-links"><%= APP_CONFIG[:copyright] %> - <%= link_to "Help", "#" %> | <%= link_to "Contact", "#" %></div>
+</div>
+<!-- End Footer -->
 
 
 	
