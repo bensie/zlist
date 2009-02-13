@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   filter_parameter_logging :password, :password_confirmation
   
+  #before_filter :scope_by_domain
   before_filter :login_required
   
   protected
@@ -23,4 +24,8 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
+  
+  #def scope_by_domain
+  #  @current_domain = Domain.find_by_domain_name!(request.subdomains.join('.'))
+  #end
 end
