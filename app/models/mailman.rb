@@ -51,8 +51,8 @@ class Mailman < ActionMailer::Base
     end
 
     # Check if this is a response to an existing topic or a new message
-    if(s_pre =~ /\+/) then
-      unless(Topic.exists?(:key => s_topic)) then
+    if(s_topic) 
+      unless(Topic.exists?(:key => s_topic)) 
         Mailman.deliver_no_such_topic(list, email)
       end
 
@@ -69,9 +69,6 @@ class Mailman < ActionMailer::Base
         :name => email.subject
         )
     end
-
-    # Add virtual fields for other functions to use
-    #email.topic = topic
 
     message = topic.messages.build(:subject => email.subject, :body => email.body)
     message.author = Subscriber.find_by_email(email.from)
