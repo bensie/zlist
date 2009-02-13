@@ -74,7 +74,7 @@ class Mailman < ActionMailer::Base
     message.save
     
     list.subscribers.each do |subscriber|
-      Mailman.deliver_list_dispatch(topic, email, subscriber)
+      Mailman.deliver_send_to_mailing_list(topic, email, subscriber)
     end
 
   end
