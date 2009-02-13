@@ -132,6 +132,7 @@ class Mailman < ActionMailer::Base
     headers     'List-ID' => "#{topic.list.short_name}@#{ APP_CONFIG[:email_domain]}",
                 'List-Post' => "#{topic.list.short_name}@#{ APP_CONFIG[:email_domain]}",
                 'List-Unsubscribe' => "http://#{ APP_CONFIG[:email_domain] }/list/#{ topic.list.id }/unsubscribe"
+    content_type "text/html"
   end
 
 
