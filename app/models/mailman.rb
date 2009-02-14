@@ -56,6 +56,7 @@ class Mailman < ActionMailer::Base
     if(s_topic.length > 0) 
       unless(Topic.exists?(:key => s_topic)) 
         Mailman.deliver_no_such_topic(list, email)
+        exit
       end
 
       topic = Topic.find_by_key(s_topic)
