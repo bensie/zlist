@@ -29,7 +29,7 @@ class Mailman < ActionMailer::Base
   def receive(email)
     # Extract out <list>+<thread>@<domain>
     s_list, s_topic, s_domain = 
-      email.to.first.match(/^([\w\-]+)\+?([0-9a-e]*)\@([\w\.]+)$/).to_a[1..3]
+      email.to.first.match(/^([\w\-]+)\+?([0-9a-f]*)\@([\w\.]+)$/).to_a[1..3]
 
 
     # Don't storm if using BCC method with To: noreply 
