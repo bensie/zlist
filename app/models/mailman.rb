@@ -96,7 +96,7 @@ class Mailman < ActionMailer::Base
       #recipients  "noreply@" + APP_CONFIG[:email_domain]
       recipients  subscriber.name + " <#{subscriber.email}>" 
       #bcc         list.subscribers.map(&:email)
-      from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
+      from        "#{ APP_CONFIG[:email_domain] } <noreply@#{ APP_CONFIG[:email_domain] }>"
       subject     "[#{list.short_name}] Test Mailing"
     end
   end
