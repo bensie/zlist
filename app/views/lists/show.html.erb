@@ -18,6 +18,7 @@
 </span>
 <h2><%=h @list.name %></h2>
 <p><%=h @list.description %></p>
+<p><em><%=h @list.short_name %>@<%= APP_CONIG[:email_domain] %></em></p>
 
 <% if current_user.admin? %>
   <h3>Subscribers</h3>
