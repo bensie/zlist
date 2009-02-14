@@ -73,6 +73,8 @@ class Mailman < ActionMailer::Base
         )
     end
 
+    # Todo: move multipart parsing here, add html and plain to message model
+
     message = topic.messages.build(:subject => email.subject, :body => email.body)
     message.author = Subscriber.find_by_email(email.from)
     message.save
@@ -82,7 +84,7 @@ class Mailman < ActionMailer::Base
     end
     
     list.subscribers.each do |subscriber|
-      Mailman.deliver_to_mailing_list(topic, email, subscriber)
+      Mailman.deliver_to_mailing_list(topic, email, subscriber, message)
     end
 
   end
@@ -140,10 +142,10 @@ class Mailman < ActionMailer::Base
   end
 
   # Send an e-mail out to a list
-  # pre: (Topic topic, Tmail email, Subscriber subscriber)
-  def to_mailing_list(topic, email, subscriber)
+  # pre: (Topic topic, Tmail email, Subscriber subscriber, Message message)
+  def to_mailing_list(topic, email, subscriber, message)
     recipients  subscriber.name + " <#{subscriber.email}>"
-    from        "#{email.from} <mailer@#{ APP_CONFIG[:email_domain] }>"
+    from        "#{message.author.name} <mailer@#{ APP_CONFIG[:email_domain] }>"
     #reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}+#{subscriber.public_key}@" +
     #              APP_CONFIG[:email_domain] + ">"
     reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}@" +
