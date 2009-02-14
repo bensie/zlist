@@ -53,7 +53,7 @@ class Mailman < ActionMailer::Base
     end
 
     # Check if this is a response to an existing topic or a new message
-    if(s_topic) 
+    if(s_topic.length) 
       unless(Topic.exists?(:key => s_topic)) 
         Mailman.deliver_no_such_topic(list, email)
       end
@@ -111,7 +111,7 @@ class Mailman < ActionMailer::Base
     recipients  email.from
     from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
     subject     "[#{list.name} The topic you referenced no longer exists"
-    body        :list => email.list.name
+    body        :list => list.name
   end
 
   # Response to a message sent to a noreply address
