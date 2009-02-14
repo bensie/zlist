@@ -37,6 +37,19 @@ p {
 	padding-bottom: 4px;
 }
 
+.topic-row {
+    padding: 5px;
+}
+
+.odd {
+    background: #eef0fe;
+}
+
+.even {
+    background: #fff;
+}
+
+
 div#header {
 	height: 40px;
 	background: #eef0fe;

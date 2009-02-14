@@ -2,19 +2,19 @@
 <p><%= link_to h("[list home]"), @list %></p>
 
 <%= will_paginate @messages %>
-<table>
+<table width="90%">
 <% @topics.each do |topic| %>
-	<tr>
-        <td>
+	<tr class="<%= cycle('odd', 'even') %>">
+        <td class="topic-row">
             [<%= @list.short_name %>]
         </td>
-		<td>
+		<td class="topic-row">
 			<%= link_to h(topic.name), list_topic_path(@list, topic) %>
 		</td>
-		<td>
+		<td class="topic-row">
 			<%= time_ago_in_words(topic.created_at) %> ago
 		</td>
-        <td>
+        <td class="topic-row">
 			(<%= pluralize(topic.messages.size, 'message') %>)
         </td> 
 	</tr>
