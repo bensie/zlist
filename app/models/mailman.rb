@@ -151,25 +151,19 @@ class Mailman < ActionMailer::Base
     #subject     "[#{topic.list.name}] #{email.subject}"
     subject     "[#{topic.list.short_name}] #{email.subject}"
 
-    #if(email.multipart?)
-      #parts.each do |p| 
-        #if p.content_type = "text/plain"
-          #part "text/plain" do |op|
-            #op = p
-          #end
-        #elsif p.content_type = "text/html"
-          #part "text/html" do |op|
-            #op = p
-          #end
-        #end 
-      #end
-    #else
-      #body        email.body
-    #end
     if(email.multipart?)
-      parts email.parts
+      content_type "multipart/alternative"
+      email.parts.each do |p| 
+        if p.content_type == "text/plain"
+          part :content_type => "text/plain",
+            :body => p.body
+        elsif p.content_type == "text/html"
+          part :content_type => "text/html",
+            :body => p.body
+        end 
+      end
     else
-      body  email.body
+      body        email.body
     end
 
     headers     'List-ID' => "#{topic.list.short_name}@#{ APP_CONFIG[:email_domain]}",
