@@ -29,7 +29,7 @@ class Mailman < ActionMailer::Base
   def receive(email)
     # Extract out <list>+<thread>@<domain>
     s_list, s_topic, s_domain = 
-      email.to.first.match(/^(\w+)\+?([0-9a-e]*)\@([\w\.]+)$/).to_a[1..3]
+      email.to.first.match(/^([\w\-]+)\+?([0-9a-e]*)\@([\w\.]+)$/).to_a[1..3]
 
 
     # Don't storm if using BCC method with To: noreply 
@@ -76,6 +76,10 @@ class Mailman < ActionMailer::Base
     message = topic.messages.build(:subject => email.subject, :body => email.body)
     message.author = Subscriber.find_by_email(email.from)
     message.save
+
+    if(email.multipart?)
+      # Do some list-wide logic
+    end
     
     list.subscribers.each do |subscriber|
       Mailman.deliver_to_mailing_list(topic, email, subscriber)
@@ -91,7 +95,7 @@ class Mailman < ActionMailer::Base
       recipients  subscriber.name + " <#{subscriber.email}>" 
       #bcc         list.subscribers.map(&:email)
       from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
-      subject     "[#{list.name}] Test Mailing"
+      subject     "[#{list.short_name}] Test Mailing"
     end
   end
 
@@ -104,6 +108,7 @@ class Mailman < ActionMailer::Base
     recipients  email.from
     from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
     subject     "Address does not exist at this server"
+    body        :address => email.to
   end
 
   # Response to a message posted in reply to a tpoic that doesn't exist
@@ -143,8 +148,30 @@ class Mailman < ActionMailer::Base
     #              APP_CONFIG[:email_domain] + ">"
     reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}@" +
                   APP_CONFIG[:email_domain] + ">"
-    subject     "[#{topic.list.name}] #{email.subject}"
-    body        email.body
+    #subject     "[#{topic.list.name}] #{email.subject}"
+    subject     "[#{topic.list.short_name}] #{email.subject}"
+
+    #if(email.multipart?)
+      #parts.each do |p| 
+        #if p.content_type = "text/plain"
+          #part "text/plain" do |op|
+            #op = p
+          #end
+        #elsif p.content_type = "text/html"
+          #part "text/html" do |op|
+            #op = p
+          #end
+        #end 
+      #end
+    #else
+      #body        email.body
+    #end
+    if(email.multipart?)
+      parts email.parts
+    else
+      body  email.body
+    end
+
     headers     'List-ID' => "#{topic.list.short_name}@#{ APP_CONFIG[:email_domain]}",
                 'List-Post' => "#{topic.list.short_name}@#{ APP_CONFIG[:email_domain]}",
                 'List-Unsubscribe' => "http://#{ APP_CONFIG[:email_domain] }/list/#{ topic.list.id }/unsubscribe"
