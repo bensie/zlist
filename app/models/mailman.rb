@@ -139,7 +139,9 @@ class Mailman < ActionMailer::Base
   def to_mailing_list(topic, email, subscriber)
     recipients  subscriber.name + " <#{subscriber.email}>"
     from        "#{email.from} <mailer@#{ APP_CONFIG[:email_domain] }>"
-    reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}+#{subscriber.public_key}@" +
+    #reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}+#{subscriber.public_key}@" +
+    #              APP_CONFIG[:email_domain] + ">"
+    reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}@" +
                   APP_CONFIG[:email_domain] + ">"
     subject     "[#{topic.list.name}] #{email.subject}"
     body        email.body
