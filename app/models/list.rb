@@ -6,7 +6,7 @@ class List < ActiveRecord::Base
   
   has_many :subscriptions, :dependent => :destroy
   has_many :subscribers, :through => :subscriptions, :uniq => true
-  has_many :topics
+  has_many :topics, :dependent => :destroy
   
   named_scope :public, :conditions => { :private => false }
   named_scope :private, :conditions => { :private => true }

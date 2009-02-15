@@ -1,7 +1,7 @@
 require 'digest/sha1'
 class Topic < ActiveRecord::Base
   belongs_to :list
-  has_many :messages
+  has_many :messages, :dependent => :destroy
   
   before_create :generate_key
   
