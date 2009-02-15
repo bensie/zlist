@@ -16,8 +16,13 @@
   <% end %>
 <% end %>
 </span>
-<h2><%=h @list.name %></h2>
+<h2><%=h @list.name %> - <%=h @list.email %></h2>
 <p><%=h @list.description %></p>
+
+<table class="subscribers-topics">
+	<tr>
+		<td>
+			<h3>Subscribers</h3>
 
 <div id="hidden_subscription_form">
 	<%= render :partial => 'lists/hidden_subscription_form', :locals => { :subscription => @subscription, :list => @list } %>
@@ -26,11 +31,12 @@
 <div id="subscriptions">
 	<%= render :partial => 'lists/subscriptions', :locals => { :subscriptions => @list.subscriptions, :available_subscribers => @available_subscribers } %>
 </div>
+		</td>
+		<td>
 
-<h3>Recent Topics</h3> 
+<h3>Recent Topics</h3>
 <%= @list.topics.present? ? (render :partial => @list.topics) : "There are no recent topics for this list." %>
 <%= link_to h("[All Topics]"), list_topics_path(@list) %>
-
-<br />
-<br />
-<%= link_to 'Back', lists_path %>
+		</td>
+	</tr>
+</table>

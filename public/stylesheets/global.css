@@ -27,6 +27,7 @@ h2 {
 
 h3 {
 	font-size: 14px;
+	margin-bottom: 10px;
 }
 
 h4 {
@@ -208,4 +209,15 @@ table.subscribers td span.lists a {
 
 table.subscribers td.checkbox {
 	width: 60px;
+}
+
+table.subscribers-topics {
+	width: 100%;
+}
+
+table.subscribers-topics td {
+	background: #f2f2f2;
+	border: 1px solid #d2d2d2;
+	padding: 10px;
+	margin-bottom: 10px;
 }
