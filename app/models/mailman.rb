@@ -93,9 +93,7 @@ class Mailman < ActionMailer::Base
   # pre: (List list)
   def list_test_dispatch(list)
     list.subscribers.each do |subscriber|
-      #recipients  "noreply@" + APP_CONFIG[:email_domain]
       recipients  subscriber.name + " <#{subscriber.email}>" 
-      #bcc         list.subscribers.map(&:email)
       from        "#{ APP_CONFIG[:email_domain] } <noreply@#{ APP_CONFIG[:email_domain] }>"
       subject     "[#{list.short_name}] Test Mailing"
     end
@@ -146,8 +144,6 @@ class Mailman < ActionMailer::Base
   def to_mailing_list(topic, email, subscriber, message)
     recipients  subscriber.name + " <#{subscriber.email}>"
     from        "#{message.author.name} <mailer@#{ APP_CONFIG[:email_domain] }>"
-    #reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}+#{subscriber.public_key}@" +
-    #              APP_CONFIG[:email_domain] + ">"
     reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}@" +
                   APP_CONFIG[:email_domain] + ">"
     #subject     "[#{topic.list.name}] #{email.subject}"
@@ -168,10 +164,9 @@ class Mailman < ActionMailer::Base
       body        email.body
     end
 
-    headers     'List-ID' => "#{topic.list.short_name}@#{ APP_CONFIG[:email_domain]}",
-                'List-Post' => "#{topic.list.short_name}@#{ APP_CONFIG[:email_domain]}",
+    headers     'List-ID' => "#{topic.list.email}",
+                'List-Post' => "#{topic.list.email}",
                 'List-Unsubscribe' => "http://#{ APP_CONFIG[:email_domain] }/list/#{ topic.list.id }/unsubscribe"
-    #content_type "text/html"
   end
 
 
