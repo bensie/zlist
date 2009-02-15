@@ -1,0 +1,4 @@
+<%= select :subscription, :subscriber_id, 
+	available_subscribers.collect {|subscriber| [ subscriber.name, subscriber.id ] }, 
+	{:id => nil, :include_blank => "Add a person to this list..."}, 
+	{:onchange => "$('subscription_subscriber_id').value = this.options[this.selectedIndex].value; $('new_subscription').onsubmit();" } %>

@@ -18,21 +18,14 @@
 </span>
 <h2><%=h @list.name %></h2>
 <p><%=h @list.description %></p>
-<p><em><%=h @list.short_name %>@<%= APP_CONFIG[:email_domain] %></em></p>
 
-<% if current_user.admin? %>
-  <h3>Subscribers</h3>
-  <%# @list.subscribers.present? ? (render :partial => @list.subscribers) : "There is no one subscribed to this list." %>
-  <% form_for @list do |f| %>
-  <% Subscriber.all.each do |subscriber| %>
-	  <%= check_box_tag 'list[subscriber_ids][]', subscriber.id, @list.subscribers.include?(subscriber) %>
-	  <%=h subscriber.name + " (#{subscriber.email})"  %><br />
-  <% end %>
-  <%= hidden_field_tag 'list[subscriber_ids][]', '' %>
-  <%= f.submit %>
-  <% end %>
-  <br />
-<% end %>
+<div id="hidden_subscription_form">
+	<%= render :partial => 'lists/hidden_subscription_form', :locals => { :subscription => @subscription, :list => @list } %>
+</div>
+
+<div id="subscriptions">
+	<%= render :partial => 'lists/subscriptions', :locals => { :subscriptions => @list.subscriptions, :available_subscribers => @available_subscribers } %>
+</div>
 
 <h3>Recent Topics</h3> 
 <%= @list.topics.present? ? (render :partial => @list.topics) : "There are no recent topics for this list." %>

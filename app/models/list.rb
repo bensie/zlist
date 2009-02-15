@@ -5,7 +5,7 @@ class List < ActiveRecord::Base
   # and subscribers can be subscribe to more than one list.
   
   has_many :subscriptions, :dependent => :destroy
-  has_many :subscribers, :through => :subscriptions, :source => :author, :uniq => true
+  has_many :subscribers, :through => :subscriptions, :uniq => true
   has_many :topics
   
   named_scope :public, :conditions => { :private => false }

@@ -12,6 +12,8 @@ class ListsController < ApplicationController
   end
 
   def show
+    @subscription = Subscription.new
+    @available_subscribers = Subscriber.find_subscribers_not_in_list(@list.id)
   end
 
   def new

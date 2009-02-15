@@ -1,0 +1,4 @@
+<p>
+	<%= link_to h(subscription.subscriber.name), subscriber_path(subscription.subscriber) %>
+	<%= link_to_remote "Remove", :method => :delete, :url => subscription_path(subscription) %>
+</p>

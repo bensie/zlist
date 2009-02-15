@@ -17,6 +17,20 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
+    @subscription = Subscription.new(params[:subscription])
+    @list = @subscription.list
+    respond_to do |format|
+      if @subscription.save
+        @subscriptions = Subscription.all(:conditions => ['list_id = ?', @subscription.list_id])
+        @available_subscribers = Subscriber.find_subscribers_not_in_list(@subscription.list_id)
+        format.html { redirect_to(list_path(@subscription.list)) }
+        format.xml  { render :xml => @subscription, :status => :created, :location => @subscription }
+        format.js
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @subscription.errors, :status => :unprocessable_entity }
+      end
+    end
   end
 
   def update
@@ -29,8 +43,17 @@ class SubscriptionsController < ApplicationController
   end
 
   def destroy
+    list = @subscription.list
     @subscription.destroy
-    redirect_to :back
+    
+    @subscriptions = Subscription.all(:include => :subscriber, :conditions => ['list_id = ?', list.id])
+    @available_subscribers = Subscriber.find_subscribers_not_in_list(list.id)
+
+    respond_to do |format|
+      format.html { redirect_to memberships_url }
+      format.xml  { head :ok }
+      format.js {}
+    end
   end
   
   def find_subscription

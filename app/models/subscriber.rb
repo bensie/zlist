@@ -23,6 +23,11 @@ class Subscriber < ActiveRecord::Base
   # Search based on 'name' parameter
   named_scope :search, lambda { |name| { :conditions => ["subscribers.name LIKE ?", "%" + name + "%"], :order => :name }}
   
+  def self.find_subscribers_not_in_list(list_id)
+    find_by_sql ["SELECT * FROM subscribers WHERE id NOT IN 
+                      (SELECT DISTINCT subscriber_id FROM subscriptions WHERE list_id = ?)", list_id ]
+  end
+  
   # Login with email address
   def self.authenticate(login, pass)
     user = find_by_email(login)
