@@ -22,6 +22,7 @@ h1 {
 
 h2 {
 	font-size: 16px;
+	margin-bottom: 10px;
 }
 
 h3 {
@@ -161,12 +162,18 @@ div#page {
 	font-weight: bold;
 }
 
-.list .subscriber-count {
 
+.list .sub-text a {
+	color: red;
 }
 
-.list .topics {
-	
+.list .sub-text a:hover {
+	background: red;
+	color: #fff;
+}
+
+.list .private {
+	float: right;
 }
 
 table.subscribers {
