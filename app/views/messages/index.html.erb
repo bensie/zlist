@@ -1,21 +1,5 @@
 <h2>All Messages</h2>
 
 <table>
-<% @messages.each do |message| %>
-	<tr>
-		<td>
-			<%= mail_to h(message.author.email) %>
-		</td>
-		<td>
-			<%= link_to h(message.subject), message %>
-		</td>
-		<td>
-			(<%= time_ago_in_words(message.created_at) %> ago)
-		</td>
-	</tr>
-<% end %>
+	<%= render :partial => @messages %>
 </table>
-
-<br />
-
-<!-- <%= link_to 'New message', new_message_path %> -->

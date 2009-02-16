@@ -1,0 +1,14 @@
+<div class="message" style="border: 1px solid #999; margin: 5px;">
+  <div class="message-header" style="position: relative; height: 1.1em;">
+    <div class="message-header-left" style="position: absolute; left: 5px;">
+      <p><b><%=h message.author.name %></b> &lt;<%=h message.author.email %>&gt;</p>
+    </div>
+    <div class="message-header-right" style="position: absolute; right: 5px;">
+   	  <p><b><%= message.created_at.getlocal.strftime('%b %d %Y, %I:%M %p') %></b></p>
+	</div>
+  </div>
+  <div class="message-body">
+     <pre WRAP><%=h message.body_clean %></pre>
+  </div>
+  <%= link_to h("Full message"), message %>
+</div>
