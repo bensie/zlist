@@ -1,26 +1,23 @@
-<span style="float:right;" align="right">
+<p class="top-right-links">
 <% if current_user.admin? %>
-	<p>
-      <%= link_to "[edit list]", edit_list_path(@list) %> | 
-	  <%= link_to "[delete list]", list_path(@list), :method => :delete, :confirm => "Are you sure?" %>
-    </p>
-    <p>
-      <%= link_to "[send test]", send_test_list_path(@list) %> 
-    </p>
+      <%= link_to 'Edit List', edit_list_path(@list) %> |
+	  <%= link_to 'Delete List', list_path(@list), :method => :delete, :confirm => "Are you sure?" %> |
+      <%= link_to 'Send Test', send_test_list_path(@list) %>
 <% else %>
-  <% if @list.subscribers.include?(current_user) %>
-    <p><em>You are subscribed to this list</em></p>
-    <p><%= link_to "[unsubscribe]", unsubscribe_list_path(@list) %></p>
-  <% else %>
-    <p><%= link_to "[subscribe]", subscribe_list_path(@list) %></p>
-  <% end %>
+	<% if @list.subscribers.include?(current_user) %>
+    	You are subscribed to this list
+    	<%= link_to 'Unsubscribe', unsubscribe_list_path(@list) %>
+  	<% else %>
+    	<%= link_to 'Subscribe', subscribe_list_path(@list) %>
+  	<% end %>
 <% end %>
-</span>
+</p>
 <h2><%=h @list.name %> - <%=h @list.email %></h2>
 <p><%=h @list.description %></p>
 
 <table class="subscribers-topics">
 	<tr>
+		<% if current_user.admin? %>
 		<td>
 			<h3>Subscribers</h3>
 
@@ -32,6 +29,7 @@
 	<%= render :partial => 'lists/subscriptions', :locals => { :subscriptions => @list.subscriptions, :available_subscribers => @available_subscribers } %>
 </div>
 		</td>
+		<% end %>
 		<td>
 
 <h3>Recent Topics</h3>

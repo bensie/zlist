@@ -136,6 +136,15 @@ div#page {
 	font-size: 14px;
 }
 
+.top-right-links a {
+	color: red;
+}
+
+.top-right-links a:hover {
+	color: #fff;
+	background: red;
+}
+
 .top-right-list {
 	float: right;
 	font-size: 12px;
