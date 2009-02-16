@@ -39,15 +39,15 @@ class Mailman < ActionMailer::Base
     end
 
     # Make sure the list exists
-    unless(List.exists?(:short_name => s_list))
+    list = List.find_by_short_name(s_list)
+    unless list.present?
       Mailman.deliver_no_such_list(email)
       exit
     end
 
-    list = List.find_by_short_name(s_list)
-
     # Make sure they are in the list (allowed to post)
-    unless(list.subscribers.exists?(:email => email.from))
+    author = list.subscribers.find(:email => email.from)
+    unless author.present?
       Mailman.deliver_cannot_post(list, email)
       exit
     end
@@ -72,7 +72,7 @@ class Mailman < ActionMailer::Base
     # Todo: move multipart parsing here, add html and plain to message model
 
     message = topic.messages.build(:subject => email.subject, :body => email.body)
-    message.author = Subscriber.find_by_email(email.from)
+    message.author = author
     message.save
 
     if(email.multipart?)
