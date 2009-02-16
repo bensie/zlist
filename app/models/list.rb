@@ -14,6 +14,8 @@ class List < ActiveRecord::Base
   # Make sure that the following fields are not nil or blank
   validates_presence_of :name, :short_name
   
+  before_create :set_default_subject_prefix
+  
   # For security, we specify the columns that are safe to allow mass assignment in web forms.
   # So in our controller it's safe to do a List.create(params[:list]), and we don't have to
   # worry about someone trying to manipulate other columns in the DB that they shouldn't.
@@ -36,6 +38,12 @@ class List < ActiveRecord::Base
   # For now, this will just be a shortcut to the app config, but in later versions might be different
   def domain
     APP_CONFIG[:email_domain]
+  end
+  
+  private
+  
+  def set_default_subject_prefix
+    self.subject_prefix ||= "[#{name}]"
   end
   
 end

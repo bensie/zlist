@@ -146,8 +146,11 @@ class Mailman < ActionMailer::Base
     from        "#{message.author.name} <mailer@#{ APP_CONFIG[:email_domain] }>"
     reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}@" +
                   APP_CONFIG[:email_domain] + ">"
-    #subject     "[#{topic.list.name}] #{email.subject}"
-    subject     "[#{topic.list.short_name}] #{email.subject}"
+    if topic.list.subject_prefix.present?
+      subject     topic.list.subject_prefix + " " + email.subject
+    else
+      subject     email.subject
+    end
 
     if(email.multipart?)
       content_type "multipart/alternative"

@@ -4,6 +4,10 @@
 	<%= f.error_messages %>
 	<%= render :partial => 'form', :locals => { :f => f } %>
 	<p>
+		<%= f.label :subject_prefix %><br />
+		<%= f.text_field :subject_prefix %>
+	</p>
+	<p>
     	<%= f.submit "Update" %>
   	</p>
 <% end %>
