@@ -43,7 +43,7 @@ class List < ActiveRecord::Base
   private
   
   def set_default_subject_prefix
-    self.subject_prefix ||= "[#{name}]"
+    self.subject_prefix ||= name
   end
   
 end

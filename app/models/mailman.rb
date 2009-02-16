@@ -63,7 +63,7 @@ class Mailman < ActionMailer::Base
 
       # Strip out the subject crap
       # Can't use gsub! because subject isn't actually a string unless coerced
-      email.subject = email.subject.gsub(/\[#{list.short_name}\]/, "")
+      email.subject = email.subject.gsub(/\[#{list.subject_prefix}\]/, "")
       # Clean out RE and FW's
       email.subject = email.subject.gsub(/([rR][eE]:\ *){2,}/, "RE: ")
 
@@ -147,7 +147,7 @@ class Mailman < ActionMailer::Base
     reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}@" +
                   APP_CONFIG[:email_domain] + ">"
     if topic.list.subject_prefix.present?
-      subject     topic.list.subject_prefix + " " + email.subject
+      subject     '[' + topic.list.subject_prefix + ']' + ' ' + email.subject
     else
       subject     email.subject
     end
