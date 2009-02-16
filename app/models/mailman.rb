@@ -53,19 +53,15 @@ class Mailman < ActionMailer::Base
     end
 
     # Check if this is a response to an existing topic or a new message
-    if(s_topic.length > 0) 
-      unless(Topic.exists?(:key => s_topic)) 
+    if s_topic.present?
+      topic = Topic.find_by_key(s_topic)
+      unless topic.present? 
         Mailman.deliver_no_such_topic(list, email)
         exit
       end
-
-      topic = Topic.find_by_key(s_topic)
-
-      # Strip out the subject crap
-      # Can't use gsub! because subject isn't actually a string unless coerced
-      email.subject = email.subject.gsub(/\[#{list.subject_prefix}\]/, "")
-      # Clean out RE and FW's
-      email.subject = email.subject.gsub(/([rR][eE]:\ *){2,}/, "RE: ")
+      
+      # Reset the subject
+      email.subject = topic.name
 
     else
       topic = list.topics.create(
