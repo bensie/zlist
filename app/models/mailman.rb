@@ -46,7 +46,7 @@ class Mailman < ActionMailer::Base
     end
 
     # Make sure they are in the list (allowed to post)
-    author = list.subscribers.find(:email => email.from)
+    author = list.subscribers.find_by_email(email.from)
     unless author.present?
       Mailman.deliver_cannot_post(list, email)
       exit
