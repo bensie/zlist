@@ -35,7 +35,13 @@
 		<td>
 
 <h3>Recent Topics</h3>
-<%= @list.topics.present? ? (render :partial => @list.topics) : "There are no recent topics for this list." %>
+<% if @list.topics.present? %>
+	<% @list.topics.each do |topic| %>
+		<p><%= link_to h(topic.name), list_topic_path(@list, topic) %></p>
+	<% end %>
+<% else %>
+	<p>There are no recent topics for this list.</p>
+<% end %>
 <%= link_to h("[All Topics]"), list_topics_path(@list) %>
 		</td>
 	</tr>
