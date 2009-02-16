@@ -39,6 +39,10 @@ p {
 	padding-bottom: 4px;
 }
 
+th {
+	text-align: left;
+}
+
 .topic-row {
     padding: 5px;
 }

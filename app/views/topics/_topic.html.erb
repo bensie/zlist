@@ -1,1 +1,11 @@
-<%= topic.name %><br />
+<tr class="<%= cycle('odd', 'even') %>">
+	<td class="topic-row">
+		<%= link_to h(topic.name), list_topic_path(@list, topic) %>
+	</td>
+	<td class="topic-row">
+		<%= time_ago_in_words(topic.messages.last.created_at) %> ago
+	</td>
+    <td class="topic-row">
+		<%= pluralize(topic.messages.size, 'message') %>
+    </td> 
+</tr>

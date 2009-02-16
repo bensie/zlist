@@ -3,11 +3,11 @@ class TopicsController < ApplicationController
   before_filter :find_topic, :only => %w(show edit update destroy)
 
   def index
-    @topics = @list.topics.paginate :page => params[:page], :order => 'created_at ASC', :per_page => 20
+    @topics = @list.topics.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 20, :include => :messages
   end
 
   def show
-    @messages = @topic.messages.paginate :page => params[:page], :order => 'created_at ASC', :per_page => 10
+    @messages = @topic.messages.paginate :page => params[:page], :order => 'created_at DESC', :per_page => 10
   end
 
   def new

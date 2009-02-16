@@ -1,26 +1,15 @@
-<h2>Topics for <%= @list.name %></h2>
-<p><%= link_to h("[list home]"), @list %></p>
+<h2>Topics for <%=h @list.name %> (<%= @list.email %>)</h2>
 
-<%= will_paginate @messages %>
+<%= will_paginate @topics %>
 <table width="90%">
-<% @topics.each do |topic| %>
-	<tr class="<%= cycle('odd', 'even') %>">
-        <td class="topic-row">
-            [<%= @list.short_name %>]
-        </td>
-		<td class="topic-row">
-			<%= link_to h(topic.name), list_topic_path(@list, topic) %>
-		</td>
-		<td class="topic-row">
-			<%= time_ago_in_words(topic.created_at) %> ago
-		</td>
-        <td class="topic-row">
-			(<%= pluralize(topic.messages.size, 'message') %>)
-        </td> 
+	<tr>
+		<th>Subject</th>
+		<th>Last Message</th>
+		<th>Message Count</th>
 	</tr>
-<% end %>
+	<%= render :partial => @topics %>
 </table>
-<%= will_paginate @messages %>
+<%= will_paginate @topics %>
 
 <br />
 
