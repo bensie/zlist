@@ -84,7 +84,7 @@ class Mailman < ActionMailer::Base
     end
     
     list.subscribers.each do |subscriber|
-      Mailman.deliver_to_mailing_list(topic, email, subscriber, message)
+      Mailman.deliver_to_mailing_list(topic, email, subscriber, message) unless subscriber == message.author
     end
 
   end
