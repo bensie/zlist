@@ -1,10 +1,42 @@
-== dList ==
+== DList ==
 
-dList - A simple yet powerful replacement for mailman
+DList is a simple yet powerful mailing list application and is built on Rails.  It can
+send mail to an unlimited number of recipients, can be configured as announcement only
+or it can be fully interactive.  Subscribers can view and reply entirely by email, or 
+via the web interface.  All discussions are archived so you can go back anytime to see
+what was said.
 
-campfire: http://jkmillertech.campfirenow.com/room/199481
-github: https://github.com/funtaff/loni-dlist/
+It accepts email piped from an MTA (we use Postfix) and can accept email for an entire
+domain or specified addresses.
 
-This is where the info will go...
+= Installation =
 
-I have no idea what you are talking about...
+You can get the latest by downloading the master branch from GitHub, or you can grab the
+most recent tagged version on the downloads page at http://github.com/bensie/dlist/downloads
+
+= Prerequisites =
+
+DList currently runs on Rails 2.2.2 and requires the will_paginate gem available at
+http://github.com/mislav/will_paginate
+
+= Postfix Configuration =
+
+From http://gist.github.com/55208 which will also remain up to date:
+
+/etc/postfix/main.cf:
+mydestination = localhost.localdomain, localhost, list.domain.com
+virtual_maps = hash:/etc/postfix/virtual
+alias_maps = hash:/etc/aliases
+ 
+/etc/postfix/virtual:
+@list.domain.com rails_mailer
+ 
+/etc/aliases:
+rails_mailer: "|/path/to/app/lib/mail_handler.rb"
+ 
+Run these commands to apply:
+postmap virtual
+postalias /etc/aliases
+postfix reload
+
+Copyright (c) 2009 James Miller and David Hasson
