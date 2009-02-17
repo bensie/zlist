@@ -1,7 +1,7 @@
 set :application, "dlist"
 
 set :scm, :git
-set :repository,  "git@github.com:funtaff/loni-dlist.git"
+set :repository,  "git://github.com/bensie/dlist.git"
 set :branch, "master"
 
 set :deploy_to, "/home/user/apps/#{application}-production"

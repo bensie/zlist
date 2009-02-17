@@ -1,31 +1,5 @@
 class Mailman < ActionMailer::Base
   
-#   bcc                     BCC addresses for the message
-#   body                    Define the body of the message. This is either a Hash 
-#                               (in which case it specifies the variables to pass to the template when it is rendered), 
-#                               or a string, in which case it specifies the actual text of the message.
-#   cc 	                    CC addresses for the message.
-#   charset                 Charset to use for the message. This defaults to the default_charset 
-#                               specified for ActionMailer::Base.
-#   content_type            Content type for the message. This defaults to <text/plain in most cases, 
-#                               but can be automatically set in some situations.
-#   from                    From address for the message.
-#   reply_to                Address (if different than the “from” address) to direct replies to this message.
-#   headers                 Additional headers to be added to the message.
-#   implicit_parts_order    Specify the order in which parts should be sorted, based on content-type. 
-#                               This defaults to the value for the default_implicit_parts_order.
-#   mime_version            Defaults to “1.0”, but may be explicitly given if needed.
-#   recipient               The recipient addresses for the message, either as a string (for a single address) 
-#                             or an array (for multiple addresses).
-#   sent_on                 The date on which the message was sent. If not set (the default), the 
-#                             header will be set by the delivery agent.
-#   subject                 Specify the subject of the message.
-#   template                Specify the template name to use for current message. This is the “base” template name, 
-#                             without the extension or directory, and may be used to have multiple mailer methods share 
-#                             the same template.
-
-  # Method for processing incoming messages
-  # pre: (Tmail email)
   def receive(email)
     # Extract out <list>+<thread>@<domain>
     s_list, s_topic, s_domain = 
@@ -34,7 +8,7 @@ class Mailman < ActionMailer::Base
 
     # Don't storm if using BCC method with To: noreply 
     # TODO: remove 
-    if(s_list == "mailer" || s_list == "noreply")
+    if s_list == "mailer" || s_list == "noreply"
       exit
     end
 
@@ -64,29 +38,20 @@ class Mailman < ActionMailer::Base
       email.subject = topic.name
 
     else
-      topic = list.topics.create(
-        :name => email.subject
-        )
+      topic = list.topics.create(:name => email.subject)
     end
-
-    # Todo: move multipart parsing here, add html and plain to message model
 
     message = topic.messages.build(:subject => email.subject, :body => email.body)
     message.author = author
     message.save
-
-    if(email.multipart?)
-      # Do some list-wide logic
-    end
-    
+   
     list.subscribers.each do |subscriber|
       Mailman.deliver_to_mailing_list(topic, email, subscriber, message) unless subscriber == message.author
     end
 
   end
 
-  # Send a test e-mail to everyone on a given list
-  # pre: (List list)
+  # Send a test to the list
   def list_test_dispatch(list)
     list.subscribers.each do |subscriber|
       recipients  subscriber.name + " <#{subscriber.email}>" 
@@ -99,7 +64,6 @@ class Mailman < ActionMailer::Base
   protected
 
   # Response to a message posted to a list that doesn't exist
-  # pre: (TMail email)
   def no_such_list(email)
     recipients  email.from
     from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
@@ -107,8 +71,7 @@ class Mailman < ActionMailer::Base
     body        :address => email.to
   end
 
-  # Response to a message posted in reply to a tpoic that doesn't exist
-  # pre: (List list, Tmail email)
+  # Response to a message posted in reply to a topic that doesn't exist
   def no_such_topic(list, email)
     recipients  email.from
     from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
@@ -117,7 +80,6 @@ class Mailman < ActionMailer::Base
   end
 
   # Response to a message sent to a noreply address
-  # pre: (Tmail email)
   def no_reply_address(email)
     recipients  email.from
     from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
@@ -127,7 +89,6 @@ class Mailman < ActionMailer::Base
   end
 
   # Reponse to a message posted to a list by a non-member
-  # pre: (List list, Tmail email)
   def cannot_post(list, email)
     recipients  email.from
     from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
@@ -136,7 +97,6 @@ class Mailman < ActionMailer::Base
   end
 
   # Send an e-mail out to a list
-  # pre: (Topic topic, Tmail email, Subscriber subscriber, Message message)
   def to_mailing_list(topic, email, subscriber, message)
     recipients  subscriber.name + " <#{subscriber.email}>"
     from        "#{message.author.name} <mailer@#{ APP_CONFIG[:email_domain] }>"
@@ -148,19 +108,17 @@ class Mailman < ActionMailer::Base
       subject     email.subject
     end
 
-    if(email.multipart?)
+    if email.multipart?
       content_type "multipart/alternative"
-      email.parts.each do |p| 
+      email.parts.each do |p|
         if p.content_type == "text/plain"
-          part :content_type => "text/plain",
-            :body => p.body
+          part :content_type => "text/plain", :body => p.body
         elsif p.content_type == "text/html"
-          part :content_type => "text/html",
-            :body => p.body
-        end 
+          part :content_type => "text/html", :body => p.body
+        end
       end
     else
-      body        email.body
+      body email.body
     end
 
     headers     'List-ID' => "#{topic.list.email}",
