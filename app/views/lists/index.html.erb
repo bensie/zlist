@@ -1,6 +1,7 @@
 <p class="top-right-links"><%= link_to 'Add a new list', new_list_path if current_user.admin? %></p>
 <% if current_user.admin? %>
 	<h2>Mailing Lists</h2>
+	<%= "<p>There are no lists yet. " + link_to ('Create one now', new_list_path) + "</p>" if @lists.empty? %>
 <% else %>
 	<% if current_user.lists.empty? %>
 		<h3>You are not subscribed to any lists. <%= link_to "View all available lists", available_lists_path %></h3>
@@ -9,5 +10,5 @@
 	<% end %>
 <% end %>
 <table>
-	<%= render :partial => @lists %>
+	<%= render @lists %>
 </table>
