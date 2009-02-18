@@ -11,7 +11,8 @@ class List < ActiveRecord::Base
   
   before_create :set_default_subject_prefix
  
-  attr_accessible :name, :description, :short_name, :subscriber_ids, :private, :subject_prefix
+  attr_accessible :name, :description, :short_name, :subscriber_ids, :private, :subject_prefix,
+                  :send_replies_to, :message_footer, :permitted_to_post, :archive_disabled, :disabled
 
   def email
     short_name + "@" + APP_CONFIG[:email_domain]
