@@ -1,6 +1,6 @@
 class AddSomeOptionsToLists < ActiveRecord::Migration
   def self.up
-    add_column :lists, :disable_archive, :boolean, :default => false
+    add_column :lists, :archive_disabled, :boolean, :default => false
     add_column :lists, :disabled, :boolean, :default => false
     add_column :lists, :message_footer, :string
     add_column :lists, :custom_footer_text, :text
@@ -16,7 +16,7 @@ class AddSomeOptionsToLists < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :lists, :disable_archive
+    remove_column :lists, :archive_disabled
     remove_column :lists, :disabled
     remove_column :lists, :message_footer
     remove_column :lists, :custom_footer_text
