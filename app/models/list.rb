@@ -4,6 +4,8 @@ class List < ActiveRecord::Base
   has_many :subscribers, :through => :subscriptions, :uniq => true
   has_many :topics, :dependent => :destroy
   
+  default_scope :order => :name
+  
   named_scope :public, :conditions => { :private => false }
   named_scope :private, :conditions => { :private => true }
 

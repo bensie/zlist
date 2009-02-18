@@ -17,6 +17,8 @@ class Subscriber < ActiveRecord::Base
   before_save :prepare_password, :if => :saving_password?
   before_create :generate_public_key
   
+  default_scope :order => :name
+  
   named_scope :active, :conditions => { :disabled => false }, :order => :name
   named_scope :disabled, :conditions => { :disabled => true }, :order => :name
   

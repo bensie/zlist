@@ -4,6 +4,8 @@ class Server < ActiveRecord::Base
   before_create :generate_public_key
   
   validates_presence_of :name, :ip
+  
+  default_scope :order => :name
     
   private
   
