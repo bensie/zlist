@@ -16,8 +16,8 @@ most recent tagged version on the downloads page at http://github.com/bensie/dli
 
 = Prerequisites =
 
-DList currently runs on Rails 2.2.2 and requires the will_paginate gem available at
-http://github.com/mislav/will_paginate
+DList currently requires the Rails 2.3.0 (RC1) gem as well as the the will_paginate gem available
+at http://github.com/mislav/will_paginate
 
 = Postfix Configuration =
 
