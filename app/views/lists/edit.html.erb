@@ -7,6 +7,42 @@
 		<%= f.label :subject_prefix %><br />
 		<%= f.text_field :subject_prefix %>
 	</p>
+	
+	<p>
+		<%= f.check_box :disable_archive, :disabled => true %>
+		<%= f.label :disable_archive, 'Disable the ability to view the message archive' %>
+	</p>
+	
+	<p>
+		<%= f.check_box :disabled, :disabled => true %>
+		<%= f.label :disabled, 'Disable this list.  This will prevent any new topics from being created, all messages will bounce back to the sender.' %>
+	</p>
+	
+	<h4>Who receives replies to messages?</h4>
+	<p>
+		<%= f.radio_button :send_replies_to, 'Subscribers', :disabled => true %>
+		<%= f.label :send_replies_to_group, 'Everyone in the group' %><br />
+		
+		<%= f.radio_button :send_replies_to, 'Author', :disabled => true %>
+		<%= f.label :send_replies_to_author, 'Only the author of the message' %><br />
+		
+		<%= f.radio_button :send_replies_to, 'Managers', :disabled => true %>
+		<%= f.label :send_replies_to_managers, 'Only managers' %>
+	<p>
+	
+	<h4>Who is permitted to post new topics?</h4>
+	
+	<p>
+		<%= f.radio_button :permitted_to_post, 'Managers', :disabled => true %>
+		<%= f.label :permitted_to_post, 'Only Managers' %><br />
+		
+		<%= f.radio_button :permitted_to_post, 'Subscribers', :disabled => true %>
+		<%= f.label :permitted_to_post, 'All Subscribers' %><br />
+		
+		<%= f.radio_button :permitted_to_post, 'Anyone', :disabled => true %>
+		<%= f.label :permitted_to_post_anyone, 'Anyone' %>
+	<p>
+	
 	<p>
     	<%= f.submit "Update" %>
   	</p>

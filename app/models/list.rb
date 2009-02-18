@@ -23,6 +23,14 @@ class List < ActiveRecord::Base
   
   private
   
+  def after_initialize
+    if @new_record
+      self.send_replies_to ||= "Subscribers"
+      self.message_footer ||= "None"
+      self.permitted_to_post ||= "Subscribers"
+    end
+  end
+  
   def set_default_subject_prefix
     self.subject_prefix ||= '[' + name + ']'
   end
