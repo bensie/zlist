@@ -62,6 +62,14 @@ th {
 	color: #111;
 }
 
+.small {
+	font-size: 10px;
+}
+
+.red {
+	color: red;
+}
+
 
 div#header {
 	height: 40px;

@@ -43,11 +43,11 @@ class SubscriptionsController < ApplicationController
   end
 
   def destroy
-    list = @subscription.list
+    @list = @subscription.list
     @subscription.destroy
     
-    @subscriptions = Subscription.all(:include => :subscriber, :conditions => ['list_id = ?', list.id])
-    @available_subscribers = Subscriber.find_subscribers_not_in_list(list.id)
+    @subscriptions = Subscription.all(:include => :subscriber, :conditions => ['list_id = ?', @list.id])
+    @available_subscribers = Subscriber.find_subscribers_not_in_list(@list.id)
     respond_to do |format|
       format.html { redirect_to memberships_url }
       format.xml  { head :ok }

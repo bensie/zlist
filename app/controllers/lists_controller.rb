@@ -55,26 +55,16 @@ class ListsController < ApplicationController
     redirect_to(@list)
   end
 
-  # External subscribe request
   def subscribe
-   if @list.subscribers.push(current_user)
-     flash[:notice] = 'Subscriber added.'
-     redirect_to(lists_url)
-   else
-     flash.now[:warning] = 'There was a problem subscribing you.'
-     redirect_to(lists_url)
-   end
+   @list.subscribers << current_user
+   flash[:notice] = 'Subscriber added.'
+   redirect_to(lists_url)
   end
 
-  # External unsubscribe request
   def unsubscribe
-   if @list.subscribers.delete(current_user)
-     flash[:notice] = 'Subscriber removed.'
-     redirect_to(lists_url)
-   else
-     flash.now[:warning] = 'There was a problem unsubscribing you.'
-     redirect_to(lists_url)
-   end
+    @list.subscribers.delete(current_user)
+    flash[:notice] = 'Subscriber removed.'
+    redirect_to(lists_url)
   end
 
   protected

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090216045430) do
+ActiveRecord::Schema.define(:version => 20090218001212) do
 
   create_table "lists", :force => true do |t|
     t.string   "name"
@@ -17,8 +17,14 @@ ActiveRecord::Schema.define(:version => 20090216045430) do
     t.string   "short_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "private",        :default => false
+    t.boolean  "private",            :default => false
     t.string   "subject_prefix"
+    t.boolean  "archive_disabled",   :default => false
+    t.boolean  "disabled",           :default => false
+    t.string   "message_footer"
+    t.text     "custom_footer_text"
+    t.string   "send_replies_to"
+    t.string   "permitted_to_post"
   end
 
   create_table "messages", :force => true do |t|

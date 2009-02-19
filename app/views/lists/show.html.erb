@@ -2,7 +2,6 @@
 <% if current_user.admin? %>
       <%= link_to 'Edit List', edit_list_path(@list) %> |
 	  <%= link_to 'Delete List', list_path(@list), :method => :delete, :confirm => "Are you sure?" %> |
-      <%= link_to 'Send Test', send_test_list_path(@list) %>
 <% else %>
 	<% if @list.subscribers.include?(current_user) %>
     	You are subscribed to this list
