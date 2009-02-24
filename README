@@ -1,6 +1,6 @@
-== DList ==
+== ZList ==
 
-DList is a simple yet powerful mailing list application and is built on Rails.  It can
+ZList is a simple yet powerful mailing list application and is built on Rails.  It can
 send mail to an unlimited number of recipients, can be configured as announcement only
 or it can be fully interactive.  Subscribers can view and reply entirely by email, or 
 via the web interface.  All discussions are archived so you can go back anytime to see
@@ -12,7 +12,7 @@ domain or specified addresses.
 = Installation =
 
 You can get the latest by downloading the master branch from GitHub, or you can grab the
-most recent tagged version on the downloads page at http://github.com/bensie/dlist/downloads
+most recent tagged version on the downloads page at http://github.com/bensie/zlist/downloads
 
 = Prerequisites =
 

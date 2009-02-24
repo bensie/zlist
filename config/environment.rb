@@ -64,7 +64,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_loni-dlist_session',
+    :session_key => '_zlist_session',
     :secret      => 'c0ce63cee01df1f0fc6d1b37ab9cfca9df7348d1b2b3587671f13434900c84b0793f215756e462f82774972a5d3c1c24a9eaa734075cc59f77577e36b143e20a'
   }
 

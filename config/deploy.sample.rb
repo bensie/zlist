@@ -1,7 +1,7 @@
-set :application, "dlist"
+set :application, "zlist"
 
 set :scm, :git
-set :repository,  "git://github.com/bensie/dlist.git"
+set :repository,  "git://github.com/bensie/zlist.git"
 set :branch, "master"
 
 set :deploy_to, "/home/user/apps/#{application}-production"
@@ -12,9 +12,9 @@ set :use_sudo, false
 set :user, "username"
 set :runner, "username"
 
-role :app, "dlist.yourdomain.com"
-role :web, "dlist.yourdomain.com"
-role :db,  "dlist.yourdomain.com", :primary => true
+role :app, "zlist.yourdomain.com"
+role :web, "zlist.yourdomain.com"
+role :db,  "zlist.yourdomain.com", :primary => true
 
 namespace :deploy do
   desc 'Restarting the application'
