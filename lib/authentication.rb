@@ -13,7 +13,6 @@ module Authentication
   
   def login_required
     unless logged_in?
-      # Temporary for dlist-m1
       if request.request_uri.match(/\/subscribe/)
         flash[:notice] = "You need to login or create an account before subscribing to this list"
       elsif request.request_uri.match(/\/unsubscribe/)
