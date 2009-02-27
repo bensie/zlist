@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090218001212) do
+ActiveRecord::Schema.define(:version => 20090227160159) do
 
   create_table "lists", :force => true do |t|
     t.string   "name"
@@ -35,6 +35,9 @@ ActiveRecord::Schema.define(:version => 20090218001212) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "messages", ["subscriber_id"], :name => "index_messages_on_subscriber_id"
+  add_index "messages", ["topic_id"], :name => "index_messages_on_topic_id"
 
   create_table "servers", :force => true do |t|
     t.string   "name"
@@ -64,6 +67,9 @@ ActiveRecord::Schema.define(:version => 20090218001212) do
     t.datetime "updated_at"
   end
 
+  add_index "subscriptions", ["list_id"], :name => "index_subscriptions_on_list_id"
+  add_index "subscriptions", ["subscriber_id"], :name => "index_subscriptions_on_subscriber_id"
+
   create_table "topics", :force => true do |t|
     t.integer  "list_id"
     t.string   "name"
@@ -71,5 +77,7 @@ ActiveRecord::Schema.define(:version => 20090218001212) do
     t.datetime "updated_at"
     t.string   "key"
   end
+
+  add_index "topics", ["list_id"], :name => "index_topics_on_list_id"
 
 end
