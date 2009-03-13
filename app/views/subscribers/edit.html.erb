@@ -1,4 +1,4 @@
-<h2>Edit <%= current_user.admin? ? @subscriber.name : 'your information' %></h2>
+<h2>Edit <%= admin? ? @subscriber.name : 'your information' %></h2>
 
 <% form_for(@subscriber) do |f| %>
   <%= f.error_messages %>
@@ -9,4 +9,4 @@
   </p>
 <% end %>
 
-<%= link_to 'Delete this subscriber', @subscriber, :confirm => 'Are you sure you want to delete this subscriber? This will permanently delete the user as well as any messages that they have created.  Consider disabling the user instead.', :method => :delete if current_user.admin? %>
+<%= link_to 'Delete this subscriber', @subscriber, :confirm => 'Are you sure you want to delete this subscriber? This will permanently delete the user as well as any messages that they have created.  Consider disabling the user instead.', :method => :delete if admin? %>

@@ -1,5 +1,5 @@
 <p class="top-right-links">
-<% if current_user.admin? %>
+<% if admin? %>
       <%= link_to 'Edit List', edit_list_path(@list) %> |
 	  <%= link_to 'Delete List', list_path(@list), :method => :delete, :confirm => "Are you sure?" %>
 <% else %>
@@ -16,7 +16,7 @@
 
 <table class="subscribers-topics">
 	<tr>
-		<% if current_user.admin? %>
+		<% if admin? %>
 		<td>
 			<h3>Subscribers</h3>
 

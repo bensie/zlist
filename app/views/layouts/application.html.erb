@@ -17,7 +17,7 @@
       </div>
       <div id="header-left"> 
 		<h1><%= APP_CONFIG[:email_domain] %></h1>
-        <% if current_user.admin? %>
+        <% if admin? %>
 		  <p><%= link_to "Lists", lists_path %> | <%= link_to "Subscribers", subscribers_path %> | 
           <!-- <%= link_to "Messages", messages_path %> | --><%= link_to "Servers", servers_path %></p>
         <% else %>

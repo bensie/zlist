@@ -1,5 +1,5 @@
-<p class="top-right-links"><%= link_to 'Add a new list', new_list_path if current_user.admin? %></p>
-<% if current_user.admin? %>
+<p class="top-right-links"><%= link_to 'Add a new list', new_list_path if admin? %></p>
+<% if admin? %>
 	<h2>Mailing Lists</h2>
 	<%= "<p>There are no lists yet. " + link_to ('Create one now', new_list_path) + "</p>" if @lists.empty? %>
 <% else %>
