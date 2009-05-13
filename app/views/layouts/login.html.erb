@@ -10,15 +10,10 @@
 <body>
 
 <div id="main-container-mini">
-	<% if flash %>
-		<div id="flash">
-			<% if flash[:notice] %>
-				<span class="notice"><%= flash[:notice] %></span>
-			<% elsif flash[:warning] %>
-				<span class="warning"><%= flash[:warning] %></span>
-			<% end %>
-		</div>
-	<% end %>
+	<%- flash.each do |name, msg| -%>
+		<%= content_tag :div, msg, :id => "flash-#{name}" %>
+		<br /><br />
+	<%- end -%>
 	
 	<div id="body">
 		<%= yield %>

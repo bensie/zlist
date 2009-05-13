@@ -26,17 +26,9 @@
       </div>
 	</div>
 	
-	<% if flash %>
-		<% if flash[:notice] %>
-			<div id="flash-notice">
-				<p><%= flash[:notice] %></p>
-			</div>
-		<% elsif flash[:warning] %>
-			<div id="flash-warning">
-				<p><%= flash[:warning] %></p>
-			</div>
-		<% end %>
-	<% end %>
+	<%- flash.each do |name, msg| -%>
+		<%= content_tag :div, msg, :id => "flash-#{name}" %>
+	<%- end -%>
 	
 	<div id="page">
         <!-- App Layout Yield -->
