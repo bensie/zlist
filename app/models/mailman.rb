@@ -105,7 +105,7 @@ class Mailman < ActionMailer::Base
       reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}@" +
                   APP_CONFIG[:email_domain] + ">"
     when "Author"
-      reply_to    "#{message.author.name} <#{message.author.}>"
+      reply_to    "#{message.author.name} <#{message.author.email}>"
     end
     if topic.list.subject_prefix.present?
       subject     topic.list.subject_prefix + ' ' + email.subject
