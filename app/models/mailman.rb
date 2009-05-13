@@ -100,8 +100,13 @@ class Mailman < ActionMailer::Base
   def to_mailing_list(topic, email, subscriber, message)
     recipients  subscriber.name + " <#{subscriber.email}>"
     from        "#{message.author.name} <mailer@#{ APP_CONFIG[:email_domain] }>"
-    reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}@" +
+    case topic.list.send_replies_to
+    when "Subscribers"
+      reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}@" +
                   APP_CONFIG[:email_domain] + ">"
+    when "Author"
+      reply_to    "#{message.author.name} <#{message.author.}>"
+    end
     if topic.list.subject_prefix.present?
       subject     topic.list.subject_prefix + ' ' + email.subject
     else

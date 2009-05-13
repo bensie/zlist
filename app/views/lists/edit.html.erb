@@ -20,14 +20,11 @@
 	
 	<h4>Who receives replies to messages?</h4>
 	<p>
-		<%= f.radio_button :send_replies_to, 'Subscribers', :disabled => true %>
+		<%= f.radio_button :send_replies_to, 'Subscribers' %>
 		<%= f.label :send_replies_to_group, 'Everyone in the group' %><br />
 		
-		<%= f.radio_button :send_replies_to, 'Author', :disabled => true %>
+		<%= f.radio_button :send_replies_to, 'Author' %>
 		<%= f.label :send_replies_to_author, 'Only the author of the message' %><br />
-		
-		<%= f.radio_button :send_replies_to, 'Managers', :disabled => true %>
-		<%= f.label :send_replies_to_managers, 'Only managers' %>
 	<p>
 	
 	<h4>Who is permitted to post new topics?</h4>
