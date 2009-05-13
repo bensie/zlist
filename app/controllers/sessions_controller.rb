@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     subscriber = Subscriber.authenticate(params[:login], params[:password])
     if subscriber
       session[:subscriber_id] = subscriber.id
-      redirect_back_or_default('/')
+      redirect_to_target_or_default(root_url)
     else
       flash.now[:warning] = "Invalid login or password."
       render :action => 'new'
