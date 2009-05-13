@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
     subscriber = Subscriber.authenticate(params[:login], params[:password])
     if subscriber
       session[:subscriber_id] = subscriber.id
-      flash[:notice] = "Logged in successfully."
       redirect_back_or_default('/')
     else
       flash.now[:warning] = "Invalid login or password."
