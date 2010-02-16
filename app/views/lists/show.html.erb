@@ -16,17 +16,17 @@
 
 <table class="subscribers-topics">
 	<tr>
-		<% if admin? %>
 		<td>
 			<h3>Subscribers</h3>
       <ul id="subscriptions">
-        <li>
-          <%= render 'subscriptions/form' %>
-        </li>
+        <% if admin? %>
+          <li>
+            <%= render 'subscriptions/form' %>
+          </li>
+        <% end %>
         <%= render @subscriptions %>
       </ul>
 		</td>
-		<% end %>
 		<td>
 
 <h3>Recent Topics</h3>

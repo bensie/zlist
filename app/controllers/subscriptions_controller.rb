@@ -1,6 +1,7 @@
 class SubscriptionsController < ApplicationController
   
   before_filter :find_subscription, :only => %w(show edit update destroy)
+  before_filter :admin_required
   
   def index
     @subscriptions = Subscription.all
