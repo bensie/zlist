@@ -1,4 +1,4 @@
-== ZList ==
+= ZList
 
 ZList is a simple yet powerful mailing list application and is built on Rails.  It can
 send mail to an unlimited number of recipients, can be configured as announcement only
@@ -9,19 +9,19 @@ what was said.
 It accepts email piped from an MTA (we use Postfix) and can accept email for an entire
 domain or specified addresses.
 
-= Installation =
+== Installation
 
 You can get the latest by downloading the master branch from GitHub, or you can grab the
 most recent tagged version on the downloads page at http://github.com/bensie/zlist/downloads
 
-= Prerequisites =
+== Prerequisites
 
 DList currently requires the Rails 2.3.5 gem as well as the the will_paginate gem available
 at http://github.com/mislav/will_paginate
 
 The mail_handler.rb file requires the rest-client gem.
 
-= Postfix Configuration =
+== Postfix Configuration
 
 From http://gist.github.com/55208 which will also remain up to date:
 
