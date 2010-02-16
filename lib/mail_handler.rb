@@ -1,10 +1,11 @@
-#!/usr/local/env ruby
+#!/usr/local/bin/ruby
 
 # Usage from Postfix:
 # /etc/aliases:
 # rails_mailer: "|/path/to/app/lib/mail_handler.rb http://www.example.com/emails 298cc9dceb1f3cac91fef8b42be624c07843fc8e"
 # Email is passed via STDIN, first argument is URL, second argument is server auth key
 
+require 'rubygems'
 require 'rest_client'
 
 SUCCESS = 0
