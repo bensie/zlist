@@ -19,6 +19,8 @@ most recent tagged version on the downloads page at http://github.com/bensie/zli
 DList currently requires the Rails 2.3.5 gem as well as the the will_paginate gem available
 at http://github.com/mislav/will_paginate
 
+The mail_handler.rb file requires the rest-client gem.
+
 = Postfix Configuration =
 
 From http://gist.github.com/55208 which will also remain up to date:
@@ -30,9 +32,10 @@ alias_maps = hash:/etc/aliases
  
 /etc/postfix/virtual:
 @list.domain.com rails_mailer
- 
+
 /etc/aliases:
-rails_mailer: "|/path/to/app/lib/mail_handler.rb"
+# Email is passed via STDIN, first argument is URL, second argument is server auth key
+rails_mailer: "|/path/to/app/lib/mail_handler.rb http://www.example.com/emails 298cc9dceb1f3cac91fef8b42be624c07843fc8e"
  
 Run these commands to apply:
 postmap virtual

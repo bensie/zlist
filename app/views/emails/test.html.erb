@@ -1,7 +1,0 @@
-<p><b>This sends a raw e-mail into the mailer</b></p>
-<% form_tag('/emails', :method => :post) do -%>
-  <div><%= text_area_tag 'email', nil, :rows => 20, :cols => 60 %>
-  <%= hidden_field_tag 'key', 'abcdefg' %>
-  <div><%= submit_tag 'Send' %></div>
-<% end -%>
-

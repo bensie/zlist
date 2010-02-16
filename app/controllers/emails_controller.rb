@@ -8,35 +8,14 @@ class EmailsController < ApplicationController
 
   def create
     Mailman.receive(params[:email])
-    # For test action
-    flash[:notice] = 'E-mail was ingested'
-    
-    # Probably want a catch here incase Mailman throws an error
-
-    respond_to do |format|
-      format.html { redirect_to :action => "test" }
-      format.xml 
-    end
-  end
-
-  # Just for sending a test e-mail
-  def test
+    render :nothing => true
   end
   
   private
   
   def verify_server_can_send_email
-    server = Server.find_by_ip(request.env['REMOTE_ADDR'])
-
-    # Let them use a universal key if they aren't in the database
-    unless ( (server) && params[:key] == server.key ) || ( params[:key] == "abcdefg" )
-      # Remove warning when system ironed out
-      flash[:warning] = 'Server authentication failed'
-      respond_to do |format|
-        format.html { redirect_to root_url }
-        format.xml { render :xml => 'Go pound sand', :status => :unprocessable_entity }
-      end
+    unless Server.find_by_key(params[:key])
+      render :text => "Your server did not provide a valid key to post messages.", :status => 403
     end
-
   end
 end

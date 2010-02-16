@@ -1,46 +1,21 @@
-#!/usr/local/bin/ruby
+#!/usr/local/env ruby
 
-# This file accepts a raw e-mail from STDIN and sends it to rails
+# Usage from Postfix:
+# /etc/aliases:
+# rails_mailer: "|/path/to/app/lib/mail_handler.rb http://www.example.com/emails 298cc9dceb1f3cac91fef8b42be624c07843fc8e"
+# Email is passed via STDIN, first argument is URL, second argument is server auth key
 
-require 'net/http'
-require 'uri'
-require 'yaml'
+require 'rest_client'
 
 SUCCESS = 0
 TEMPORARY_FAIL = 75
 UNAVAILABLE = 69
 
-# Detect via command line in the future
-#debug = true
+target_url = ARGV[0] || "http://localhost/emails"
+server_key = ARGV[1] || ""
 
-DEFAULT_TARGET = "http://localhost/emails"
-target_url = DEFAULT_TARGET
+params = { :key => server_key, :email => STDIN.read }
 
-# Break this out so we can add Accept header for XML later
-url = URI.parse(target_url)
-request = Net::HTTP::Post.new(url.path)
-request.set_form_data( {'key' => 'abcdefg', 'email' => STDIN.read}, '&' )
-#request['accept'] = "text/xml"
+result = RestClient.post target_url, params
 
-#if(debug)
-#  puts "--Target URL: #{target_url}--"
-#  puts "Request Body--"
-#  print request.body
-#  puts "--Request Body"
-#end
-result = Net::HTTP.new(url.host, url.port).start { |http| http.request(request) }
-
-#if result.is_a?(Net::HTTPSuccess)
-#  #print result.body if debug
-#  case result.body
-#  when '250'
-#    exit(SUCCESS)
-#  when '550'
-#    exit(UNAVAILABLE)
-#  end
-##else
-#  #puts "Not a HTTP Success" if debug
-#  #print result.body if debug
-#end
-#exit(TEMPORARY_FAIL)
 exit(SUCCESS)
