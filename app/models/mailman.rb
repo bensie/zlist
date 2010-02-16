@@ -2,24 +2,16 @@ class Mailman < ActionMailer::Base
   
   def receive(email)
     # Extract out <list>+<thread>@<domain>
-    s_list, s_topic, s_domain = 
-      email.to.first.match(/^([\w\-]+)\+?([0-9a-f]*)\@([\w\.]+)$/).to_a[1..3]
-
-
-    # Don't storm if using BCC method with To: noreply 
-    # TODO: remove 
-    if s_list == "mailer" || s_list == "noreply"
-      exit
-    end
+    sender_list, sender_topic, sender_domain = email.to.first.match(/^([\w\-]+)\+?([0-9a-f]*)\@([\w\.]+)$/).to_a[1..3]
 
     # Make sure the list exists
-    list = List.find_by_short_name(s_list)
+    list = List.find_by_short_name(sender_list)
     unless list.present?
       Mailman.deliver_no_such_list(email)
       exit
     end
 
-    # Make sure they are in the list (allowed to post)
+    # Make sure the sender is in the list (allowed to post)
     author = list.subscribers.find_by_email(email.from)
     unless author.present?
       Mailman.deliver_cannot_post(list, email)
@@ -27,24 +19,24 @@ class Mailman < ActionMailer::Base
     end
 
     # Check if this is a response to an existing topic or a new message
-    if s_topic.present?
-      topic = Topic.find_by_key(s_topic)
+    if sender_topic.present?
+      topic = Topic.find_by_key(sender_topic)
       unless topic.present? 
         Mailman.deliver_no_such_topic(list, email)
         exit
       end
       
-      # Reset the subject
+      # Reset the subject so it doesn't contain the prefix
       email.subject = topic.name
 
     else
       topic = list.topics.create(:name => email.subject)
     end
 
-    message = topic.messages.build(:subject => email.subject, :body => email.body)
-    message.author = author
-    message.save
+    # Store the message
+    message = topic.messages.create(:subject => email.subject, :body => email.body, :author => author)
    
+    # Deliver to subscribers
     list.subscribers.each do |subscriber|
       Mailman.deliver_to_mailing_list(topic, email, subscriber, message) unless subscriber == message.author
     end
@@ -102,13 +94,12 @@ class Mailman < ActionMailer::Base
     from        "#{message.author.name} <mailer@#{ APP_CONFIG[:email_domain] }>"
     case topic.list.send_replies_to
     when "Subscribers"
-      reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}@" +
-                  APP_CONFIG[:email_domain] + ">"
+      reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}@" + APP_CONFIG[:email_domain] + ">"
     when "Author"
       reply_to    "#{message.author.name} <#{message.author.email}>"
     end
     if topic.list.subject_prefix.present?
-      subject     topic.list.subject_prefix + ' ' + email.subject
+      subject     [topic.list.subject_prefix, email.subject].join(" ")
     else
       subject     email.subject
     end
