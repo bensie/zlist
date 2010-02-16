@@ -25,21 +25,21 @@ The mail_handler.rb file requires the rest-client gem.
 
 From http://gist.github.com/55208 which will also remain up to date:
 
-/etc/postfix/main.cf:
-mydestination = localhost.localdomain, localhost, list.domain.com
-virtual_maps = hash:/etc/postfix/virtual
-alias_maps = hash:/etc/aliases
+  /etc/postfix/main.cf:
+  mydestination = localhost.localdomain, localhost, list.domain.com
+  virtual_maps = hash:/etc/postfix/virtual
+  alias_maps = hash:/etc/aliases
  
-/etc/postfix/virtual:
-@list.domain.com rails_mailer
+  /etc/postfix/virtual:
+  @list.domain.com rails_mailer
 
-/etc/aliases:
-# Email is passed via STDIN, first argument is URL, second argument is server auth key
-rails_mailer: "|/path/to/app/lib/mail_handler.rb http://www.example.com/emails 298cc9dceb1f3cac91fef8b42be624c07843fc8e"
+  /etc/aliases:
+  # Email is passed via STDIN, first argument is URL, second argument is server auth key
+  rails_mailer: "|/path/to/app/lib/mail_handler.rb http://www.example.com/emails 298cc9dceb1f3cac91fef8b42be624c07843fc8e"
  
 Run these commands to apply:
-postmap virtual
-postalias /etc/aliases
-postfix reload
+  postmap virtual
+  postalias /etc/aliases
+  postfix reload
 
 Copyright (c) 2010 James Miller and David Hasson
