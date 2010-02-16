@@ -16,7 +16,7 @@ most recent tagged version on the downloads page at http://github.com/bensie/zli
 
 = Prerequisites =
 
-DList currently requires the Rails 2.3.0 (RC1) gem as well as the the will_paginate gem available
+DList currently requires the Rails 2.3.5 gem as well as the the will_paginate gem available
 at http://github.com/mislav/will_paginate
 
 = Postfix Configuration =
@@ -39,4 +39,4 @@ postmap virtual
 postalias /etc/aliases
 postfix reload
 
-Copyright (c) 2009 James Miller and David Hasson
+Copyright (c) 2010 James Miller and David Hasson
