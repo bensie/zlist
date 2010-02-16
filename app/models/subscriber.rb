@@ -27,7 +27,7 @@ class Subscriber < ActiveRecord::Base
   
   def self.find_subscribers_not_in_list(list_id)
     find_by_sql ["SELECT * FROM subscribers WHERE id NOT IN 
-                      (SELECT DISTINCT subscriber_id FROM subscriptions WHERE list_id = ?)", list_id ]
+                      (SELECT DISTINCT subscriber_id FROM subscriptions WHERE list_id = ?) ORDER BY subscribers.name", list_id ]
   end
   
   # Login with email address
