@@ -3,7 +3,7 @@ class SubscriptionsController < ApplicationController
   before_filter :find_subscription, :only => %w(show edit update destroy)
   
   def index
-    @subscriptions = Subscription.find(:all)
+    @subscriptions = Subscription.all
   end
 
   def show
@@ -19,40 +19,26 @@ class SubscriptionsController < ApplicationController
   def create
     @subscription = Subscription.new(params[:subscription])
     @list = @subscription.list
-    respond_to do |format|
-      if @subscription.save
-        @subscriptions = Subscription.all(:conditions => ['list_id = ?', @subscription.list_id])
-        @available_subscribers = Subscriber.find_subscribers_not_in_list(@subscription.list_id)
-        format.html { redirect_to(list_path(@subscription.list)) }
-        format.xml  { render :xml => @subscription, :status => :created, :location => @subscription }
-        format.js
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @subscription.errors, :status => :unprocessable_entity }
-      end
+    if @subscription.save
+      redirect_to @list
+    else
+      render "new"
     end
   end
 
   def update
     if @subscription.update_attributes(params[:subscription])
       flash[:notice] = 'Subscription was successfully updated.'
-      redirect_to(@subscription)
+      redirect_to @subscription
     else
-      render :action => "edit"
+      render "edit"
     end
   end
 
   def destroy
     @list = @subscription.list
     @subscription.destroy
-    
-    @subscriptions = Subscription.all(:include => :subscriber, :conditions => ['list_id = ?', @list.id])
-    @available_subscribers = Subscriber.find_subscribers_not_in_list(@list.id)
-    respond_to do |format|
-      format.html { redirect_to memberships_url }
-      format.xml  { head :ok }
-      format.js {}
-    end
+    redirect_to :back
   end
   
   def find_subscription

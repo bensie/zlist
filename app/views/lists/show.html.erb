@@ -19,14 +19,16 @@
 		<% if admin? %>
 		<td>
 			<h3>Subscribers</h3>
-
-<div id="hidden_subscription_form">
-	<%= render :partial => 'lists/hidden_subscription_form', :locals => { :subscription => @subscription, :list => @list } %>
-</div>
-
-<div id="subscriptions">
-	<%= render :partial => 'lists/subscriptions', :locals => { :subscriptions => @list.subscriptions, :available_subscribers => @available_subscribers } %>
-</div>
+      <ul id="subscriptions">
+        <li>
+          <% form_for @subscription do |f| %>
+          	<%= f.hidden_field :list_id, :value => @list.id %>
+          	<%= f.select :subscriber_id, @available_subscribers.map {|s| [s.name, s.id] }, :include_blank => "Add a subscriber..." %>
+          	<%= f.submit "Add" %>
+          <% end %>
+        </li>
+        <%= render @list.subscriptions %>
+      </ul>
 		</td>
 		<% end %>
 		<td>

@@ -1,4 +1,4 @@
-<p>
-	<%= link_to h(subscription.subscriber.name), subscriber_path(subscription.subscriber) %>
-	<%= link_to_remote 'Remove', :method => :delete, :url => subscription_path(subscription), :html => { :class => 'small red'}  %>
-</p>
+<li>
+  <%= link_to h(subscription.subscriber.name), subscription.subscriber %>
+  <%= link_to 'Remove', subscripton_path(@subscription), :method => :delete, :confirm => "Are you sure?", :html => { :class => 'small red'} if admin?  %>
+</li>

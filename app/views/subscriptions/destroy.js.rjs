@@ -1,2 +1,0 @@
-page[:subscriptions].replace_html :partial => "lists/subscriptions", 
-                                :locals => {:subscriptions => @subscriptions, :available_subscribers => @available_subscribers }

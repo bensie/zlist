@@ -1,7 +1,7 @@
 class List < ActiveRecord::Base
 
   has_many :subscriptions, :dependent => :destroy
-  has_many :subscribers, :through => :subscriptions, :uniq => true
+  has_many :subscribers, :order => :name, :through => :subscriptions, :uniq => true
   has_many :topics, :dependent => :destroy
   
   default_scope :order => :name
