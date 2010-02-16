@@ -1,4 +1,12 @@
 <li>
-  <%= link_to h(subscription.subscriber.name), subscription.subscriber %>
-  <%= link_to 'Remove', subscription, :method => :delete, :confirm => "Are you sure?", :html => { :class => 'small red'} if admin?  %>
+  <% if admin? %>
+  
+    <%= link_to h(subscription.subscriber.name), subscription.subscriber %>
+    <%= link_to 'Remove', subscription, :method => :delete, :class => 'small red', :confirm => "Are you sure?" %>
+    
+  <% else %>
+  
+    <%=h subscription.subscriber.name %>
+    
+  <% end %>
 </li>

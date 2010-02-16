@@ -23,7 +23,7 @@ class EmailsController < ApplicationController
   def test
   end
   
-  protected
+  private
   
   def verify_server_can_send_email
     server = Server.find_by_ip(request.env['REMOTE_ADDR'])

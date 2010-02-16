@@ -44,7 +44,7 @@ class TopicsController < ApplicationController
     redirect_to(topics_url)
   end
 
-  protected
+  private
   
   def find_list
     @list = List.find(params[:list_id])

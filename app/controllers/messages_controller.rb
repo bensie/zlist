@@ -43,7 +43,7 @@ class MessagesController < ApplicationController
     redirect_to(messages_url)
   end
 
-  protected
+  private
   
   def find_message
     @message = Message.find(params[:id])

@@ -249,3 +249,7 @@ table.subscribers-topics td {
 	padding: 10px;
 	margin-bottom: 10px;
 }
+
+#subscriptions li {
+	line-height: 20px;
+}

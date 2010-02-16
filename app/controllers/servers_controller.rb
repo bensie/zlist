@@ -42,7 +42,7 @@ class ServersController < ApplicationController
     redirect_to :back
   end
   
-  protected
+  private
   
   def find_server
     @server = Server.find(params[:id])

@@ -17,13 +17,9 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    @subscription = Subscription.new(params[:subscription])
+    @subscription = Subscription.create(params[:subscription])
     @list = @subscription.list
-    if @subscription.save
-      redirect_to @list
-    else
-      render "new"
-    end
+    redirect_to :back
   end
 
   def update
@@ -40,6 +36,8 @@ class SubscriptionsController < ApplicationController
     @subscription.destroy
     redirect_to :back
   end
+  
+  private
   
   def find_subscription
     @subscription = Subscription.find(params[:id])

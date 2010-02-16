@@ -61,7 +61,7 @@ class Mailman < ActionMailer::Base
   end
 
 
-  protected
+  private
 
   # Response to a message posted to a list that doesn't exist
   def no_such_list(email)

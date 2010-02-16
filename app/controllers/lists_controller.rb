@@ -12,7 +12,8 @@ class ListsController < ApplicationController
   end
 
   def show
-    @list = List.find(params[:id], :include => :subscriptions)
+    @list = List.find(params[:id])
+    @subscriptions = @list.subscriptions.all(:include => :subscriber, :order => 'subscribers.name')
     @subscription = Subscription.new
     @available_subscribers = Subscriber.find_subscribers_not_in_list(@list.id)
   end
@@ -68,7 +69,7 @@ class ListsController < ApplicationController
     redirect_to lists_url
   end
 
-  protected
+  private
   
   def find_list
     @list = List.find(params[:id])

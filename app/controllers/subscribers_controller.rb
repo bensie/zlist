@@ -96,7 +96,7 @@ class SubscribersController < ApplicationController
     end
   end
   
-  protected
+  private
   
   def find_subscriber
     if admin?
