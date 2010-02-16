@@ -12,7 +12,7 @@
 			<%= subscriber.lists.collect{|l| link_to(l.name, l)}.join(", ") %>
 		</span>
 	</td>
-	<td class="checkbox">
+	<td class="checkbox" style="text-align:right">
 		<%= check_box_tag "subscriber[admin]", "1", subscriber.admin, 
 		:onclick => remote_function(
 	  		:url => url_for(toggle_administrator_subscriber_path(subscriber)),

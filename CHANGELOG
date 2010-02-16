@@ -1,6 +1,6 @@
 *Edge*
 
-* Updated to require Rails 2.3.0 (RC1)
+* Updated to require Rails 2.3.5
 * Added several options to lists - who gets responses, who can post new messages, disable archive, disable list
 
 *0.2 [February 17, 2009]*

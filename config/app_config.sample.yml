@@ -1,14 +1,14 @@
 development:
   email_domain: lists.yourdomain.com
   email_target_url: http://lists.yourdomain.com/emails
-  copyright: '&copy;2009 Your Company'
+  copyright: '&copy;2010 Your Company'
   
 test:
   email_domain: lists.yourdomain.com
   email_target_url: http://lists.yourdomain.com/emails
-  copyright: '&copy;2009 Your Company'
+  copyright: '&copy;2010 Your Company'
 
 production:
   email_domain: lists.yourdomain.com
   email_target_url: http://lists.yourdomain.com/emails
-  copyright: '&copy;2009 Your Company'
+  copyright: '&copy;2010 Your Company'

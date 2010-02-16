@@ -51,7 +51,7 @@ class SubscribersController < ApplicationController
       else
         flash[:notice] = 'Thanks for signing up!  You are now logged in.'
         session[:subscriber_id] = @subscriber.id if @subscriber.password_hash.present?
-        redirect_back_or_default('/')
+        redirect_to_target_or_default('/')
       end
     else
       if logged_in?
