@@ -1,12 +1,22 @@
+<% if admin? %>
+  <p style="color: #aaa">Enter the name and email address of the new subscriber</p>
+<% end %>
+
 <p>
-<%= f.label :name %><br />
-<%= f.text_field :name %>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
 </p>
 
 <p>
-<%= f.label :email %><br />
-<%= f.text_field :email %>
+  <%= f.label :email %><br />
+  <%= f.text_field :email %>
 </p>
+
+<% if admin? %>
+  <p style="color: #aaa">
+    Optionally, give the subscriber a password so they can login to the system.
+  </p>
+<% end %>
 
 <p>
   <%= f.label :password %><br />
