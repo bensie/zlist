@@ -2,7 +2,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title><%= APP_CONFIG[:email_domain] %></title>
+	<title><%= ENV['email_domain'] %></title>
 	<%= stylesheet_link_tag "global" %>
     <%= javascript_include_tag :defaults %>
 </head>
@@ -16,7 +16,7 @@
         <%= link_to "[Logout]", sessions_path, :method => :delete %>
       </div>
       <div id="header-left"> 
-		<h1><%= APP_CONFIG[:email_domain] %></h1>
+		<h1><%= ENV['email_domain'] %></h1>
         <% if admin? %>
 		  <p><%= link_to "Lists", lists_path %> | <%= link_to "Subscribers", subscribers_path %> | 
           <!-- <%= link_to "Messages", messages_path %> | --><%= link_to "Servers", servers_path %></p>
@@ -41,7 +41,7 @@
 <!-- Footer -->
 <div id="footer" align="center">
    <br/>
-   <div id="footer-links"><%= APP_CONFIG[:copyright] %></div>
+   <div id="footer-links"><%= ENV['copyright'] %></div>
 </div>
 <!-- End Footer -->
 
