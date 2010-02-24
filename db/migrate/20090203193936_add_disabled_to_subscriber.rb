@@ -1,6 +1,6 @@
 class AddDisabledToSubscriber < ActiveRecord::Migration
   def self.up
-    add_column :subscribers, :disabled, :boolean, :default => 0
+    add_column :subscribers, :disabled, :boolean, :default => false
   end
 
   def self.down
