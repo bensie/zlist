@@ -5,7 +5,7 @@
 
 <p>
   <%= f.label :short_name, 'Email Address' %><br />
-  <%= f.text_field :short_name %>&nbsp;@<%= APP_CONFIG[:email_domain] %>
+  <%= f.text_field :short_name %>&nbsp;@<%= ENV['email_domain'] %>
 </p>
 
 <p>
