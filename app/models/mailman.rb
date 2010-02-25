@@ -47,7 +47,7 @@ class Mailman < ActionMailer::Base
   def list_test_dispatch(list)
     list.subscribers.each do |subscriber|
       recipients  subscriber.name + " <#{subscriber.email}>" 
-      from        "#{ APP_CONFIG[:email_domain] } <noreply@#{ APP_CONFIG[:email_domain] }>"
+      from        "#{ ENV['email_domain'] } <noreply@#{ ENV['email_domain'] }>"
       subject     "[#{list.short_name}] Test Mailing"
     end
   end
@@ -58,7 +58,7 @@ class Mailman < ActionMailer::Base
   # Response to a message posted to a list that doesn't exist
   def no_such_list(email)
     recipients  email.from
-    from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
+    from        "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>"
     subject     "Address does not exist at this server"
     body        :address => email.to
   end
@@ -66,7 +66,7 @@ class Mailman < ActionMailer::Base
   # Response to a message posted in reply to a topic that doesn't exist
   def no_such_topic(list, email)
     recipients  email.from
-    from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
+    from        "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>"
     subject     "[#{list.name}] The topic you referenced no longer exists"
     body        :list => list.name
   end
@@ -74,16 +74,16 @@ class Mailman < ActionMailer::Base
   # Response to a message sent to a noreply address
   def no_reply_address(email)
     recipients  email.from
-    from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
+    from        "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>"
     subject     "Replies to this address are not monitored."
-    body        "We're sorry, but the addresses noreply@#{ APP_CONFIG[:email_domain] } and mailer@#{ APP_CONFIG[:email_domain] }
+    body        "We're sorry, but the addresses noreply@#{ ENV['email_domain'] } and mailer@#{ ENV['email_domain'] }
                 are not monitored for replies.  Your message has been discarded."
   end
 
   # Reponse to a message posted to a list by a non-member
   def cannot_post(list, email)
     recipients  email.from
-    from        "#{ APP_CONFIG[:email_domain] } <mailer@#{ APP_CONFIG[:email_domain] }>"
+    from        "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>"
     subject     "[#{list.name}] You're not allowed to post to this list"
     body        :list => list.name
   end
@@ -91,10 +91,10 @@ class Mailman < ActionMailer::Base
   # Send an e-mail out to a list
   def to_mailing_list(topic, email, subscriber, message)
     recipients  subscriber.name + " <#{subscriber.email}>"
-    from        "#{message.author.name} <mailer@#{ APP_CONFIG[:email_domain] }>"
+    from        "#{message.author.name} <mailer@#{ ENV['email_domain'] }>"
     case topic.list.send_replies_to
     when "Subscribers"
-      reply_to    "mailer@#{ APP_CONFIG[:email_domain] } <#{topic.list.short_name}+#{topic.key}@" + APP_CONFIG[:email_domain] + ">"
+      reply_to    "mailer@#{ ENV['email_domain'] } <#{topic.list.short_name}+#{topic.key}@" + ENV['email_domain'] + ">"
     when "Author"
       reply_to    "#{message.author.name} <#{message.author.email}>"
     end

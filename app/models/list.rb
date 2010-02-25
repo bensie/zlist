@@ -17,11 +17,11 @@ class List < ActiveRecord::Base
                   :send_replies_to, :message_footer, :permitted_to_post, :archive_disabled, :disabled
 
   def email
-    short_name + "@" + APP_CONFIG[:email_domain]
+    short_name + "@" + ENV['email_domain']
   end
 
   def domain
-    APP_CONFIG[:email_domain]
+    ENV['email_domain']
   end
   
   private
