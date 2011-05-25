@@ -6,8 +6,8 @@ class List < ActiveRecord::Base
   
   default_scope :order => :name
   
-  named_scope :public, :conditions => { :private => false }
-  named_scope :private, :conditions => { :private => true }
+  scope :public, :conditions => { :private => false }
+  scope :private, :conditions => { :private => true }
 
   validates_presence_of :name, :short_name
   

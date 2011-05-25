@@ -19,11 +19,11 @@ class Subscriber < ActiveRecord::Base
   
   default_scope :order => :name
   
-  named_scope :active, :conditions => { :disabled => false }, :order => :name
-  named_scope :disabled, :conditions => { :disabled => true }, :order => :name
+  scope :active, :conditions => { :disabled => false }, :order => :name
+  scope :disabled, :conditions => { :disabled => true }, :order => :name
   
   # Search based on 'term' parameter
-  named_scope :search, lambda { |term| { :conditions => ["subscribers.name LIKE ? OR subscribers.email LIKE ?", "%" + term + "%", "%" + term + "%"], :order => :name }}
+  scope :search, lambda { |term| { :conditions => ["subscribers.name LIKE ? OR subscribers.email LIKE ?", "%" + term + "%", "%" + term + "%"], :order => :name }}
   
   def self.find_subscribers_not_in_list(list_id)
     find_by_sql ["SELECT * FROM subscribers WHERE id NOT IN 
