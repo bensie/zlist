@@ -1,18 +1,38 @@
-Zlist::Application.routes.draw do |map|
+Zlist::Application.routes.draw do
 
-  map.signup 'signup', :controller => 'subscribers', :action => 'new'
-  map.logout 'logout', :controller => 'sessions', :action => 'destroy'
-  map.login 'login', :controller => 'sessions', :action => 'new'
+  get 'signup', :to => 'subscribers#new'
+  get 'logout', :to => 'sessions#destroy'
+  get 'login',  :to => 'sessions#new'
 
-  map.resource :sessions
-  map.resources :servers
-  map.resources :subscribers, :member => { :toggle_administrator => :put }, :collection => { :search => :get }
-  map.resources :messages
-  map.resources :lists, :member => { :send_test => :get, :subscribe => :get, :unsubscribe => :get },
-                        :collection => { :available => :get },
-                        :has_many => :topics
-  map.resources :emails, :collection => { :test => :get }
-  map.resources :subscriptions
-  map.root :controller => 'lists', :action => 'index'
+  resource :sessions
+  resources :servers
+  resources :subscribers do
+    member do
+      put :toggle_administrator
+    end
+    collection do
+      get :search
+    end
+  end
+  resources :messages
+  resources :lists do
+    member do
+      get :send_test
+      get :subscribe
+      get :unsubscribe
+    end
+    collection do
+      get :available
+    end
+    resources :topics
+  end
+  resources :emails do
+    collection do
+      get :test
+    end
+  end
+  resources :subscriptions
+
+  root :to => 'lists#index'
 
 end
