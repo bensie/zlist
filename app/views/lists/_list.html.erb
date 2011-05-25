@@ -1,24 +1,25 @@
-<% div_for list do %>
-	<p>
-		<% if list.private? %>
-			<span class="private"><%= image_tag 'private.png', :alt => 'This list is private' %></span>
-		<% end %>
-		<span class="name"><%= link_to h(list.name), list %></span>
-		<span class="email"><%= mail_to h(list.email) %></span>
-	</p>
-	<p>
-		<span class="sub-text">
-			<% if admin? %>
-				(<%= pluralize(list.subscriptions.size, 'subscriber') %>)
-			<% end %>
-		<span class="sub-text">         
-			<% if current_user.lists.include?(list) %>
-				<%= link_to "unsubscribe", unsubscribe_list_path(list), :confirm => "Are you sure you want to unsubscribe?" %>
-			<% else %>
-				<%= link_to "subscribe", subscribe_list_path(list), :confirm => "Are you sure you want to subscribe?" %>
-			<% end %>
-			<%= link_to 'view topics', list_topics_path(list) %>
-		</span>
-	</p>
-	<p><%= list.description %></p>
+<%= div_for list do %>
+  <p>
+    <% if list.private? %>
+      <span class="private"><%= image_tag 'private.png', :alt => 'This list is private' %></span>
+    <% end %>
+
+    <span class="name"><%= link_to list.name, list %></span>
+    <span class="email"><%= mail_to list.email %></span>
+  </p>
+  <p>
+    <span class="sub-text">
+      <% if admin? %>
+        (<%= pluralize(list.subscriptions.size, 'subscriber') %>)
+      <% end %>
+    <span class="sub-text">
+      <% if current_user.lists.include?(list) %>
+        <%= link_to "unsubscribe", unsubscribe_list_path(list), :confirm => "Are you sure you want to unsubscribe?" %>
+      <% else %>
+        <%= link_to "subscribe", subscribe_list_path(list), :confirm => "Are you sure you want to subscribe?" %>
+      <% end %>
+      <%= link_to 'view topics', list_topics_path(list) %>
+    </span>
+  </p>
+  <p><%= list.description %></p>
 <% end %>
