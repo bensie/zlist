@@ -1,30 +1,28 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-	<title><%= ENV['email_domain'] %></title>
-	<%= stylesheet_link_tag "global" %>
-    <%= javascript_include_tag :defaults %>
+  <title><%= ENV['email_domain'] %></title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
 </head>
 
 <body>
 
 <div id="main-container-mini">
-	<%- flash.each do |name, msg| -%>
-		<%= content_tag :div, msg, :id => "flash-#{name}" %>
-		<br /><br />
-	<%- end -%>
-	
-	<div id="body">
-		<%= yield %>
-	</div>
-	
-	<div id="footer">
+  <%- flash.each do |name, msg| -%>
+    <%= content_tag :div, msg, :id => "flash-#{name}" %>
+    <br /><br />
+  <%- end -%>
 
-	</div>
+  <div id="body">
+	  <%= yield %>
+  </div>
+
+  <div id="footer">
+
+  </div>
 </div>
 
-
-	
 </body>
 </html>

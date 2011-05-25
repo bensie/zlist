@@ -4,6 +4,7 @@
 	<title><%= ENV['email_domain'] %></title>
 	<%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
 </head>
 
 <body>
@@ -11,7 +12,7 @@
 <div id="main-container">
 	<div id="header">
 	  <div id="header-right">
-        <p>Welcome, <%=h current_user.name %>!<br/>
+        <p>Welcome, <%= current_user.name %>!<br/>
         <%= link_to "[Logout]", sessions_path, :method => :delete %>
       </div>
       <div id="header-left">

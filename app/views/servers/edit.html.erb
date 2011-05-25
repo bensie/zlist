@@ -4,7 +4,7 @@
 	<%= f.error_messages %>
 	<%= render :partial => 'form', :locals => { :f => f } %>
 	<p>
-		Key: <%=h @server.key %>
+		Key: <%= @server.key %>
 	<p>
     	<%= f.submit "Update Server" %>
   	</p>
