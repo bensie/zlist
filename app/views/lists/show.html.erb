@@ -1,23 +1,25 @@
 <p class="top-right-links">
 <% if admin? %>
-      <%= link_to 'Edit List', edit_list_path(@list) %> |
-	  <%= link_to 'Delete List', list_path(@list), :method => :delete, :confirm => "Are you sure?" %>
+  <%= link_to 'Edit List', edit_list_path(@list) %> |
+  <%= link_to 'Delete List', list_path(@list), :method => :delete, :confirm => "Are you sure?" %>
 <% else %>
-	<% if @list.subscribers.include?(current_user) %>
-    	You are subscribed to this list
-    	<%= link_to 'Unsubscribe', unsubscribe_list_path(@list) %>
-  	<% else %>
-    	<%= link_to 'Subscribe', subscribe_list_path(@list) %>
-  	<% end %>
+  <% if @list.subscribers.include?(current_user) %>
+    You are subscribed to this list
+    <%= link_to 'Unsubscribe', unsubscribe_list_path(@list) %>
+  <% else %>
+    <%= link_to 'Subscribe', subscribe_list_path(@list) %>
+  <% end %>
 <% end %>
 </p>
+
 <h2><%= @list.name %> - <%= @list.email %></h2>
+
 <p><%= @list.description %></p>
 
 <table class="subscribers-topics">
-	<tr>
-		<td>
-			<h3>Subscribers</h3>
+  <tr>
+    <td>
+      <h3>Subscribers</h3>
       <ul id="subscriptions">
         <% if admin? %>
           <li>
@@ -26,18 +28,18 @@
         <% end %>
         <%= render @subscriptions %>
       </ul>
-		</td>
-		<td>
+    </td>
+    <td>
+      <h3>Recent Topics</h3>
+      <% if @list.topics.present? %>
+        <% @list.topics.each do |topic| %>
+          <p><%= link_to topic.name, list_topic_path(@list, topic) %></p>
+        <% end %>
+      <% else %>
+        <p>There are no recent topics for this list.</p>
+      <% end %>
 
-<h3>Recent Topics</h3>
-<% if @list.topics.present? %>
-	<% @list.topics.each do |topic| %>
-		<p><%= link_to h(topic.name), list_topic_path(@list, topic) %></p>
-	<% end %>
-<% else %>
-	<p>There are no recent topics for this list.</p>
-<% end %>
-<%= link_to h("[All Topics]"), list_topics_path(@list) %>
-		</td>
-	</tr>
+      <%= link_to "[All Topics]", list_topics_path(@list) %>
+    </td>
+  </tr>
 </table>

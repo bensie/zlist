@@ -1,13 +1,11 @@
 <h2>Add a new mailing list</h2>
 
 <%= form_for(@list) do |f| %>
-	<%= f.error_messages %>
-	<%= render :partial => 'form', :locals => { :f => f } %>
-	<p>
-    	<%= f.submit "Create List" %>
-  	</p>
+  <%= f.error_messages %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+  <p>
+    <%= f.submit "Create List" %>
+  </p>
 <% end %>
 
 <%= link_to 'Back', lists_path %>
-
-<%= focus_field :list_name %>
