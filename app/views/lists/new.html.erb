@@ -1,6 +1,6 @@
 <h2>Add a new mailing list</h2>
 
-<% form_for(@list) do |f| %>
+<%= form_for(@list) do |f| %>
 	<%= f.error_messages %>
 	<%= render :partial => 'form', :locals => { :f => f } %>
 	<p>

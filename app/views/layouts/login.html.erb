@@ -10,10 +10,10 @@
 <body>
 
 <div id="main-container-mini">
-  <%- flash.each do |name, msg| -%>
+  <% flash.each do |name, msg| %>
     <%= content_tag :div, msg, :id => "flash-#{name}" %>
     <br /><br />
-  <%- end -%>
+  <% end %>
 
   <div id="body">
 	  <%= yield %>

@@ -1,6 +1,6 @@
 <h1>New subscriber</h1>
 
-<% form_for(@subscriber) do |f| %>
+<%= form_for(@subscriber) do |f| %>
 	<%= f.error_messages %>
 	<%= render :partial => 'form', :locals => { :f => f } %>
 

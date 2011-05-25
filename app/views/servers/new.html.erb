@@ -1,6 +1,6 @@
 <h2>New server</h2>
 
-<% form_for(@server) do |f| %>
+<%= form_for(@server) do |f| %>
 	<%= f.error_messages %>
 	<%= render :partial => 'form', :locals => { :f => f } %>
 	<p>
