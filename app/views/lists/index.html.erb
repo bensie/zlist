@@ -1,21 +1,24 @@
 <p class="top-right-links"><%= link_to 'Add a new list', new_list_path if admin? %></p>
 <% if admin? %>
-	<h2>Mailing Lists</h2>
+  <h2>Mailing Lists</h2>
 
 	<% if @lists.empty? %>
 	  <p>
 	    There are no lists yet.
 	    <%= link_to 'Create one now', new_list_path %>
 	  </p>
-	<% end %>
+  <% end %>
 
 <% else %>
-	<% if current_user.lists.empty? %>
-		<h3>You are not subscribed to any lists. <%= link_to "View all available lists", available_lists_path %></h3>
-	<% else %>
-		<h3>My Lists</h3>
-	<% end %>
+  <% if current_user.lists.empty? %>
+    <h3>
+      You are not subscribed to any lists.
+      <%= link_to "View all available lists", available_lists_path %>
+    </h3>
+  <% else %>
+    <h3>My Lists</h3>
+  <% end %>
 <% end %>
 <table>
-	<%= render @lists %>
+  <%= render @lists %>
 </table>
