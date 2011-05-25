@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  list_id: 1
-  name: MyString
-
-two:
-  list_id: 1
-  name: MyString

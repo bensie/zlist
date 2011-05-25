@@ -1,9 +1,8 @@
-.DS_STORE
+.bundle
+db/*.sqlite3
 log/*.log
-tmp/**/*
-*.swp
-*.swo
+tmp/
+.sass-cache/
 config/database.yml
 config/app_config.yml
-config/deploy.rb
 config/mail_handler.yml

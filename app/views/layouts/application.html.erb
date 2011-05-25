@@ -1,10 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<title><%= ENV['email_domain'] %></title>
-	<%= stylesheet_link_tag "global" %>
-    <%= javascript_include_tag :defaults %>
+	<%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
 </head>
 
 <body>
@@ -15,27 +14,25 @@
         <p>Welcome, <%=h current_user.name %>!<br/>
         <%= link_to "[Logout]", sessions_path, :method => :delete %>
       </div>
-      <div id="header-left"> 
+      <div id="header-left">
 		<h1><%= ENV['email_domain'] %></h1>
         <% if admin? %>
-		  <p><%= link_to "Lists", lists_path %> | <%= link_to "Subscribers", subscribers_path %> | 
+		  <p><%= link_to "Lists", lists_path %> | <%= link_to "Subscribers", subscribers_path %> |
           <!-- <%= link_to "Messages", messages_path %> | --><%= link_to "Servers", servers_path %></p>
         <% else %>
 		  <p><%= link_to "My Lists", lists_path %> | <%= link_to "Available Lists", available_lists_path %> | <%= link_to "My Account", edit_subscriber_path(current_user) %> </p>
         <% end %>
       </div>
 	</div>
-	
+
 	<%- flash.each do |name, msg| -%>
 		<%= content_tag :div, msg, :id => "flash-#{name}" %>
 	<%- end -%>
-	
+
 	<div id="page">
-        <!-- App Layout Yield -->
 		<%= yield %>
-        <!-- End App Layout Yield -->
 	</div>
-	
+
 </div>
 
 <!-- Footer -->
@@ -45,7 +42,5 @@
 </div>
 <!-- End Footer -->
 
-
-	
 </body>
 </html>
