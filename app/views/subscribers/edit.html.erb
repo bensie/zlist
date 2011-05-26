@@ -1,8 +1,8 @@
 <h2>Edit <%= admin? ? @subscriber.name : 'your information' %></h2>
 
-<%= form_for(@subscriber) do |f| %>
+<%= form_for @subscriber do |f| %>
   <%= f.error_messages %>
-	<%= render :partial => 'form', :locals => { :f => f } %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
 
   <p>
     <%= f.submit "Update" %>  or <%= link_to 'Cancel', subscribers_path %>

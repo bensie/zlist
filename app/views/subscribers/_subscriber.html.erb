@@ -1,26 +1,18 @@
 <tr>
-	<td class="name-email">
-		<span class="name">
-			<%= link_to h(subscriber.name), edit_subscriber_path(subscriber) %>
-		</span><br />
-		<span class="email">
-			<%= subscriber.email %>
-		</span>
-	</td>
-	<td>
-		<span class="lists">
-			<%= subscriber.lists.collect{|l| link_to(l.name, l)}.join(", ") %>
-		</span>
-	</td>
-	<td class="checkbox" style="text-align:right">
-		<%= check_box_tag "subscriber[admin]", "1", subscriber.admin, 
-		:onclick => remote_function(
-	  		:url => url_for(toggle_administrator_subscriber_path(subscriber)),
-	  		:method => :put,
-	  		:before => "Element.show('spinner-admin-#{subscriber.id}')",
-	  		:complete => "Element.hide('spinner-admin-#{subscriber.id}')",
-	  		:with => "this.name + '=' + this.checked"), 
-		:disabled => subscriber == current_user if subscriber.login_permitted? %>
-		<%= image_tag 'spinner.gif', :id => "spinner-admin-#{subscriber.id}", :style => 'display: none' %>
-	</td>
+  <td class="name-email">
+    <span class="name">
+      <%= link_to h(subscriber.name), edit_subscriber_path(subscriber) %>
+    </span><br />
+    <span class="email">
+      <%= subscriber.email %>
+    </span>
+  </td>
+  <td>
+    <span class="lists">
+      <%= subscriber.lists.collect{|l| link_to(l.name, l)}.join(", ") %>
+    </span>
+  </td>
+  <td class="checkbox" style="text-align:right">
+    <%= image_tag 'spinner.gif', :id => "spinner-admin-#{subscriber.id}", :style => 'display: none' %>
+  </td>
 </tr>
