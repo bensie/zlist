@@ -5,4 +5,3 @@ tmp/
 .sass-cache/
 config/database.yml
 config/app_config.yml
-config/mail_handler.yml
