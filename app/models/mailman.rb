@@ -1,5 +1,5 @@
 class Mailman < ActionMailer::Base
-  
+
   def receive(email)
     # Extract out <list>+<thread>@<domain>
     sender_list, sender_topic, sender_domain = email.to.first.match(/^([\w\-]+)\+?([0-9a-f]*)\@([\w\.]+)$/).to_a[1..3]
@@ -21,11 +21,11 @@ class Mailman < ActionMailer::Base
     # Check if this is a response to an existing topic or a new message
     if sender_topic.present?
       topic = Topic.find_by_key(sender_topic)
-      unless topic.present? 
+      unless topic.present?
         Mailman.deliver_no_such_topic(list, email)
         exit
       end
-      
+
       # Reset the subject so it doesn't contain the prefix
       email.subject = topic.name
 
@@ -35,7 +35,7 @@ class Mailman < ActionMailer::Base
 
     # Store the message
     message = topic.messages.create(:subject => email.subject, :body => email.body, :author => author)
-   
+
     # Deliver to subscribers
     list.subscribers.each do |subscriber|
       Mailman.deliver_to_mailing_list(topic, email, subscriber, message) unless subscriber == message.author
@@ -46,12 +46,11 @@ class Mailman < ActionMailer::Base
   # Send a test to the list
   def list_test_dispatch(list)
     list.subscribers.each do |subscriber|
-      recipients  subscriber.name + " <#{subscriber.email}>" 
+      recipients  subscriber.name + " <#{subscriber.email}>"
       from        "#{ ENV['email_domain'] } <noreply@#{ ENV['email_domain'] }>"
       subject     "[#{list.short_name}] Test Mailing"
     end
   end
-
 
   private
 
@@ -117,10 +116,9 @@ class Mailman < ActionMailer::Base
       body email.body
     end
 
-    headers     'List-ID' => "#{topic.list.email}",
-                'List-Post' => "#{topic.list.email}",
-                'List-Unsubscribe' => "http://#{topic.list.domain}/list/#{ topic.list.id }/unsubscribe"
+    headers 'List-ID' => "#{topic.list.email}",
+            'List-Post' => "#{topic.list.email}",
+            'List-Unsubscribe' => "http://#{topic.list.domain}/list/#{ topic.list.id }/unsubscribe"
   end
-
 
 end
