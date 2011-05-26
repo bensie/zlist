@@ -12,6 +12,14 @@ module Zlist
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    # Set application ENV variables from a YAML file if running in development
+    # In production (on Heroku), these should be set using built-in config vars
+    if Rails.env.development?
+      YAML.load(File.read("#{Rails.root}/config/app_config.yml"))[Rails.env].each do |k, v|
+        ENV[k] ||= v
+      end
+    end
+
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += %W(#{config.root}/lib)
@@ -46,5 +54,9 @@ module Zlist
 
     # Enable the asset pipeline
     config.assets.enabled = true
+
+    # Send email using Postmark
+    config.action_mailer.delivery_method   = :postmark
+    config.action_mailer.postmark_settings = { :api_key => ENV['postmark_api_key'] }
   end
 end
