@@ -23,7 +23,7 @@ class TopicsController < ApplicationController
       flash[:notice] = 'Topic was successfully created.'
       redirect_to(@topic)
     else
-      flash.now[:warning] = 'There was a problem creating the topic.'
+      flash.now[:alert] = 'There was a problem creating the topic.'
       render :action => "new"
     end
   end
@@ -33,7 +33,7 @@ class TopicsController < ApplicationController
       flash[:notice] = 'Topic was successfully updated.'
       redirect_to(@topic)
     else
-      flash.now[:warning] = 'There was a problem updating the topic.'
+      flash.now[:alert] = 'There was a problem updating the topic.'
       render :action => "edit" 
     end
   end

@@ -77,7 +77,7 @@ class SubscribersController < ApplicationController
 
   def destroy
     if @subscriber == current_user
-      flash[:warning] = 'You can\'t delete yourself.  If you really want to go, have another admin delete you.'
+      flash[:alert] = 'You can\'t delete yourself.  If you really want to go, have another admin delete you.'
     else
       @subscriber.destroy
     end

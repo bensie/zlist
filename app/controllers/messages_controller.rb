@@ -22,7 +22,7 @@ class MessagesController < ApplicationController
       flash[:notice] = 'Message was successfully created.'
       redirect_to(@message)
     else
-      flash.now[:warning] = 'There was a problem creating the message.'
+      flash.now[:alert] = 'There was a problem creating the message.'
       render :action => "new"
     end
   end
@@ -32,7 +32,7 @@ class MessagesController < ApplicationController
       flash[:notice] = 'Message was successfully updated.'
       redirect_to(@message)
     else
-      flash.now[:warning] = 'There was a problem updating the message.'
+      flash.now[:alert] = 'There was a problem updating the message.'
       render :action => "edit" 
     end
   end

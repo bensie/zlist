@@ -152,7 +152,7 @@ div#flash-notice {
   margin-right: -25px;
 }
 
-div#flash-warning {
+div#flash-alert {
   font-size: 14px;
   font-weight: bold;
   background-color: #ffd3da;
@@ -164,8 +164,6 @@ div#flash-warning {
   margin-left: -25px;
   margin-right: -25px;
 }
-
-
 
 div#main-container {
   width: 780px;

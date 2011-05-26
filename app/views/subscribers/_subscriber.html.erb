@@ -1,7 +1,7 @@
 <tr>
   <td class="name-email">
     <span class="name">
-      <%= link_to h(subscriber.name), edit_subscriber_path(subscriber) %>
+      <%= link_to subscriber.name, edit_subscriber_path(subscriber) %>
     </span><br />
     <span class="email">
       <%= subscriber.email %>
@@ -9,7 +9,7 @@
   </td>
   <td>
     <span class="lists">
-      <%= subscriber.lists.collect{|l| link_to(l.name, l)}.join(", ") %>
+      <%= subscriber.lists.collect{|l| link_to(h(l.name), l)}.join(", ").html_safe %>
     </span>
   </td>
   <td class="checkbox" style="text-align:right">
