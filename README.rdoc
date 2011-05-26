@@ -1,13 +1,13 @@
 = ZList
 
-ZList is a simple yet powerful mailing list application and is built on Rails.  It can
+ZList is a simple yet powerful mailing list application and is built on Rails. It can
 send mail to an unlimited number of recipients, can be configured as announcement only
-or it can be fully interactive.  Subscribers can view and reply entirely by email, or 
-via the web interface.  All discussions are archived so you can go back anytime to see
-what was said.
+or it can be fully interactive.  Subscribers can view and reply entirely by email. All
+discussions are archived so you can go back anytime to see what was said.
 
-It accepts email piped from an MTA (we use Postfix) and can accept email for an entire
-domain or specified addresses.
+It accepts emails HTTP POSTed to a particular URL. Postmark (postmarkapp.com) is what
+we use and is what's officially supported for incoming email.  Postmark is also used
+for outgoing SMTP by default.
 
 == Installation
 
@@ -16,30 +16,7 @@ most recent tagged version on the downloads page at http://github.com/bensie/zli
 
 == Prerequisites
 
-DList currently requires the Rails 2.3.5 gem as well as the the will_paginate gem available
-at http://github.com/mislav/will_paginate
+ZList currently runs on Rails 3.1.0 and requires Ruby 1.8.7 or 1.9.2, and we highly recommend
+using Heroku for deployment.
 
-The mail_handler.rb file requires the rest-client gem.
-
-== Postfix Configuration
-
-From http://gist.github.com/55208 which will also remain up to date:
-
-  /etc/postfix/main.cf:
-  mydestination = localhost.localdomain, localhost, list.domain.com
-  virtual_maps = hash:/etc/postfix/virtual
-  alias_maps = hash:/etc/aliases
- 
-  /etc/postfix/virtual:
-  @list.domain.com rails_mailer
-
-  /etc/aliases:
-  # Email is passed via STDIN, first argument is URL, second argument is server auth key
-  rails_mailer: "|/path/to/app/lib/mail_handler.rb http://www.example.com/emails 298cc9dceb1f3cac91fef8b42be624c07843fc8e"
- 
-Run these commands to apply:
-  postmap virtual
-  postalias /etc/aliases
-  postfix reload
-
-Copyright (c) 2010 James Miller and David Hasson
+Copyright (c) 2011 James Miller and David Hasson
