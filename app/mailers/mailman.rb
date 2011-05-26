@@ -7,14 +7,14 @@ class Mailman < ActionMailer::Base
     # Make sure the list exists
     list = List.find_by_short_name(sender_list)
     unless list.present?
-      Mailman.deliver_no_such_list(email)
+      Mailman.no_such_list(email).deliver
       exit
     end
 
     # Make sure the sender is in the list (allowed to post)
     author = list.subscribers.find_by_email(email.from)
     unless author.present?
-      Mailman.deliver_cannot_post(list, email)
+      Mailman.cannot_post(list, email).deliver
       exit
     end
 
@@ -22,7 +22,7 @@ class Mailman < ActionMailer::Base
     if sender_topic.present?
       topic = Topic.find_by_key(sender_topic)
       unless topic.present?
-        Mailman.deliver_no_such_topic(list, email)
+        Mailman.no_such_topic(list, email).deliver
         exit
       end
 
@@ -38,7 +38,7 @@ class Mailman < ActionMailer::Base
 
     # Deliver to subscribers
     list.subscribers.each do |subscriber|
-      Mailman.deliver_to_mailing_list(topic, email, subscriber, message) unless subscriber == message.author
+      Mailman.to_mailing_list(topic, email, subscriber, message).deliver unless subscriber == message.author
     end
 
   end
