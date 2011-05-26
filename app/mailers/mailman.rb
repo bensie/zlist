@@ -46,9 +46,11 @@ class Mailman < ActionMailer::Base
   # Send a test to the list
   def list_test_dispatch(list)
     list.subscribers.each do |subscriber|
-      recipients  subscriber.name + " <#{subscriber.email}>"
-      from        "#{ ENV['email_domain'] } <noreply@#{ ENV['email_domain'] }>"
-      subject     "[#{list.short_name}] Test Mailing"
+      mail(
+        :to      =>  "#{subscriber.name} <#{subscriber.email}>",
+        :from    => "#{ ENV['email_domain'] } <noreply@#{ ENV['email_domain'] }>",
+        :subject => "[#{list.short_name}] Test Mailing"
+      )
     end
   end
 
@@ -56,53 +58,64 @@ class Mailman < ActionMailer::Base
 
   # Response to a message posted to a list that doesn't exist
   def no_such_list(email)
-    recipients  email.from
-    from        "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>"
-    subject     "Address does not exist at this server"
-    body        :address => email.to
+    @address = email.to
+    mail(
+      :to =>  email.from,
+      :from       =>  "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>",
+      :subject    =>  "Address does not exist at this server"
+    )
   end
 
   # Response to a message posted in reply to a topic that doesn't exist
   def no_such_topic(list, email)
-    recipients  email.from
-    from        "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>"
-    subject     "[#{list.name}] The topic you referenced no longer exists"
-    body        :list => list.name
+    @list = list.name
+    mail(
+      :to      => email.from,
+      :from    => "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>",
+      :subject => "[#{list.name}] The topic you referenced no longer exists"
+    )
   end
 
   # Response to a message sent to a noreply address
   def no_reply_address(email)
-    recipients  email.from
-    from        "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>"
-    subject     "Replies to this address are not monitored."
-    body        "We're sorry, but the addresses noreply@#{ ENV['email_domain'] } and mailer@#{ ENV['email_domain'] }
-                are not monitored for replies.  Your message has been discarded."
+    mail(
+      :to      => email.from,
+      :from    => "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>",
+      :subject => "Replies to this address are not monitored.",
+      :body    => "We're sorry, but the addresses noreply@#{ ENV['email_domain'] } and mailer@#{ ENV['email_domain'] }
+                  are not monitored for replies.  Your message has been discarded."
+    )
   end
 
   # Reponse to a message posted to a list by a non-member
   def cannot_post(list, email)
-    recipients  email.from
-    from        "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>"
-    subject     "[#{list.name}] You're not allowed to post to this list"
-    body        :list => list.name
+    @list = list.name
+    mail(
+      :to      => email.from,
+      :from    => "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>",
+      :subject => "[#{list.name}] You're not allowed to post to this list"
+    )
   end
 
   # Send an e-mail out to a list
   def to_mailing_list(topic, email, subscriber, message)
-    recipients  subscriber.name + " <#{subscriber.email}>"
-    from        "#{message.author.name} <mailer@#{ ENV['email_domain'] }>"
+
+    # Determine the reply-to address
     case topic.list.send_replies_to
     when "Subscribers"
-      reply_to    "mailer@#{ ENV['email_domain'] } <#{topic.list.short_name}+#{topic.key}@" + ENV['email_domain'] + ">"
+      reply_to = "mailer@#{ ENV['email_domain'] } <#{topic.list.short_name}+#{topic.key}@" + ENV['email_domain'] + ">"
     when "Author"
-      reply_to    "#{message.author.name} <#{message.author.email}>"
-    end
-    if topic.list.subject_prefix.present?
-      subject     [topic.list.subject_prefix, email.subject].join(" ")
-    else
-      subject     email.subject
+      reply_to = "#{message.author.name} <#{message.author.email}>"
     end
 
+    # Determine the subject
+    if topic.list.subject_prefix.present?
+      subject = [topic.list.subject_prefix, email.subject].join(" ")
+    else
+      subject = email.subject
+    end
+
+    # Determine content_type
     if email.multipart?
       content_type "multipart/alternative"
       email.parts.each do |p|
@@ -116,9 +129,17 @@ class Mailman < ActionMailer::Base
       body email.body
     end
 
+    # Set additional headers
     headers 'List-ID' => "#{topic.list.email}",
             'List-Post' => "#{topic.list.email}",
             'List-Unsubscribe' => "http://#{topic.list.domain}/list/#{ topic.list.id }/unsubscribe"
+
+    mail(
+      :to       =>  "#{subscriber.name} <#{subscriber.email}>",
+      :from     =>"#{message.author.name} <mailer@#{ ENV['email_domain'] }>",
+      :reply_to => reply_to,
+      :subject  => subject
+    )
   end
 
 end
