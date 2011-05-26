@@ -6,10 +6,10 @@ gem 'coffee-script'
 gem 'sass'
 gem 'uglifier'
 gem 'jquery-rails'
+gem 'postmark-rails'
 
 gem 'kaminari'
 gem 'dynamic_form'
-# gem 'compass'
 
 group :test do
   # Pretty printed test output
