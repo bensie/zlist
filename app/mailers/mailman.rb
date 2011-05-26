@@ -130,9 +130,9 @@ class Mailman < ActionMailer::Base
     end
 
     # Set additional headers
-    headers 'List-ID' => "#{topic.list.email}",
-            'List-Post' => "#{topic.list.email}",
-            'List-Unsubscribe' => "http://#{topic.list.domain}/list/#{ topic.list.id }/unsubscribe"
+    headers['List-ID']          = "#{topic.list.email}"
+    headers['List-Post']        = "#{topic.list.email}",
+    headers['List-Unsubscribe'] = "http://#{topic.list.domain}/list/#{ topic.list.id }/unsubscribe"
 
     mail(
       :to       =>  "#{subscriber.name} <#{subscriber.email}>",
