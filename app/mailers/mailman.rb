@@ -115,20 +115,6 @@ class Mailman < ActionMailer::Base
       subject = email.subject
     end
 
-    # Determine content_type
-    if email.multipart?
-      content_type "multipart/alternative"
-      email.parts.each do |p|
-        if p.content_type == "text/plain"
-          part :content_type => "text/plain", :body => p.body
-        elsif p.content_type == "text/html"
-          part :content_type => "text/html", :body => p.body
-        end
-      end
-    else
-      body email.body
-    end
-
     # Set additional headers
     headers['List-ID']          = topic.list.email
     headers['List-Post']        = topic.list.email
@@ -139,7 +125,16 @@ class Mailman < ActionMailer::Base
       :from     =>"#{message.author.name} <mailer@#{ ENV['email_domain'] }>",
       :reply_to => reply_to,
       :subject  => subject
-    )
+    ) do |format|
+      if email.multipart?
+        email.parts.each do |part|
+          format.text { render :text => part.body } if part.content_type == "text/plain"
+          format.html { render :text => part.body } if part.content_type == "text/html"
+        end
+      else
+        format.text { render :text => email.body }
+      end
+    end
   end
 
 end
