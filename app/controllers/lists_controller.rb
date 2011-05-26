@@ -6,7 +6,7 @@ class ListsController < ApplicationController
   respond_to :html, :js
 
   def index
-    @lists = admin? ? List.includes(:subscribers).order('subscribers.name') : current_user.lists.order(:name)
+    @lists = admin? ? List.includes(:subscriptions).order(:name) : current_user.lists.order(:name)
   end
 
   def available
