@@ -1,85 +1,85 @@
 @import "reset.css";
 
 body, html {
-	background: #e5e5e5;
-	font-family: Helvetica, sans-serif;
-	font-size: 12px;
+  background: #e5e5e5;
+  font-family: Helvetica, sans-serif;
+  font-size: 12px;
 }
 
 a {
-	color: #264989;
-	padding: 1px;
+  color: #264989;
+  padding: 1px;
 }
 
 a:hover {
-	color: #fff;
-	background: #264989;
+  color: #fff;
+  background: #264989;
 }
 
 h1 {
-	font-size: 18px;
+  font-size: 18px;
 }
 
 h2 {
-	font-size: 16px;
-	margin-bottom: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 h3 {
-	font-size: 14px;
-	margin-bottom: 10px;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
 h4 {
-	font-size: 13px;
+  font-size: 13px;
 }
 
 p {
-	padding-top: 4px;
-	padding-bottom: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 th {
-	text-align: left;
+  text-align: left;
 }
 
 .topic-row {
-    padding: 5px;
+  padding: 5px;
 }
 
 .odd {
-    background: #eef0fe;
+  background: #eef0fe;
 }
 
 .even {
-    background: #fff;
+  background: #fff;
 }
 
 .big-field {
-	font-size: 16px;
-	width: 40%;
-	font-weight: bold;
-	color: #111;
+  font-size: 16px;
+  width: 40%;
+  font-weight: bold;
+  color: #111;
 }
 
 .small {
-	font-size: 10px;
+  font-size: 10px;
 }
 
 .red {
-	color: red;
+  color: red;
 }
 
 
 div#header {
-	height: 40px;
-	background: #eef0fe;
-	margin-left: -25px;
-	margin-right: -25px;
-	margin-top: -25px;
-	padding: 25px;
-	border-bottom: 1px solid #efeaff;
-	border-color: #bcd6de;
+  height: 40px;
+  background: #eef0fe;
+  margin-left: -25px;
+  margin-right: -25px;
+  margin-top: -25px;
+  padding: 25px;
+  border-bottom: 1px solid #efeaff;
+  border-color: #bcd6de;
 }
 
 div#header #header-left {
@@ -87,82 +87,82 @@ div#header #header-left {
 }
 
 div#header #header-right {
-	float: right;
-	text-align: right;
+  float: right;
+  text-align: right;
 }
 
 div#flash-notice {
-	font-size: 14px;
-	font-weight: bold;
-	background-color: #ddffe6;
-	padding-left: 32px;
-	padding-right: 32px;
-	padding-top: 12px;
-	padding-bottom: 12px;
-	margin-left: -25px;
-	margin-right: -25px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #ddffe6;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-left: -25px;
+  margin-right: -25px;
 }
 
 div#flash-warning {
-	font-size: 14px;
-	font-weight: bold;
-	background-color: #ffd3da;
-	color: red;
-	padding-left: 32px;
-	padding-right: 32px;
-	padding-top: 12px;
-	padding-bottom: 12px;
-	margin-left: -25px;
-	margin-right: -25px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #ffd3da;
+  color: red;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-left: -25px;
+  margin-right: -25px;
 }
 
 
 
 div#main-container {
-	width: 780px;
-	min-height: 400px;
-	background: #fff;
-	border: 5px solid #ccc;
-	margin: auto;
-	margin-top: 15px;
-	padding: 25px;
+  width: 780px;
+  min-height: 400px;
+  background: #fff;
+  border: 5px solid #ccc;
+  margin: auto;
+  margin-top: 15px;
+  padding: 25px;
 }
 
 div#main-container-mini {
-	width: 400px;
-	min-height: 200px;
-	background: #fff;
-	border: 5px solid #ccc;
-	margin: auto;
-	margin-top: 15px;
-	padding-left: 40px;
-	padding-right: 40px;
-	padding-top: 15px;
-	padding-bottom: 15px;
+  width: 400px;
+  min-height: 200px;
+  background: #fff;
+  border: 5px solid #ccc;
+  margin: auto;
+  margin-top: 15px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 div#page {
-	margin-top: 15px;
-	margin-bottom: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .top-right-links {
-	float: right;
-	font-size: 14px;
+  float: right;
+  font-size: 14px;
 }
 
 .top-right-links a {
-	color: red;
+  color: red;
 }
 
 .top-right-links a:hover {
-	color: #fff;
-	background: red;
+  color: #fff;
+  background: red;
 }
 
 .top-right-list {
-	float: right;
-	font-size: 12px;
+  float: right;
+  font-size: 12px;
 }
 
 .message-header {
@@ -179,77 +179,77 @@ div#page {
 }
 
 .list {
-	background: #f2f2f2;
-	border: 1px solid #d2d2d2;
-	padding: 10px;
-	margin-bottom: 10px;
-	width: 60%;
+  background: #f2f2f2;
+  border: 1px solid #d2d2d2;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 60%;
 }
 
 .list .name {
-	font-size: 16px;
-	font-weight: bold;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 
 .list .sub-text a {
-	color: red;
+  color: red;
 }
 
 .list .sub-text a:hover {
-	background: red;
-	color: #fff;
+  background: red;
+  color: #fff;
 }
 
 .list .private {
-	float: right;
+  float: right;
 }
 
 table.subscribers {
-	width: 100%;
+  width: 100%;
 }
 
 table.subscribers tr {
-	border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
 table.subscribers td {
-	padding-top: 8px;
-	padding-bottom: 8px;
-	vertical-align: middle;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  vertical-align: middle;
 }
 
 table.subscribers td.name-email {
-	width: 330px;
+  width: 330px;
 }
 
 table.subscribers td span.name {
-	font-size: 16px;
+  font-size: 16px;
 }
 
 table.subscribers td span.email {
-	font-size: 11px;
+  font-size: 11px;
 }
 
 table.subscribers td span.lists a {
-	color: #888;
+  color: #888;
 }
 
 table.subscribers td.checkbox {
-	width: 60px;
+  width: 60px;
 }
 
 table.subscribers-topics {
-	width: 100%;
+  width: 100%;
 }
 
 table.subscribers-topics td {
-	background: #f2f2f2;
-	border: 1px solid #d2d2d2;
-	padding: 10px;
-	margin-bottom: 10px;
+  background: #f2f2f2;
+  border: 1px solid #d2d2d2;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 #subscriptions li {
-	line-height: 20px;
+  line-height: 20px;
 }
