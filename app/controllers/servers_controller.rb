@@ -1,10 +1,12 @@
 class ServersController < ApplicationController
-  
+
   before_filter :admin_required
-  before_filter :find_server, :only => %w(show edit update destroy) 
-  
+  before_filter :find_server, :only => %w(show edit update destroy)
+
+  respond_to :html
+
   def index
-    @servers = Server.all(:order => :name)
+    @servers = Server.order(:name)
   end
 
   def show
@@ -15,35 +17,25 @@ class ServersController < ApplicationController
   end
 
   def create
-    @server = Server.new(params[:server])
-    if @server.save
-      flash[:notice] = 'Server was successfully created.'
-      redirect_to(@server)
-    else
-      flash.now[:warning] = 'There was a problem creating the server.'
-      render :action => "new"
-    end
+    @server = Server.create(params[:server])
+    respond_with @server
   end
 
   def edit
   end
 
   def update
-    if @server.update_attributes(params[:server])
-      flash[:notice] = 'Server was successfully updated.'
-      redirect_to(@server)
-    else
-      render :action => "edit"
-    end
+    @server.update_attributes(params[:server])
+    respond_with @server
   end
 
   def destroy
     @server.destroy
-    redirect_to :back
+    respond_with @server
   end
-  
+
   private
-  
+
   def find_server
     @server = Server.find(params[:id])
   end

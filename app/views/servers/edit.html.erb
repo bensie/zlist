@@ -10,4 +10,5 @@
   	</p>
 <% end %>
 
-<%= link_to 'Back', servers_path %>
+<%= link_to 'Back', servers_path %> |
+<%= link_to 'Delete', @server, :method => :delete, :confirm => "Are you sure?" %>
