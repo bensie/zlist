@@ -9,23 +9,8 @@ class SubscribersController < ApplicationController
   end
 
   def search
-    # Search term
-    term = params[:term].to_s
-
-    # Don't show search results with an empty 'term' or it will return a ton of non-paginated records
-    unless term.empty?
-      @subscribers = Subscriber.search(term).all
-    else
-      # Make the @subscribers array empty for when the search term is blank, we don't want it returning all records
-      @subscribers = []
-    end
-
-    respond_to do |format|
-      format.js
-      format.html do
-        render :action => 'index'
-      end
-    end
+    @subscribers = Subscriber.active.search(params[:search][:q]).page(params[:page])
+    render 'index'
   end
 
   def show
@@ -77,7 +62,7 @@ class SubscribersController < ApplicationController
 
   def destroy
     if @subscriber == current_user
-      flash[:alert] = 'You can\'t delete yourself.  If you really want to go, have another admin delete you.'
+      flash[:alert] = "You can't delete yourself.  If you really want to go, have another admin delete you."
     else
       @subscriber.destroy
     end

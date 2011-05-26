@@ -1,9 +1,9 @@
 <div class="search">
   <h2>Find a subscriber</h2>
-  <%= text_field_tag :term, "", :class => "big-field" %>
-  <span id="live_search_spinner" style="display:none">
-    <%= image_tag "spinner3.gif" %>
-  </span>
+
+  <%= form_for :search, :url => "/subscribers/search", :method => :get do |f|%>
+    <%= f.text_field :q, :class => "big-field" %>
+  <% end %>
 
   <br />
 </div>
