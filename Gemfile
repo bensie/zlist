@@ -1,13 +1,17 @@
 source "http://rubygems.org"
 
-gem 'rails', '3.1.0.rc1'
+gem 'rails', '3.1.0.rc5'
 gem 'mysql2'
-gem 'coffee-script'
-gem 'sass'
-gem 'uglifier'
-gem 'jquery-rails'
-gem 'postmark-rails'
 
+group :assets do
+  gem 'coffee-rails'
+  gem 'sass-rails'
+  gem 'uglifier'
+end
+
+gem 'jquery-rails'
+
+gem 'postmark-rails'
 gem 'kaminari'
 gem 'dynamic_form'
 
