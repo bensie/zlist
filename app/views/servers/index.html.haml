@@ -1,0 +1,12 @@
+- content_for :top_right do
+  = link_to 'Add a new server', new_server_path, class: "btn large"
+
+%h1 Authorized Email Servers
+
+%table.zebra-striped
+  %thead
+    %tr
+      %th Name
+      %th Post URL
+  %tbody
+    = render @servers

@@ -4,8 +4,8 @@
 </p>
 
 <p>
-  <b>Key:</b>
-  <%= @server.key %>
+  <b>Post URL:</b>
+  <%= emails_url(key: @server.key) %>
 </p>
 
 <%= link_to 'Edit', edit_server_path(@server) %> |

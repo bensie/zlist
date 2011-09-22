@@ -1,0 +1,10 @@
+%h2 Add A Mailing List
+
+= form_for @list do |f|
+  = f.error_messages
+
+  = render 'form', f: f
+
+  .actions
+    = f.submit "Create List", class: "btn primary"
+    = link_to "Cancel", lists_path, class: "btn secondary"

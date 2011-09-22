@@ -1,0 +1,47 @@
+!!! 5
+%html
+  %head
+    %title
+      = ENV["email_domain"]
+      = yield :title
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+    .container
+
+      - flash.each do |name, msg|
+        = content_tag :div, msg, id: "flash_#{name}", class: "alert-message #{name}"
+
+      .topbar
+        .topbar-inner
+          .container
+            %h3
+              = link_to ENV["email_domain"], root_path
+            %ul.nav
+              %li{class: @current_tab == "Lists" ? "active" : nil}
+                = link_to "Lists", lists_path
+              %li{class: @current_tab == "Subscribers" ? "active" : nil}
+                = link_to "Subscribers", subscribers_path
+              %li{class: @current_tab == "Servers" ? "active" : nil}
+                = link_to "Servers", servers_path
+            %ul.nav.secondary-nav
+              %li
+                = link_to current_user.name
+              %li
+                = link_to "Logout"
+
+
+      %div{style: "float:right"}
+        = yield :top_right
+
+      - if content_for(:title).present? && !@hide_title
+        %h1= yield :title
+      = yield
+
+      .footer
+        %ul.unstyled
+          %li
+            &copy;
+            = Date.today.year
+            JK Tech

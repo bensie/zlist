@@ -1,0 +1,11 @@
+%h1 New Server
+
+= form_for @server do |f|
+  = f.error_messages
+
+  = render "form", f: f
+
+  .actions
+    = f.submit "Create Server", class: "btn primary"
+    = link_to "Cancel", servers_path, class: "btn secondary"
+

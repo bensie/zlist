@@ -1,1 +1,8 @@
-<%= link_to server.name, server %><br />
+<tr>
+  <td>
+    <%= link_to server.name, server %>
+  </td>
+  <td>
+    <%= emails_url(key: server.key) %>
+  </td>
+</tr>

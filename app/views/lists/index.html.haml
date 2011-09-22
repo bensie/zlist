@@ -1,0 +1,13 @@
+- content_for :top_right do
+  = link_to 'Add a new list', new_list_path, class: "btn large"
+
+%h1 Mailing Lists
+
+%table.zebra-striped
+  %thead
+    %tr
+      %th Name
+      %th Email Address
+      %th
+  %tbody
+    = render @lists
