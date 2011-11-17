@@ -4,9 +4,9 @@
   <%= f.error_messages %>
   <%= render :partial => 'form', :locals => { :f => f } %>
 
-  <p>
-    <%= f.submit "Update" %>  or <%= link_to 'Cancel', subscribers_path %>
-  </p>
+  <div class="actions">
+    <%= f.submit "Update", class: "btn primary" %>
+    <%= link_to "Cancel", subscribers_path, class: "btn" %>
+    <%= link_to 'Delete this subscriber', @subscriber, class: "btn danger", confirm: 'Are you sure you want to delete this subscriber? This will permanently delete the user as well as any messages that they have created.  Consider disabling the user instead.', method: :delete if admin? %>
+  </div>
 <% end %>
-
-<%= link_to 'Delete this subscriber', @subscriber, :confirm => 'Are you sure you want to delete this subscriber? This will permanently delete the user as well as any messages that they have created.  Consider disabling the user instead.', :method => :delete if admin? %>

@@ -2,11 +2,10 @@
 
 <%= form_for @subscriber do |f| %>
   <%= f.error_messages %>
-  <%= render :partial => 'form', :locals => { :f => f } %>
+  <%= render "form", f: f %>
 
-  <p>
-    <%= f.submit "Create" %>
-  </p>
+  <div class="actions">
+    <%= f.submit "Create", class: "btn primary" %>
+    <%= link_to "Cancel", subscribers_path, class: "btn" %>
+  </div>
 <% end %>
-
-<%= link_to 'Back', subscribers_path %>

@@ -1,7 +1,7 @@
-<p class="top-right-links">
+<div style="float: right">
 <% if admin? %>
-  <%= link_to 'Edit List', edit_list_path(@list) %> |
-  <%= link_to 'Delete List', list_path(@list), :method => :delete, :confirm => "Are you sure?" %>
+  <%= link_to 'Edit List', edit_list_path(@list), class: "btn large" %>
+  <%= link_to 'Delete List', list_path(@list), class: "btn large", :method => :delete, :confirm => "Are you sure?" %>
 <% else %>
   <% if @list.subscribers.include?(current_user) %>
     You are subscribed to this list
@@ -10,7 +10,7 @@
     <%= link_to 'Subscribe', subscribe_list_path(@list) %>
   <% end %>
 <% end %>
-</p>
+</div>
 
 <h2><%= @list.name %> - <%= @list.email %></h2>
 
@@ -20,7 +20,7 @@
   <tr>
     <td>
       <h3>Subscribers</h3>
-      <ul id="subscriptions">
+      <ul id="subscriptions" class="unstyled">
         <% if admin? %>
           <li>
             <%= render 'subscriptions/form' %>

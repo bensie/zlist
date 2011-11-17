@@ -1,11 +1,14 @@
-<p class="top-right-links"><%= link_to 'Add a new subscriber', new_subscriber_path %></p>
-<%= render :partial => 'search' %>
-<br />
-<table class="subscribers">
+<div style="float:right">
+  <%= link_to 'Add a new subscriber', new_subscriber_path, class: "btn large" %>
+</div>
+
+<%= render 'search' %>
+
+<table class="zebra-striped">
   <thead>
     <tr>
-      <th>&nbsp;</th>
-      <th>&nbsp;</th>
+      <th>Name</th>
+      <th>Lists</th>
       <th>Administrator</th>
     </tr>
   </thead>
@@ -15,4 +18,3 @@
 </table>
 
 <%= paginate @subscribers %>
-

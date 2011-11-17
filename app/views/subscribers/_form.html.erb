@@ -2,15 +2,8 @@
   <p style="color: #aaa">Enter the name and email address of the new subscriber</p>
 <% end %>
 
-<p>
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
-</p>
-
-<p>
-  <%= f.label :email %><br />
-  <%= f.text_field :email %>
-</p>
+<%= bs_text_field(f, :name, "Name") %>
+<%= bs_text_field(f, :email, "Email") %>
 
 <% if admin? %>
   <p style="color: #aaa">
@@ -18,14 +11,5 @@
   </p>
 <% end %>
 
-<p>
-  <%= f.label :password %><br />
-  <%= f.password_field :password %>
-</p>
-
-<p>
-  <%= f.label :password_confirmation, "Confirm Password" %><br />
-  <%= f.password_field :password_confirmation %>
-</p>
-
-	
+<%= bs_password_field(f, :password, "Password") %>
+<%= bs_password_field(f, :password_confirmation, "Confirm Password") %>
