@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "rails", "3.1.2.rc2"
+gem "rails", "3.2.0"
 gem "mysql2"
 
 group :assets do
@@ -8,10 +8,8 @@ group :assets do
   gem "coffee-rails"
   gem "jquery-rails"
   gem "uglifier"
-  gem "compass", "0.12.alpha.0"
 end
 
-gem "devise"
 gem "dynamic_form"
 gem "haml"
 gem "kaminari"
