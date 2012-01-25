@@ -6,8 +6,13 @@ class EmailsController < ApplicationController
   before_filter :verify_server_can_send_email, :only => %w(create)
 
   def create
-    Mailman.receive(params[:email])
-    render :nothing => true
+    hash = ActiveSupport::JSON.decode(request.body)
+    if hash.is_a?(Hash)
+      Mailman.receive(hash)
+      render :nothing => true
+    else
+      render :text => "Request body must be a JSON hash", :status => 400
+    end
   end
 
   private
