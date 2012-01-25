@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/rails/journey.git
+  revision: 663fad57ae270d5323676e213f9f6741a28c3151
+  branch: 1-0-stable
+  specs:
+    journey (1.0.0.20120112111444)
+
+GIT
   remote: https://github.com/rails/rails.git
   revision: 1a93eaae4e67d06c025912f32cae630b04a8ec68
   branch: 3-2-stable
@@ -65,7 +72,6 @@ GEM
     haml (3.1.4)
     hike (1.2.1)
     i18n (0.6.0)
-    journey (1.0.0)
     jquery-rails (2.0.0)
       railties (>= 3.2.0.beta, < 5.0)
       thor (~> 0.14)
@@ -126,6 +132,7 @@ DEPENDENCIES
   coffee-rails
   dynamic_form
   haml
+  journey!
   jquery-rails
   mysql2
   postmark-rails
