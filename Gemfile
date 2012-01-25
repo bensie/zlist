@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "rails", "3.2.0"
+gem "rails", git: "https://github.com/rails/rails.git", branch: "3-2-stable"
 gem "mysql2"
 
 group :assets do
