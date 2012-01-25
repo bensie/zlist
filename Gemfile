@@ -14,8 +14,4 @@ gem "haml"
 gem "jquery-rails"
 gem "kaminari"
 gem "postmark-rails"
-
-group :production do
-  gem "pg"
-  gem "thin"
-end
+gem "unicorn"
