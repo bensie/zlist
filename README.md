@@ -16,7 +16,6 @@ most recent tagged version on the downloads page at http://github.com/bensie/zli
 
 ## Prerequisites
 
-ZList currently runs on Rails 3.1.1 and requires Ruby 1.8.7 or 1.9.2, and we highly recommend
-using Heroku for deployment.
+ZList currently runs on Rails 3.2.0 and requires Ruby 1.9.
 
-Copyright (c) 2011 James Miller and David Hasson
+Copyright (c) 2012 James Miller and David Hasson
