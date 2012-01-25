@@ -1,41 +1,5 @@
 class Mailman < ActionMailer::Base
 
-  def receive(email_hash)
-
-    email = Inbound::Email.new(email_hash)
-
-    # Make sure the list exists
-    list = List.find_by_short_name(email.mailbox)
-    Mailman.no_such_list(email).deliver && exit unless list
-
-    # Make sure the sender is in the list (allowed to post)
-    author = list.subscribers.find_by_email(email.from)
-    Mailman.cannot_post(list, email).deliver && exit unless author
-
-    # Check if this is a response to an existing topic or a new message
-    if email.mailbox_hash.present?
-      topic = Topic.find_by_key(email.mailbox_hash)
-
-      # Notify the sender that the topic does not exist even though they provided a topic hash
-      Mailman.no_such_topic(list, email).deliver && exit unless topic
-
-      # Reset the subject so it doesn't contain the prefix
-      email.subject = topic.name
-
-    else
-      topic = list.topics.create(:name => email.subject)
-    end
-
-    # Store the message
-    message = topic.messages.create(:subject => email.subject, :body => email.text_body, :author => author)
-
-    # Deliver to subscribers
-    list.subscribers.each do |subscriber|
-      Mailman.to_mailing_list(topic, email, subscriber, message).deliver unless subscriber == message.author
-    end
-
-  end
-
   # Send a test to the list
   def list_test_dispatch(list)
     list.subscribers.each do |subscriber|

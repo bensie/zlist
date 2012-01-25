@@ -6,12 +6,14 @@ class EmailsController < ApplicationController
   before_filter :verify_server_can_send_email, :only => %w(create)
 
   def create
-    hash = ActiveSupport::JSON.decode(request.body)
-    if hash.is_a?(Hash)
-      Mailman.receive(hash)
+    begin
+      hash = ActiveSupport::JSON.decode(request.body)
+      Inbound::Email.new(hash).process
       render :nothing => true
-    else
+    rescue MultiJson::DecodeError
       render :text => "Request body must be a JSON hash", :status => 400
+    rescue KeyError
+      render :text => "Your JSON hash doesn't look like a standard Postmark JSON payload and is missing one or more required attributes"
     end
   end
 

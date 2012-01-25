@@ -2,7 +2,7 @@ module Inbound
 
   class Email
 
-    attr_accessor :subject, :to, :from, :headers, :html_body, :text_body, :attachments
+    attr_accessor :subject, :to, :from, :headers, :html_body, :text_body, :attachments, :mailbox
 
     def initialize(email)
       @subject      = email.fetch("Subject")
@@ -16,6 +16,38 @@ module Inbound
       @message_id   = email.fetch("MessageID")
       @mailbox_hash = email.fetch("MailboxHash")
       @mailbox      = email.fetch("To").split("+").first
+    end
+
+    def process
+      # Make sure the list exists
+      list = List.find_by_short_name(mailbox)
+      Mailman.no_such_list(self).deliver && return unless list
+
+      # Make sure the sender is in the list (allowed to post)
+      author = list.subscribers.find_by_email(email.from)
+      Mailman.cannot_post(list, self).deliver && return unless author
+
+      # Check if this is a response to an existing topic or a new message
+      if mailbox_hash.present?
+        topic = Topic.find_by_key(mailbox_hash)
+
+        # Notify the sender that the topic does not exist even though they provided a topic hash
+        Mailman.no_such_topic(list, self).deliver && return unless topic
+
+        # Reset the subject so it doesn't contain the prefix
+        self.subject = topic.name
+
+      else
+        topic = list.topics.create(:name => subject)
+      end
+
+      # Store the message
+      message = topic.messages.create(:subject => subject, :body => text_body, :author => author)
+
+      # Deliver to subscribers
+      list.subscribers.each do |subscriber|
+        Mailman.to_mailing_list(topic, self, subscriber, message).deliver unless subscriber == message.author
+      end
     end
 
   end
