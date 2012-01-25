@@ -12,6 +12,6 @@ end
 gem "dynamic_form"
 gem "haml"
 gem "jquery-rails"
-gem "kaminari"
 gem "postmark-rails"
 gem "unicorn"
+gem "will_paginate"

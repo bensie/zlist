@@ -5,11 +5,11 @@ class SubscribersController < ApplicationController
   before_filter :find_subscriber, :only => %w(show edit update destroy disable toggle_administrator)
 
   def index
-    @subscribers = Subscriber.active.page(params[:page])
+    @subscribers = Subscriber.active.paginate(page: params[:page])
   end
 
   def search
-    @subscribers = Subscriber.active.search(params[:search][:q]).page(params[:page])
+    @subscribers = Subscriber.active.search(params[:search][:q]).paginate(page: params[:page])
     render 'index'
   end
 
