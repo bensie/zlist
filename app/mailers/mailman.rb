@@ -75,7 +75,7 @@ class Mailman < ActionMailer::Base
     mail(
       :to       => "#{subscriber.name} <#{subscriber.email}>",
       :from     => "#{message.author.name} <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
-      :reply_to => reply_to,
+      :reply_to => [reply_to],
       :subject  => subject
     )
   end
