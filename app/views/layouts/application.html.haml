@@ -2,7 +2,7 @@
 %html
   %head
     %title
-      = ENV["email_domain"]
+      = ENV["EMAIL_DOMAIN"]
       = yield :title
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
@@ -17,7 +17,7 @@
         .topbar-inner
           .container
             %h3
-              = link_to ENV["email_domain"], root_path
+              = link_to ENV["EMAIL_DOMAIN"], root_path
             %ul.nav
               %li{class: @current_tab == "Lists" ? "active" : nil}
                 = link_to "Lists", lists_path

@@ -1,0 +1,12 @@
+%h1 Edit Server
+
+= form_for @server do |f|
+  = f.error_messages
+
+  = render "form", f: f
+
+  .actions
+    = f.submit "Update Server", class: "btn primary"
+    = link_to "Cancel", servers_path, class: "btn secondary"
+    = link_to "Delete Server", @server, class: "btn danger", method: :delete, confirm: "Are you sure?"
+

@@ -1,30 +1,26 @@
 class Mailman < ActionMailer::Base
 
-  def receive(email)
+  def receive(email_hash)
+
+    email = Inbound::Email.new(email_hash)
+
     # Extract out <list>+<thread>@<domain>
-    sender_list, sender_topic, sender_domain = email.to.first.match(/^([\w\-]+)\+?([0-9a-f]*)\@([\w\.]+)$/).to_a[1..3]
+    # sender_list, sender_topic, sender_domain = email.to.first.match(/^([\w\-]+)\+?([0-9a-f]*)\@([\w\.]+)$/).to_a[1..3]
 
     # Make sure the list exists
-    list = List.find_by_short_name(sender_list)
-    unless list.present?
-      Mailman.no_such_list(email).deliver
-      exit
-    end
+    list = List.find_by_short_name(email.mailbox)
+    Mailman.no_such_list(email).deliver && exit unless list
 
     # Make sure the sender is in the list (allowed to post)
     author = list.subscribers.find_by_email(email.from)
-    unless author.present?
-      Mailman.cannot_post(list, email).deliver
-      exit
-    end
+    Mailman.cannot_post(list, email).deliver && exit unless author
 
     # Check if this is a response to an existing topic or a new message
-    if sender_topic.present?
-      topic = Topic.find_by_key(sender_topic)
-      unless topic.present?
-        Mailman.no_such_topic(list, email).deliver
-        exit
-      end
+    if email.mailbox_hash.present?
+      topic = Topic.find_by_key(email.mailbox_hash)
+
+      # Notify the sender that the topic does not exist even though they provided a topic hash
+      Mailman.no_such_topic(list, email).deliver && exit unless topic
 
       # Reset the subject so it doesn't contain the prefix
       email.subject = topic.name
@@ -34,7 +30,7 @@ class Mailman < ActionMailer::Base
     end
 
     # Store the message
-    message = topic.messages.create(:subject => email.subject, :body => email.body, :author => author)
+    message = topic.messages.create(:subject => email.subject, :body => email.text_body, :author => author)
 
     # Deliver to subscribers
     list.subscribers.each do |subscriber|
@@ -54,15 +50,13 @@ class Mailman < ActionMailer::Base
     end
   end
 
-  private
-
   # Response to a message posted to a list that doesn't exist
   def no_such_list(email)
     @address = email.to
     mail(
-      :to =>  email.from,
-      :from       =>  "#{ ENV['EMAIL_DOMAIN'] } <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
-      :subject    =>  "Address does not exist at this server"
+      :to      =>  email.from,
+      :from    =>  "#{ ENV['EMAIL_DOMAIN'] } <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
+      :subject =>  "Address does not exist at this server"
     )
   end
 
@@ -121,19 +115,13 @@ class Mailman < ActionMailer::Base
     headers['List-Unsubscribe'] = "http://#{topic.list.domain}/lists/#{ topic.list.id }/unsubscribe"
 
     mail(
-      :to       =>  "#{subscriber.name} <#{subscriber.email}>",
-      :from     =>"#{message.author.name} <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
+      :to       => "#{subscriber.name} <#{subscriber.email}>",
+      :from     => "#{message.author.name} <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
       :reply_to => reply_to,
       :subject  => subject
     ) do |format|
-      if email.multipart?
-        email.parts.each do |part|
-          format.text { render :text => part.body } if part.content_type == "text/plain"
-          format.html { render :text => part.body } if part.content_type == "text/html"
-        end
-      else
-        format.text { render :text => email.body }
-      end
+      format.text { render :text => email.text_body } if email.text_body.present?
+      format.html { render :text => email.html_body } if email.html_body.present?
     end
   end
 

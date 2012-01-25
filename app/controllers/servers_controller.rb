@@ -10,6 +10,7 @@ class ServersController < ApplicationController
   end
 
   def show
+    redirect_to [:edit, @server]
   end
 
   def new
@@ -18,7 +19,7 @@ class ServersController < ApplicationController
 
   def create
     @server = Server.create(params[:server])
-    respond_with @server
+    respond_with @server, location: servers_path
   end
 
   def edit
@@ -26,7 +27,7 @@ class ServersController < ApplicationController
 
   def update
     @server.update_attributes(params[:server])
-    respond_with @server
+    respond_with @server, location: servers_path
   end
 
   def destroy
