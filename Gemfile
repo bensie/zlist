@@ -14,3 +14,8 @@ gem "dynamic_form"
 gem "haml"
 gem "kaminari"
 gem "postmark-rails"
+
+group :production do
+  gem "pg"
+  gem "thin"
+end
