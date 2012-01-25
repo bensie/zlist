@@ -54,6 +54,7 @@ class Mailman < ActionMailer::Base
 
   # Send an e-mail out to a list
   def to_mailing_list(topic, email, subscriber, message)
+    @email = email
 
     # Determine the reply-to address
     case topic.list.send_replies_to
@@ -80,10 +81,7 @@ class Mailman < ActionMailer::Base
       :from     => "#{message.author.name} <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
       :reply_to => reply_to,
       :subject  => subject
-    ) do |format|
-      format.text { render :text => email.text_body } if email.text_body.present?
-      format.html { render :text => email.html_body } if email.html_body.present?
-    end
+    )
   end
 
 end
