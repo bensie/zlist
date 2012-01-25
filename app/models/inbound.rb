@@ -2,12 +2,13 @@ module Inbound
 
   class Email
 
-    attr_accessor :subject, :to, :from, :headers, :html_body, :text_body, :attachments, :reply_to, :message_id, :mailbox_hash, :mailbox
+    attr_accessor :subject, :to, :from, :cc, :headers, :html_body, :text_body, :attachments, :reply_to, :message_id, :mailbox_hash, :mailbox
 
     def initialize(email)
       @subject      = email.fetch("Subject")
       @to           = email.fetch("To")
       @from         = email.fetch("From")
+      @cc           = email.fetch("Cc")
       @headers      = email.fetch("Headers").map{|h| Header.new(h)}
       @html_body    = email.fetch("HtmlBody")
       @text_body    = email.fetch("TextBody")
@@ -15,7 +16,7 @@ module Inbound
       @reply_to     = email.fetch("ReplyTo")
       @message_id   = email.fetch("MessageID")
       @mailbox_hash = email.fetch("MailboxHash")
-      @mailbox      = email.fetch("To").split("+").first
+      @mailbox      = email.fetch("To").match(/^([\w\-]+)\+?([0-9a-f]*)\@([\w\.]+)$/).to_a[1..3].first
     end
 
     def process
@@ -24,7 +25,7 @@ module Inbound
       Mailman.no_such_list(self).deliver && return unless list
 
       # Make sure the sender is in the list (allowed to post)
-      author = list.subscribers.find_by_email(email.from)
+      author = list.subscribers.find_by_email(from)
       Mailman.cannot_post(list, self).deliver && return unless author
 
       # Check if this is a response to an existing topic or a new message
