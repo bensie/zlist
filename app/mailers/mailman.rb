@@ -4,9 +4,6 @@ class Mailman < ActionMailer::Base
 
     email = Inbound::Email.new(email_hash)
 
-    # Extract out <list>+<thread>@<domain>
-    # sender_list, sender_topic, sender_domain = email.to.first.match(/^([\w\-]+)\+?([0-9a-f]*)\@([\w\.]+)$/).to_a[1..3]
-
     # Make sure the list exists
     list = List.find_by_short_name(email.mailbox)
     Mailman.no_such_list(email).deliver && exit unless list
