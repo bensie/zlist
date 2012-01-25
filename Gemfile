@@ -6,12 +6,12 @@ gem "mysql2"
 group :assets do
   gem "sass-rails"
   gem "coffee-rails"
-  gem "jquery-rails"
   gem "uglifier"
 end
 
 gem "dynamic_form"
 gem "haml"
+gem "jquery-rails"
 gem "kaminari"
 gem "postmark-rails"
 
