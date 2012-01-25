@@ -55,8 +55,10 @@ class Mailman < ActionMailer::Base
     # Determine the reply-to address
     case topic.list.send_replies_to
     when "Subscribers"
-      reply_to = "mailer@#{ ENV['EMAIL_DOMAIN'] } <#{topic.list.short_name}+#{topic.key}@" + ENV['EMAIL_DOMAIN'] + ">"
+      reply_to = "#{topic.list.short_name}+#{topic.key}@#{ENV['EMAIL_DOMAIN']}>"
     when "Author"
+      reply_to = "#{message.author.name} <#{message.author.email}>"
+    else
       reply_to = "#{message.author.name} <#{message.author.email}>"
     end
 
@@ -74,8 +76,8 @@ class Mailman < ActionMailer::Base
 
     mail(
       :to       => "#{subscriber.name} <#{subscriber.email}>",
-      :from     => "#{message.author.name} <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
-      :reply_to => [reply_to],
+      :from     => "#{message.author.name} <mailer@#{ENV['EMAIL_DOMAIN']}>",
+      :reply_to => reply_to,
       :subject  => subject
     )
   end
