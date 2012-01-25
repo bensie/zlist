@@ -48,7 +48,7 @@ class Mailman < ActionMailer::Base
     list.subscribers.each do |subscriber|
       mail(
         :to      =>  "#{subscriber.name} <#{subscriber.email}>",
-        :from    => "#{ ENV['email_domain'] } <noreply@#{ ENV['email_domain'] }>",
+        :from    => "#{ ENV['EMAIL_DOMAIN'] } <noreply@#{ ENV['EMAIL_DOMAIN'] }>",
         :subject => "[#{list.short_name}] Test Mailing"
       )
     end
@@ -61,7 +61,7 @@ class Mailman < ActionMailer::Base
     @address = email.to
     mail(
       :to =>  email.from,
-      :from       =>  "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>",
+      :from       =>  "#{ ENV['EMAIL_DOMAIN'] } <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
       :subject    =>  "Address does not exist at this server"
     )
   end
@@ -71,7 +71,7 @@ class Mailman < ActionMailer::Base
     @list = list.name
     mail(
       :to      => email.from,
-      :from    => "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>",
+      :from    => "#{ ENV['EMAIL_DOMAIN'] } <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
       :subject => "[#{list.name}] The topic you referenced no longer exists"
     )
   end
@@ -80,9 +80,9 @@ class Mailman < ActionMailer::Base
   def no_reply_address(email)
     mail(
       :to      => email.from,
-      :from    => "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>",
+      :from    => "#{ ENV['EMAIL_DOMAIN'] } <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
       :subject => "Replies to this address are not monitored.",
-      :body    => "We're sorry, but the addresses noreply@#{ ENV['email_domain'] } and mailer@#{ ENV['email_domain'] }
+      :body    => "We're sorry, but the addresses noreply@#{ ENV['EMAIL_DOMAIN'] } and mailer@#{ ENV['EMAIL_DOMAIN'] }
                   are not monitored for replies.  Your message has been discarded."
     )
   end
@@ -92,7 +92,7 @@ class Mailman < ActionMailer::Base
     @list = list.name
     mail(
       :to      => email.from,
-      :from    => "#{ ENV['email_domain'] } <mailer@#{ ENV['email_domain'] }>",
+      :from    => "#{ ENV['EMAIL_DOMAIN'] } <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
       :subject => "[#{list.name}] You're not allowed to post to this list"
     )
   end
@@ -103,7 +103,7 @@ class Mailman < ActionMailer::Base
     # Determine the reply-to address
     case topic.list.send_replies_to
     when "Subscribers"
-      reply_to = "mailer@#{ ENV['email_domain'] } <#{topic.list.short_name}+#{topic.key}@" + ENV['email_domain'] + ">"
+      reply_to = "mailer@#{ ENV['EMAIL_DOMAIN'] } <#{topic.list.short_name}+#{topic.key}@" + ENV['EMAIL_DOMAIN'] + ">"
     when "Author"
       reply_to = "#{message.author.name} <#{message.author.email}>"
     end
@@ -122,7 +122,7 @@ class Mailman < ActionMailer::Base
 
     mail(
       :to       =>  "#{subscriber.name} <#{subscriber.email}>",
-      :from     =>"#{message.author.name} <mailer@#{ ENV['email_domain'] }>",
+      :from     =>"#{message.author.name} <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
       :reply_to => reply_to,
       :subject  => subject
     ) do |format|

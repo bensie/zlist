@@ -63,6 +63,6 @@ module Zlist
 
     # Send email using Postmark
     config.action_mailer.delivery_method   = :postmark
-    config.action_mailer.postmark_settings = { :api_key => ENV['postmark_api_key'] }
+    config.action_mailer.postmark_settings = { :api_key => ENV['POSTMARK_API_KEY'] }
   end
 end
