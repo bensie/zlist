@@ -1,11 +1,11 @@
 class Mailman < ActionMailer::Base
+  default :from => "#{ ENV['EMAIL_DOMAIN'] } <mailer@#{ ENV['EMAIL_DOMAIN'] }>"
 
   # Send a test to the list
   def list_test_dispatch(list)
     list.subscribers.each do |subscriber|
       mail(
         :to      =>  "#{subscriber.name} <#{subscriber.email}>",
-        :from    => "#{ ENV['EMAIL_DOMAIN'] } <noreply@#{ ENV['EMAIL_DOMAIN'] }>",
         :subject => "[#{list.short_name}] Test Mailing"
       )
     end
@@ -16,7 +16,6 @@ class Mailman < ActionMailer::Base
     @address = email.to
     mail(
       :to      =>  email.from,
-      :from    =>  "#{ ENV['EMAIL_DOMAIN'] } <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
       :subject =>  "Address does not exist at this server"
     )
   end
@@ -26,7 +25,6 @@ class Mailman < ActionMailer::Base
     @list = list.name
     mail(
       :to      => email.from,
-      :from    => "#{ ENV['EMAIL_DOMAIN'] } <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
       :subject => "[#{list.name}] The topic you referenced no longer exists"
     )
   end
@@ -35,10 +33,9 @@ class Mailman < ActionMailer::Base
   def no_reply_address(email)
     mail(
       :to      => email.from,
-      :from    => "#{ ENV['EMAIL_DOMAIN'] } <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
       :subject => "Replies to this address are not monitored.",
-      :body    => "We're sorry, but the addresses noreply@#{ ENV['EMAIL_DOMAIN'] } and mailer@#{ ENV['EMAIL_DOMAIN'] }
-                  are not monitored for replies.  Your message has been discarded."
+      :body    => "We're sorry, but the mailer@#{ ENV['EMAIL_DOMAIN'] } address
+                  is not monitored for replies.  Your message has been discarded."
     )
   end
 
@@ -47,7 +44,6 @@ class Mailman < ActionMailer::Base
     @list = list.name
     mail(
       :to      => email.from,
-      :from    => "#{ ENV['EMAIL_DOMAIN'] } <mailer@#{ ENV['EMAIL_DOMAIN'] }>",
       :subject => "[#{list.name}] You're not allowed to post to this list"
     )
   end
