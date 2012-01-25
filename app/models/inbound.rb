@@ -2,7 +2,7 @@ module Inbound
 
   class Email
 
-    attr_accessor :subject, :to, :from, :headers, :html_body, :text_body, :attachments, :mailbox
+    attr_accessor :subject, :to, :from, :headers, :html_body, :text_body, :attachments, :reply_to, :message_id, :mailbox_hash, :mailbox
 
     def initialize(email)
       @subject      = email.fetch("Subject")
