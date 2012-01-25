@@ -11,7 +11,7 @@ class List < ActiveRecord::Base
 
   validates_presence_of :name, :short_name
 
-  before_create :set_default_subject_prefix
+  before_validation :set_defaults, on: :create
 
   attr_accessible :name, :description, :short_name, :subscriber_ids, :private, :subject_prefix,
                   :send_replies_to, :message_footer, :permitted_to_post, :archive_disabled, :disabled
@@ -26,16 +26,11 @@ class List < ActiveRecord::Base
 
   private
 
-  def after_initialize
-    if @new_record
-      self.send_replies_to ||= "Subscribers"
-      self.message_footer ||= "None"
-      self.permitted_to_post ||= "Subscribers"
-    end
-  end
-
-  def set_default_subject_prefix
+  def set_defaults
     self.subject_prefix ||= '[' + name + ']'
+    self.send_replies_to ||= "Subscribers"
+    self.message_footer ||= "None"
+    self.permitted_to_post ||= "Subscribers"
   end
 
 end
