@@ -73,11 +73,11 @@ class Mailman < ActionMailer::Base
     headers['List-ID']          = topic.list.email
     headers['List-Post']        = topic.list.email
     headers['List-Unsubscribe'] = "http://#{topic.list.domain}/lists/#{ topic.list.id }/unsubscribe"
+    headers['Reply-To']         = reply_to_address
 
     mail(
       :to       => "#{subscriber.name} <#{subscriber.email}>",
       :from     => "#{message.author.name} <mailer@#{ENV['EMAIL_DOMAIN']}>",
-      :reply_to => reply_to_address,
       :subject  => subject
     )
   end
