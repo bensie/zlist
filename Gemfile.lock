@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/bensie/postmark-gem.git
+  revision: 37b9a82323b26a6ab0e59b847f26568029db6c1c
+  specs:
+    postmark (0.9.9)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -58,7 +64,6 @@ GEM
     multi_json (1.0.4)
     mysql2 (0.3.11)
     polyglot (0.3.3)
-    postmark (0.9.9)
     postmark-rails (0.4.1)
       actionmailer
       postmark (>= 0.9.0)
@@ -122,6 +127,7 @@ DEPENDENCIES
   haml
   jquery-rails
   mysql2
+  postmark!
   postmark-rails
   rails (= 3.2.1)
   sass-rails
