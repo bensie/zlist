@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    subscriber = Subscriber.authenticate(params[:login], params[:password])
+    subscriber = Subscriber.authenticate(params[:sessions][:login], params[:sessions][:password])
     if subscriber
       session[:subscriber_id] = subscriber.id
       redirect_to_target_or_default root_url

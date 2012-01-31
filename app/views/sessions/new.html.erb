@@ -1,15 +1,10 @@
-<h2>Sign In</h2>
+<%= form_for :sessions, url: sessions_path do |f| %>
+  <%= bs_text_field(f, :login, "Email") %>
+  <%= bs_password_field(f, :password, "Password") %>
 
-<%= form_tag sessions_path do %>
-  <p>
-    <%= label_tag :login, "Email" %><br />
-    <%= text_field_tag :login, params[:login], :size => 35 %>
-  </p>
-  <p>
-    <%= label_tag :password %><br />
-    <%= password_field_tag :password, "", :size => 35 %>
-  </p>
-  <p><%= submit_tag "Log in" %></p>
+  <div class="actions">
+    <%= f.submit "Log in", class: "btn primary" %>
+  </div>
 <% end %>
 
 <p>Don't have an account? <%= link_to "Sign up!", signup_path %></p>
