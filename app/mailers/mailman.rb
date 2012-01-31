@@ -55,7 +55,7 @@ class Mailman < ActionMailer::Base
     # Determine the reply-to address
     reply_to_address = case topic.list.send_replies_to
     when "Subscribers"
-      "#{topic.list.short_name}+#{topic.key}@#{ENV['EMAIL_DOMAIN']}>"
+      "#{topic.list.short_name}+#{topic.key}@#{ENV['EMAIL_DOMAIN']}"
     when "Author"
       "#{message.author.name} <#{message.author.email}>"
     else
