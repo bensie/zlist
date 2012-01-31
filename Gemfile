@@ -11,6 +11,7 @@ end
 
 gem "dynamic_form"
 gem "haml"
+gem "htmlentities"
 gem "jquery-rails"
 gem "postmark-rails"
 gem "postmark", git: "git://github.com/bensie/postmark-gem.git"

@@ -10,7 +10,7 @@ module Inbound
       @from         = email.fetch("From")
       @cc           = email.fetch("Cc")
       @headers      = email.fetch("Headers").map{|h| Header.new(h)}
-      @html_body    = email.fetch("HtmlBody")
+      @html_body    = HTMLEntities.new.decode(email.fetch("HtmlBody"))
       @text_body    = email.fetch("TextBody")
       @attachments  = email.fetch("Attachments").map{|a| Attachment.new(a)}
       @reply_to     = email.fetch("ReplyTo")

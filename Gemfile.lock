@@ -49,6 +49,7 @@ GEM
       multi_json (~> 1.0)
     haml (3.1.4)
     hike (1.2.1)
+    htmlentities (4.3.1)
     i18n (0.6.0)
     journey (1.0.1)
     jquery-rails (2.0.0)
@@ -125,6 +126,7 @@ DEPENDENCIES
   coffee-rails
   dynamic_form
   haml
+  htmlentities
   jquery-rails
   mysql2
   postmark!
