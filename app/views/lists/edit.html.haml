@@ -1,0 +1,10 @@
+%h2 Edit Mailing List
+
+= form_for @list do |f|
+  = f.error_messages
+
+  = render 'form', f: f
+
+  .actions
+    = f.submit "Save List", class: "btn primary"
+    = link_to "Cancel", lists_path, class: "btn secondary"
