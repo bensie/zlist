@@ -6,8 +6,15 @@ class EmailsController < ApplicationController
   before_filter :verify_server_can_send_email, :only => %w(create)
 
   def create
-    Resque.enqueue(InboundEmailProcessor, request.body)
-    render :nothing => true
+    begin
+      # Make sure that the request body can be parsed
+      ActiveSupport::JSON.decode(request.body)
+
+      Resque.enqueue(InboundEmailProcessor, request.body)
+      render :nothing => true
+    rescue MultiJson::DecodeError
+      render :text => "Request body must be a JSON hash", :status => 400
+    end
   end
 
   private
