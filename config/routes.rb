@@ -9,9 +9,6 @@ Zlist::Application.routes.draw do
   resource :sessions
   resources :servers
   resources :subscribers do
-    member do
-      put :toggle_administrator
-    end
     collection do
       get :search
     end

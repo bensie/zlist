@@ -48,7 +48,7 @@ class SubscribersController < ApplicationController
   end
 
   def update
-    @subscriber.attributes = params[:subscriber]
+    @subscriber.assign_attributes(params[:subscriber], without_protection: admin?)
     if params[:subscriber][:password].present? || params[:subscriber][:password_confirmation].present?
       @subscriber.saving_password = true
     end
@@ -72,13 +72,6 @@ class SubscribersController < ApplicationController
   def disable
     @subscriber.disable
     redirect_to(subscribers_url)
-  end
-
-  def toggle_administrator
-    @subscriber.update_attribute(:admin, params[:subscriber][:admin]) unless @subscriber == current_user
-    respond_to do |format|
-      format.js { head :ok }
-    end
   end
 
   private
