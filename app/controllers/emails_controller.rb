@@ -7,8 +7,10 @@ class EmailsController < ApplicationController
 
   def create
     begin
-      hash = ActiveSupport::JSON.decode(request.body)
-      Inbound::Email.new(hash).process
+      # Make sure that the request body can be parsed
+      ActiveSupport::JSON.decode(request.body)
+
+      Resque.enqueue(InboundEmailProcessor, request.body)
       render :nothing => true
     rescue MultiJson::DecodeError
       render :text => "Request body must be a JSON hash", :status => 400
