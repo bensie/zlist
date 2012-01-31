@@ -27,7 +27,7 @@
                 = link_to "Servers", servers_path
             %ul.nav.secondary-nav
               %li
-                = link_to current_user.name
+                = link_to current_user.name, edit_subscriber_path(current_user)
               %li
                 = link_to "Logout", logout_path
 

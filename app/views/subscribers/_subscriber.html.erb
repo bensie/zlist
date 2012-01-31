@@ -12,7 +12,4 @@
       <%= subscriber.lists.collect{|l| link_to(h(l.name), l)}.join(", ").html_safe %>
     </span>
   </td>
-  <td class="checkbox" style="text-align:right">
-    <%= image_tag 'spinner.gif', :id => "spinner-admin-#{subscriber.id}", :style => 'display: none' %>
-  </td>
 </tr>
