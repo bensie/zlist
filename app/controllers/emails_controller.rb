@@ -14,8 +14,6 @@ class EmailsController < ApplicationController
       render :nothing => true
     rescue MultiJson::DecodeError
       render :text => "Request body must be a JSON hash", :status => 400
-    rescue KeyError
-      render :text => "Your JSON hash doesn't look like a standard Postmark JSON payload and is missing one or more required attributes"
     end
   end
 
