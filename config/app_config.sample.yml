@@ -2,3 +2,4 @@ development:
   EMAIL_DOMAIN: example.com
   POSTMARK_API_KEY: fa0478938ad-f3082aa7b-67f1f9-67f1f9-7f4f3082aa7b743c7
   SECRET_TOKEN: fa0478938ad4267f4f3082aa7b743c7a2a67320de2755fea48d7c67f1f936419b225f9e334c0db226166d942e0860f95e194ba2b79e3cc1fb1c7e2d5697c5d79
+  REDIS_URL: redis://username:password@hostname/database
