@@ -1,8 +1,8 @@
 class SubscribersController < ApplicationController
 
   skip_before_filter :login_required, :only => %w(new create)
-  before_filter :admin_required, :only => %w(index destroy disable toggle_administrator)
-  before_filter :find_subscriber, :only => %w(show edit update destroy disable toggle_administrator)
+  before_filter :admin_required, :only => %w(index destroy disable)
+  before_filter :find_subscriber, :only => %w(show edit update destroy disable)
 
   def index
     @subscribers = Subscriber.active.paginate(page: params[:page])
