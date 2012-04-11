@@ -6,8 +6,8 @@ module Inbound
 
     def initialize(email)
       @subject      = email.fetch("Subject")
-      @to           = email.fetch("To")
-      @from         = email.fetch("From")
+      @to           = email.fetch("ToFull").fetch("Email")
+      @from         = email.fetch("FromFull").fetch("Email")
       @cc           = email.fetch("Cc")
       @headers      = email.fetch("Headers").map{|h| Header.new(h)}
       @html_body    = HTMLEntities.new.decode(email.fetch("HtmlBody"))
@@ -16,7 +16,7 @@ module Inbound
       @reply_to     = email.fetch("ReplyTo")
       @message_id   = email.fetch("MessageID")
       @mailbox_hash = email.fetch("MailboxHash")
-      @mailbox      = email.fetch("To").match(/^([\w\-]+)\+?([0-9a-f]*)\@([\w\.]+)$/).to_a[1..3].first
+      @mailbox      = @to.match(/^([\w\-]+)\+?([0-9a-f]*)\@([\w\.]+)$/).to_a[1..3].first
     end
 
     def process
