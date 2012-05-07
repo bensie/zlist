@@ -46,8 +46,12 @@ module Inbound
       message = topic.messages.create(:subject => subject, :body => text_body, :author => author)
 
       # Deliver to subscribers
-      list.subscribers.each do |subscriber|
-        Mailman.to_mailing_list(topic, self, subscriber, message).deliver unless subscriber == message.author
+      begin
+        list.subscribers.each do |subscriber|
+          Mailman.to_mailing_list(topic, self, subscriber, message).deliver unless subscriber == message.author
+        end
+      rescue => e
+        Rails.logger.warn "SEND ERROR: #{e}"
       end
     end
 
