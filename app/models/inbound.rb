@@ -6,7 +6,7 @@ module Inbound
 
     def initialize(email)
       @subject      = email.fetch("Subject")
-      @to           = email.fetch("ToFull").fetch("Email")
+      @to           = email.fetch("ToFull").first.fetch("Email")
       @from         = email.fetch("FromFull").fetch("Email")
       @cc           = email.fetch("Cc")
       @headers      = email.fetch("Headers").map{|h| Header.new(h)}
