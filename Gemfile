@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "3.2.3"
+gem "rails", "3.2.9"
 gem "mysql2"
 
 group :assets do
@@ -17,5 +17,12 @@ gem "postmark-rails"
 gem "postmark"
 gem "redis"
 gem "resque", require: "resque/server"
-gem "unicorn"
 gem "will_paginate"
+
+group :development do
+  gem "quiet_assets"
+end
+
+group :production do
+  gem "thin"
+end
